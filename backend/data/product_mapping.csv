@@ -1,0 +1,1438 @@
+item_id,dept_id,product_name
+FOODS_3_090,FOODS_3,Horizon Pretzels
+FOODS_3_586,FOODS_3,Horizon Pretzels
+FOODS_3_120,FOODS_3,Chobani Bagged Salad Mix
+FOODS_3_252,FOODS_3,Stonyfield Classic Cola 2L
+FOODS_3_541,FOODS_3,Annie's Honey Nut Cereal
+FOODS_3_635,FOODS_3,Silk Marinara Pasta Sauce
+FOODS_3_808,FOODS_3,Chobani Sliced White Bread
+FOODS_3_587,FOODS_3,Silk Fruit Snacks
+FOODS_3_555,FOODS_3,Silk Pretzels
+FOODS_3_681,FOODS_3,Tyson English Muffins
+FOODS_3_714,FOODS_3,Horizon Red Gala Apples
+FOODS_3_202,FOODS_3,Horizon Spaghetti Noodles
+FOODS_3_607,FOODS_3,Quaker Canned Sweet Corn
+FOODS_3_281,FOODS_3,Tyson Sliced White Bread
+FOODS_3_319,FOODS_3,Quaker Russet Potatoes (5lb)
+FOODS_3_723,FOODS_3,Nestle White Rice (2lb)
+FOODS_3_318,FOODS_3,Nature Valley Strawberry Jam
+FOODS_3_752,FOODS_3,Great Value Strawberry Jam
+FOODS_2_197,FOODS_2,Kraft Frozen Waffles
+FOODS_3_694,FOODS_3,General Mills Tortilla Chips
+FOODS_3_234,FOODS_3,Horizon Granola Bars (Oats)
+FOODS_3_282,FOODS_3,Horizon Potato Chips (Classic)
+FOODS_3_288,FOODS_3,Great Value Russet Potatoes (5lb)
+FOODS_3_501,FOODS_3,Kraft Baby Carrots Bag
+FOODS_2_360,FOODS_2,Chobani Chicken Breast (Boneless)
+FOODS_2_276,FOODS_2,Kelloggs Pork Sausage Links
+FOODS_3_711,FOODS_3,Dole Fruit Snacks
+FOODS_3_804,FOODS_3,Kelloggs Fruit Snacks
+FOODS_3_080,FOODS_3,Great Value Canned Sweet Corn
+FOODS_3_389,FOODS_3,Kraft Granola Bars (Oats)
+FOODS_3_295,FOODS_3,Dole Spaghetti Noodles
+FOODS_3_376,FOODS_3,Chobani Classic Cola 2L
+FOODS_3_499,FOODS_3,Nestle Potato Chips (Classic)
+FOODS_2_244,FOODS_2,Kelloggs Smoked Turkey Deli Slices
+FOODS_3_491,FOODS_3,Silk Avocados (Hass)
+FOODS_3_739,FOODS_3,Nestle Avocados (Hass)
+FOODS_3_498,FOODS_3,Organic Valley Sliced White Bread
+FOODS_2_347,FOODS_2,Silk Frozen Waffles
+FOODS_3_764,FOODS_3,Stonyfield Iceberg Lettuce
+FOODS_3_455,FOODS_3,Dole Roma Tomatoes
+FOODS_3_362,FOODS_3,Horizon Roma Tomatoes
+FOODS_3_462,FOODS_3,Nature Valley Pretzels
+FOODS_3_406,FOODS_3,General Mills Potato Chips (Classic)
+FOODS_3_007,FOODS_3,Dole Peanut Butter (Creamy)
+FOODS_2_019,FOODS_2,Nestle Turkey Bacon
+FOODS_3_329,FOODS_3,Tyson Black Beans (15oz)
+FOODS_3_099,FOODS_3,Nestle Whole Wheat Bread
+FOODS_3_547,FOODS_3,Nestle Iceberg Lettuce
+FOODS_3_811,FOODS_3,Silk Baby Carrots Bag
+FOODS_3_702,FOODS_3,Nature Valley Iceberg Lettuce
+FOODS_3_412,FOODS_3,Stonyfield Russet Potatoes (5lb)
+FOODS_3_580,FOODS_3,Kelloggs Chocolate Chip Cookies
+FOODS_3_458,FOODS_3,Horizon Instant Coffee
+FOODS_3_313,FOODS_3,Tyson Potato Chips (Classic)
+FOODS_3_377,FOODS_3,Tyson Baby Carrots Bag
+FOODS_3_785,FOODS_3,Marketside White Rice (2lb)
+FOODS_3_348,FOODS_3,Stonyfield Peanut Butter (Creamy)
+FOODS_3_150,FOODS_3,General Mills Avocados (Hass)
+FOODS_3_404,FOODS_3,Kelloggs Red Gala Apples
+FOODS_3_109,FOODS_3,Annie's Spaghetti Noodles
+FOODS_3_767,FOODS_3,Quaker Roasted Peanuts
+FOODS_3_524,FOODS_3,Stonyfield Pretzels
+FOODS_1_218,FOODS_1,Horizon Heavy Whipping Cream
+FOODS_3_741,FOODS_3,Kraft Pretzels
+FOODS_2_128,FOODS_2,Great Value Atlantic Salmon Fillet
+FOODS_1_043,FOODS_1,Silk Orange Juice (No Pulp)
+FOODS_3_746,FOODS_3,Horizon Sliced White Bread
+FOODS_3_697,FOODS_3,Tyson Marinara Pasta Sauce
+FOODS_3_245,FOODS_3,Kraft Pretzels
+FOODS_3_086,FOODS_3,General Mills Instant Coffee
+FOODS_3_756,FOODS_3,Kelloggs Tortilla Chips
+FOODS_2_181,FOODS_2,Kraft Ground Beef (93% Lean)
+FOODS_3_744,FOODS_3,Chobani Organic Bananas (Bunch)
+FOODS_3_107,FOODS_3,Silk Honey Nut Cereal
+FOODS_3_769,FOODS_3,Marketside Green Seedless Grapes
+FOODS_3_133,FOODS_3,Kraft Russet Potatoes (5lb)
+FOODS_3_233,FOODS_3,Tyson Spaghetti Noodles
+FOODS_3_734,FOODS_3,Nature Valley Roma Tomatoes
+FOODS_2_021,FOODS_2,Kraft Frozen Spinich
+FOODS_3_454,FOODS_3,General Mills Iceberg Lettuce
+FOODS_3_474,FOODS_3,Horizon Russet Potatoes (5lb)
+FOODS_3_755,FOODS_3,Nestle Yellow Onions
+FOODS_3_570,FOODS_3,Horizon Tortilla Chips
+FOODS_1_004,FOODS_1,Kelloggs Unsalted Sweet Cream Butter
+FOODS_3_327,FOODS_3,Dole Granola Bars (Oats)
+FOODS_3_516,FOODS_3,Kelloggs Iceberg Lettuce
+FOODS_2_326,FOODS_2,General Mills Pork Loin Chops
+FOODS_3_226,FOODS_3,Organic Valley Russet Potatoes (5lb)
+FOODS_3_228,FOODS_3,Kelloggs Yellow Onions
+FOODS_3_403,FOODS_3,Nestle Organic Bananas (Bunch)
+FOODS_1_018,FOODS_1,Organic Valley Shredded Mozzarella
+FOODS_3_263,FOODS_3,Dole Marinara Pasta Sauce
+FOODS_2_371,FOODS_2,Nestle Beef Chuck Roast
+FOODS_3_668,FOODS_3,Stonyfield Granola Bars (Oats)
+FOODS_3_351,FOODS_3,Quaker White Rice (2lb)
+FOODS_3_594,FOODS_3,Organic Valley Baby Carrots Bag
+FOODS_3_816,FOODS_3,Great Value White Rice (2lb)
+FOODS_3_503,FOODS_3,Dole Peanut Butter (Creamy)
+FOODS_3_757,FOODS_3,Kraft Sparkling Water (Lime)
+FOODS_1_170,FOODS_1,Horizon Vanilla Bean Yogurt
+FOODS_3_695,FOODS_3,Dole Sparkling Water (Lime)
+FOODS_3_787,FOODS_3,Nestle Tortilla Chips
+FOODS_3_449,FOODS_3,Marketside Marinara Pasta Sauce
+FOODS_3_526,FOODS_3,Nature Valley English Muffins
+FOODS_3_473,FOODS_3,Tyson Strawberry Jam
+FOODS_1_110,FOODS_1,Nature Valley Vanilla Bean Yogurt
+FOODS_3_789,FOODS_3,Kraft Honey Nut Cereal
+FOODS_2_325,FOODS_2,Kraft Frozen Lasagna
+FOODS_3_413,FOODS_3,Annie's White Rice (2lb)
+FOODS_3_446,FOODS_3,Nature Valley Tortilla Chips
+FOODS_3_468,FOODS_3,Kelloggs Potato Chips (Classic)
+FOODS_3_070,FOODS_3,General Mills Strawberry Jam
+FOODS_3_113,FOODS_3,Marketside Iceberg Lettuce
+FOODS_3_124,FOODS_3,Stonyfield Organic Bananas (Bunch)
+FOODS_3_030,FOODS_3,Nature Valley English Muffins
+FOODS_3_572,FOODS_3,Stonyfield Honey Nut Cereal
+FOODS_1_184,FOODS_1,Chobani Unsalted Sweet Cream Butter
+FOODS_1_173,FOODS_1,Annie's Blueberry Yogurt 4pk
+FOODS_3_469,FOODS_3,Kraft Classic Cola 2L
+FOODS_3_219,FOODS_3,Silk Sliced White Bread
+FOODS_3_476,FOODS_3,Stonyfield Yellow Onions
+FOODS_3_738,FOODS_3,Organic Valley Green Seedless Grapes
+FOODS_3_792,FOODS_3,Chobani Granola Bars (Oats)
+FOODS_2_293,FOODS_2,Kraft Salami Trio
+FOODS_1_032,FOODS_1,Great Value Large Grade A Eggs (12ct)
+FOODS_3_444,FOODS_3,Stonyfield White Rice (2lb)
+FOODS_3_688,FOODS_3,Great Value Whole Wheat Bread
+FOODS_3_511,FOODS_3,Quaker Marinara Pasta Sauce
+FOODS_3_116,FOODS_3,Kelloggs Roasted Peanuts
+FOODS_1_046,FOODS_1,Nature Valley Half & Half Creamer
+FOODS_2_016,FOODS_2,Great Value Corned Beef
+FOODS_3_574,FOODS_3,Nature Valley Spaghetti Noodles
+FOODS_1_067,FOODS_1,Nestle Sour Cream (16oz)
+FOODS_1_055,FOODS_1,Dole Soy Milk (Vanilla)
+FOODS_3_305,FOODS_3,Marketside Avocados (Hass)
+FOODS_3_258,FOODS_3,Organic Valley White Rice (2lb)
+FOODS_2_204,FOODS_2,Stonyfield Raw Shrimp (Peeled)
+FOODS_3_342,FOODS_3,General Mills Red Gala Apples
+FOODS_3_020,FOODS_3,Kelloggs Iceberg Lettuce
+FOODS_3_363,FOODS_3,Silk Chocolate Chip Cookies
+FOODS_3_546,FOODS_3,Organic Valley Black Beans (15oz)
+FOODS_3_704,FOODS_3,Great Value Chocolate Chip Cookies
+FOODS_1_085,FOODS_1,Kraft Soy Milk (Vanilla)
+FOODS_3_231,FOODS_3,Dole Honey Nut Cereal
+FOODS_3_136,FOODS_3,Chobani Tortilla Chips
+FOODS_1_217,FOODS_1,Tyson Sour Cream (16oz)
+FOODS_2_013,FOODS_2,Annie's Mixed Vegetable Medley
+FOODS_1_012,FOODS_1,Stonyfield Cottage Cheese (Low Fat)
+FOODS_1_162,FOODS_1,Organic Valley Cottage Cheese (Low Fat)
+FOODS_2_241,FOODS_2,Marketside Ground Beef (93% Lean)
+FOODS_3_407,FOODS_3,Dole Classic Cola 2L
+FOODS_2_315,FOODS_2,Silk Meatball Sub Kit
+FOODS_3_283,FOODS_3,Silk Classic Cola 2L
+FOODS_1_058,FOODS_1,Horizon Parmesan Shaker
+FOODS_3_822,FOODS_3,General Mills Spaghetti Noodles
+FOODS_3_664,FOODS_3,Chobani Sparkling Water (Lime)
+FOODS_3_304,FOODS_3,Great Value Green Seedless Grapes
+FOODS_3_324,FOODS_3,Kelloggs Honey Nut Cereal
+FOODS_3_259,FOODS_3,Nestle Yellow Onions
+FOODS_3_285,FOODS_3,Annie's Whole Wheat Bread
+FOODS_3_800,FOODS_3,Great Value Green Seedless Grapes
+FOODS_3_772,FOODS_3,Kelloggs Pretzels
+FOODS_2_222,FOODS_2,Nature Valley Frozen French Fries
+FOODS_2_380,FOODS_2,Stonyfield Hot Dogs (8ct)
+FOODS_3_441,FOODS_3,Tyson Peanut Butter (Creamy)
+FOODS_3_054,FOODS_3,General Mills Roasted Peanuts
+FOODS_3_148,FOODS_3,Kelloggs Instant Coffee
+FOODS_3_346,FOODS_3,Horizon Baby Carrots Bag
+FOODS_1_019,FOODS_1,Nestle Swiss Cheese Slices
+FOODS_3_753,FOODS_3,Marketside Russet Potatoes (5lb)
+FOODS_3_118,FOODS_3,General Mills Green Seedless Grapes
+FOODS_3_339,FOODS_3,Nestle Fruit Snacks
+FOODS_2_029,FOODS_2,Annie's Veggie Burgers
+FOODS_3_477,FOODS_3,Annie's Tortilla Chips
+FOODS_2_240,FOODS_2,Great Value Chicken Breast (Boneless)
+FOODS_1_161,FOODS_1,Marketside Oat Milk (Barista Blend)
+FOODS_3_299,FOODS_3,Silk Iceberg Lettuce
+FOODS_3_801,FOODS_3,Marketside Avocados (Hass)
+FOODS_3_617,FOODS_3,Tyson Pretzels
+FOODS_3_108,FOODS_3,Stonyfield Marinara Pasta Sauce
+FOODS_2_054,FOODS_2,General Mills Raw Shrimp (Peeled)
+FOODS_3_131,FOODS_3,Nestle Peanut Butter (Creamy)
+FOODS_3_177,FOODS_3,Marketside Chocolate Chip Cookies
+FOODS_1_104,FOODS_1,Chobani Probiotic Drink
+FOODS_3_135,FOODS_3,Dole Yellow Onions
+FOODS_3_809,FOODS_3,Tyson Potato Chips (Classic)
+FOODS_2_164,FOODS_2,Kelloggs Breakfast Burritos
+FOODS_3_794,FOODS_3,Horizon Black Beans (15oz)
+FOODS_3_355,FOODS_3,Nestle Honey Nut Cereal
+FOODS_3_274,FOODS_3,Organic Valley Avocados (Hass)
+FOODS_3_399,FOODS_3,Quaker Bagged Salad Mix
+FOODS_3_064,FOODS_3,Great Value Sliced White Bread
+FOODS_3_265,FOODS_3,Tyson Granola Bars (Oats)
+FOODS_2_318,FOODS_2,Nature Valley Tilapia Fillets
+FOODS_3_101,FOODS_3,Kraft Strawberry Jam
+FOODS_2_299,FOODS_2,Silk Veggie Burgers
+FOODS_3_534,FOODS_3,General Mills Peanut Butter (Creamy)
+FOODS_3_300,FOODS_3,Stonyfield Roma Tomatoes
+FOODS_3_037,FOODS_3,Kraft Whole Wheat Bread
+FOODS_3_782,FOODS_3,Nature Valley Peanut Butter (Creamy)
+FOODS_1_086,FOODS_1,General Mills Cage Free Brown Eggs
+FOODS_3_562,FOODS_3,Organic Valley Classic Cola 2L
+FOODS_1_137,FOODS_1,Tyson Margarine Tub
+FOODS_3_481,FOODS_3,Marketside Spaghetti Noodles
+FOODS_1_061,FOODS_1,Annie's 2% Reduced Fat Milk
+FOODS_3_349,FOODS_3,Annie's Strawberry Jam
+FOODS_3_783,FOODS_3,Quaker Strawberry Jam
+FOODS_1_219,FOODS_1,Silk Almond Milk (Unsweetened)
+FOODS_3_682,FOODS_3,Horizon Organic Bananas (Bunch)
+FOODS_3_039,FOODS_3,Dole Strawberry Jam
+FOODS_3_807,FOODS_3,Dole Red Gala Apples
+FOODS_2_152,FOODS_2,Chobani Frozen Pepperoni Pizza
+FOODS_3_636,FOODS_3,Stonyfield Spaghetti Noodles
+FOODS_3_725,FOODS_3,Kraft Tortilla Chips
+FOODS_3_290,FOODS_3,Organic Valley Yellow Onions
+FOODS_3_692,FOODS_3,Kelloggs White Rice (2lb)
+FOODS_3_230,FOODS_3,General Mills Sparkling Water (Lime)
+FOODS_3_540,FOODS_3,Stonyfield Sparkling Water (Lime)
+FOODS_2_233,FOODS_2,Tyson Salami Trio
+FOODS_3_651,FOODS_3,Silk Organic Bananas (Bunch)
+FOODS_1_154,FOODS_1,Horizon Unsalted Sweet Cream Butter
+FOODS_3_151,FOODS_3,Dole Bagged Salad Mix
+FOODS_3_127,FOODS_3,Quaker Potato Chips (Classic)
+FOODS_3_087,FOODS_3,Dole Green Seedless Grapes
+FOODS_2_374,FOODS_2,General Mills Breakfast Burritos
+FOODS_3_368,FOODS_3,Great Value Bagged Salad Mix
+FOODS_3_067,FOODS_3,Nestle Baby Carrots Bag
+FOODS_3_332,FOODS_3,Stonyfield Chocolate Chip Cookies
+FOODS_2_199,FOODS_2,Dole Turkey Bacon
+FOODS_3_655,FOODS_3,Quaker Classic Cola 2L
+FOODS_1_183,FOODS_1,Dole Greek Strawberry Yogurt
+FOODS_3_652,FOODS_3,Stonyfield Red Gala Apples
+FOODS_1_108,FOODS_1,Stonyfield Shredded Mozzarella
+FOODS_3_505,FOODS_3,Tyson Russet Potatoes (5lb)
+FOODS_3_818,FOODS_3,Organic Valley Tortilla Chips
+FOODS_3_367,FOODS_3,Quaker Avocados (Hass)
+FOODS_3_023,FOODS_3,Dole Roasted Peanuts
+FOODS_3_227,FOODS_3,Nestle White Rice (2lb)
+FOODS_3_201,FOODS_3,Tyson Marinara Pasta Sauce
+FOODS_3_598,FOODS_3,General Mills Russet Potatoes (5lb)
+FOODS_2_131,FOODS_2,Nestle Beef Chuck Roast
+FOODS_2_359,FOODS_2,Dole Veggie Burgers
+FOODS_3_727,FOODS_3,Dole Honey Nut Cereal
+FOODS_3_079,FOODS_3,Quaker Granola Bars (Oats)
+FOODS_1_150,FOODS_1,General Mills Whole Milk (1 gal)
+FOODS_3_530,FOODS_3,Organic Valley Potato Chips (Classic)
+FOODS_2_183,FOODS_2,Dole Beef Patties (1/4 lb)
+FOODS_1_196,FOODS_1,Kelloggs Half & Half Creamer
+FOODS_3_369,FOODS_3,Marketside Pretzels
+FOODS_3_393,FOODS_3,Tyson Roma Tomatoes
+FOODS_3_330,FOODS_3,Horizon Iceberg Lettuce
+FOODS_2_294,FOODS_2,General Mills Raw Shrimp (Peeled)
+FOODS_3_819,FOODS_3,Nestle Sparkling Water (Lime)
+FOODS_3_614,FOODS_3,General Mills Green Seedless Grapes
+FOODS_3_097,FOODS_3,Marketside Classic Cola 2L
+FOODS_3_076,FOODS_3,Stonyfield Honey Nut Cereal
+FOODS_2_030,FOODS_2,Nature Valley Chicken Breast (Boneless)
+FOODS_3_203,FOODS_3,Silk Granola Bars (Oats)
+FOODS_2_349,FOODS_2,Annie's Turkey Bacon
+FOODS_3_434,FOODS_3,Organic Valley Organic Bananas (Bunch)
+FOODS_3_378,FOODS_3,Horizon Whole Wheat Bread
+FOODS_3_121,FOODS_3,Tyson Pretzels
+FOODS_3_144,FOODS_3,Great Value Iceberg Lettuce
+FOODS_3_460,FOODS_3,Stonyfield Avocados (Hass)
+FOODS_1_088,FOODS_1,Chobani Parmesan Shaker
+FOODS_3_672,FOODS_3,Great Value Roma Tomatoes
+FOODS_2_388,FOODS_2,Kelloggs Frozen Peaches
+FOODS_3_750,FOODS_3,Nature Valley Whole Wheat Bread
+FOODS_3_475,FOODS_3,Silk White Rice (2lb)
+FOODS_2_075,FOODS_2,Silk Meatball Sub Kit
+FOODS_3_093,FOODS_3,Annie's Organic Bananas (Bunch)
+FOODS_3_435,FOODS_3,Nestle Red Gala Apples
+FOODS_3_592,FOODS_3,Great Value Potato Chips (Classic)
+FOODS_2_166,FOODS_2,General Mills Corned Beef
+FOODS_3_317,FOODS_3,Annie's Peanut Butter (Creamy)
+FOODS_1_099,FOODS_1,Nestle Almond Milk (Unsweetened)
+FOODS_3_610,FOODS_3,Organic Valley Roma Tomatoes
+FOODS_3_805,FOODS_3,Kraft English Muffins
+FOODS_3_732,FOODS_3,Stonyfield Black Beans (15oz)
+FOODS_2_342,FOODS_2,General Mills Frozen French Fries
+FOODS_3_307,FOODS_3,Nestle Pretzels
+FOODS_3_674,FOODS_3,Organic Valley Roasted Peanuts
+FOODS_3_089,FOODS_3,Tyson Bagged Salad Mix
+FOODS_3_634,FOODS_3,Horizon Honey Nut Cereal
+FOODS_3_232,FOODS_3,Chobani Marinara Pasta Sauce
+FOODS_3_578,FOODS_3,Organic Valley Iceberg Lettuce
+FOODS_3_191,FOODS_3,Quaker Baby Carrots Bag
+FOODS_3_742,FOODS_3,General Mills Fruit Snacks
+FOODS_1_210,FOODS_1,Organic Valley Whole Milk (1 gal)
+FOODS_3_689,FOODS_3,Marketside Peanut Butter (Creamy)
+FOODS_3_638,FOODS_3,Nature Valley Canned Sweet Corn
+FOODS_3_292,FOODS_3,Kelloggs Sparkling Water (Lime)
+FOODS_2_194,FOODS_2,Organic Valley Breakfast Burritos
+FOODS_3_661,FOODS_3,Kraft White Rice (2lb)
+FOODS_3_459,FOODS_3,Silk Green Seedless Grapes
+FOODS_3_632,FOODS_3,Chobani Tortilla Chips
+FOODS_3_654,FOODS_3,Nature Valley Potato Chips (Classic)
+FOODS_3_372,FOODS_3,Kelloggs Organic Bananas (Bunch)
+FOODS_3_066,FOODS_3,Organic Valley Classic Cola 2L
+FOODS_3_139,FOODS_3,Silk Marinara Pasta Sauce
+FOODS_3_132,FOODS_3,Kelloggs Strawberry Jam
+FOODS_3_042,FOODS_3,Horizon Yellow Onions
+FOODS_3_236,FOODS_3,Stonyfield Black Beans (15oz)
+FOODS_2_101,FOODS_2,Kraft Beef Chuck Roast
+FOODS_1_106,FOODS_1,Horizon Half & Half Creamer
+FOODS_3_257,FOODS_3,Marketside Russet Potatoes (5lb)
+FOODS_3_788,FOODS_3,Kelloggs Sparkling Water (Lime)
+FOODS_3_021,FOODS_3,Kraft Roma Tomatoes
+FOODS_3_026,FOODS_3,Horizon Avocados (Hass)
+FOODS_3_786,FOODS_3,Organic Valley Yellow Onions
+FOODS_2_061,FOODS_2,Annie's Ground Beef (93% Lean)
+FOODS_2_082,FOODS_2,Organic Valley Ice Cream (Vanilla Bean)
+FOODS_3_279,FOODS_3,Dole Organic Bananas (Bunch)
+FOODS_3_117,FOODS_3,Kraft Instant Coffee
+FOODS_3_793,FOODS_3,Tyson Canned Sweet Corn
+FOODS_3_014,FOODS_3,Nature Valley Honey Nut Cereal
+FOODS_3_721,FOODS_3,Marketside Strawberry Jam
+FOODS_3_115,FOODS_3,Nestle Chocolate Chip Cookies
+FOODS_1_083,FOODS_1,Nestle Blueberry Yogurt 4pk
+FOODS_3_059,FOODS_3,Silk Pretzels
+FOODS_3_154,FOODS_3,Horizon English Muffins
+FOODS_3_176,FOODS_3,Great Value Roma Tomatoes
+FOODS_3_238,FOODS_3,Nature Valley Roma Tomatoes
+FOODS_1_023,FOODS_1,Dole Blueberry Yogurt 4pk
+FOODS_3_217,FOODS_3,Tyson Organic Bananas (Bunch)
+FOODS_3_156,FOODS_3,Stonyfield Red Gala Apples
+FOODS_2_056,FOODS_2,Chobani Pork Loin Chops
+FOODS_2_357,FOODS_2,Kraft Breaded Fish Sticks
+FOODS_3_041,FOODS_3,Tyson White Rice (2lb)
+FOODS_1_194,FOODS_1,Organic Valley Probiotic Drink
+FOODS_1_215,FOODS_1,Dole Cheddar Cheese Block
+FOODS_3_142,FOODS_3,Nature Valley Canned Sweet Corn
+FOODS_2_285,FOODS_2,Annie's Meatball Sub Kit
+FOODS_1_013,FOODS_1,Annie's Orange Juice (No Pulp)
+FOODS_1_166,FOODS_1,General Mills Half & Half Creamer
+FOODS_3_566,FOODS_3,General Mills Strawberry Jam
+FOODS_3_302,FOODS_3,Nature Valley Roasted Peanuts
+FOODS_2_304,FOODS_2,Great Value Smoked Turkey Deli Slices
+FOODS_1_087,FOODS_1,Dole Ricotta Cheese
+FOODS_3_628,FOODS_3,Kelloggs Strawberry Jam
+FOODS_3_508,FOODS_3,Stonyfield Tortilla Chips
+FOODS_3_301,FOODS_3,Annie's Chocolate Chip Cookies
+FOODS_2_289,FOODS_2,Marketside Turkey Bacon
+FOODS_2_274,FOODS_2,Organic Valley Smoked Turkey Deli Slices
+FOODS_2_384,FOODS_2,Great Value Raw Shrimp (Peeled)
+FOODS_2_116,FOODS_2,Kelloggs Pork Loin Chops
+FOODS_1_201,FOODS_1,Tyson Pepper Jack Cubes
+FOODS_3_184,FOODS_3,Chobani Fruit Snacks
+FOODS_3_224,FOODS_3,Great Value Peanut Butter (Creamy)
+FOODS_3_551,FOODS_3,Dole Instant Coffee
+FOODS_3_590,FOODS_3,Nature Valley Red Gala Apples
+FOODS_1_045,FOODS_1,Annie's Liquid Egg Whites
+FOODS_3_241,FOODS_3,Marketside Instant Coffee
+FOODS_3_795,FOODS_3,Silk Iceberg Lettuce
+FOODS_3_138,FOODS_3,Horizon Honey Nut Cereal
+FOODS_3_479,FOODS_3,Quaker Honey Nut Cereal
+FOODS_3_249,FOODS_3,Tyson Red Gala Apples
+FOODS_3_646,FOODS_3,General Mills Avocados (Hass)
+FOODS_2_139,FOODS_2,Silk Turkey Bacon
+FOODS_2_306,FOODS_2,Organic Valley Pork Sausage Links
+FOODS_2_283,FOODS_2,Silk Mixed Vegetable Medley
+FOODS_3_584,FOODS_3,Chobani Avocados (Hass)
+FOODS_1_113,FOODS_1,Marketside Blueberry Yogurt 4pk
+FOODS_3_823,FOODS_3,Dole Granola Bars (Oats)
+FOODS_1_121,FOODS_1,Tyson 2% Reduced Fat Milk
+FOODS_2_086,FOODS_2,General Mills Pork Loin Chops
+FOODS_3_082,FOODS_3,Organic Valley Iceberg Lettuce
+FOODS_1_200,FOODS_1,Chobani Vanilla Bean Yogurt
+FOODS_3_248,FOODS_3,Chobani Organic Bananas (Bunch)
+FOODS_3_565,FOODS_3,Kraft Peanut Butter (Creamy)
+FOODS_1_172,FOODS_1,Stonyfield Salted Butter Sticks
+FOODS_3_126,FOODS_3,Nature Valley Sliced White Bread
+FOODS_2_247,FOODS_2,Dole Frozen Mixed Berries
+FOODS_1_120,FOODS_1,Chobani Whole Milk (1 gal)
+FOODS_3_394,FOODS_3,Horizon Chocolate Chip Cookies
+FOODS_3_648,FOODS_3,Chobani Pretzels
+FOODS_3_008,FOODS_3,Chobani Strawberry Jam
+FOODS_1_142,FOODS_1,Nature Valley Salted Butter Sticks
+FOODS_3_665,FOODS_3,Tyson Honey Nut Cereal
+FOODS_3_814,FOODS_3,Nature Valley Strawberry Jam
+FOODS_3_400,FOODS_3,Great Value Pretzels
+FOODS_2_368,FOODS_2,Great Value Atlantic Salmon Fillet
+FOODS_1_027,FOODS_1,Silk Ricotta Cheese
+FOODS_2_150,FOODS_2,General Mills Chicken Breast (Boneless)
+FOODS_3_573,FOODS_3,Annie's Marinara Pasta Sauce
+FOODS_2_212,FOODS_2,Kelloggs Frozen Pepperoni Pizza
+FOODS_3_678,FOODS_3,General Mills Bagged Salad Mix
+FOODS_1_036,FOODS_1,Kelloggs String Cheese Snacks
+FOODS_1_031,FOODS_1,Quaker 2% Reduced Fat Milk
+FOODS_3_485,FOODS_3,Kraft Iceberg Lettuce
+FOODS_3_083,FOODS_3,Nestle Roma Tomatoes
+FOODS_3_250,FOODS_3,Horizon Sliced White Bread
+FOODS_3_385,FOODS_3,Marketside Sparkling Water (Lime)
+FOODS_3_063,FOODS_3,Quaker Red Gala Apples
+FOODS_3_760,FOODS_3,Chobani Spaghetti Noodles
+FOODS_1_187,FOODS_1,Silk Sour Cream (16oz)
+FOODS_3_011,FOODS_3,Silk Yellow Onions
+FOODS_3_192,FOODS_3,Great Value Whole Wheat Bread
+FOODS_3_431,FOODS_3,Quaker Pretzels
+FOODS_3_812,FOODS_3,Stonyfield Whole Wheat Bread
+FOODS_3_321,FOODS_3,Marketside Yellow Onions
+FOODS_3_289,FOODS_3,Marketside White Rice (2lb)
+FOODS_3_267,FOODS_3,Silk Black Beans (15oz)
+FOODS_3_273,FOODS_3,Marketside Green Seedless Grapes
+FOODS_3_311,FOODS_3,Dole Red Gala Apples
+FOODS_3_676,FOODS_3,Kelloggs Green Seedless Grapes
+FOODS_3_535,FOODS_3,Dole Strawberry Jam
+FOODS_3_432,FOODS_3,Great Value Fruit Snacks
+FOODS_2_267,FOODS_2,Silk Breaded Fish Sticks
+FOODS_2_119,FOODS_2,Dole Veggie Burgers
+FOODS_3_140,FOODS_3,Stonyfield Spaghetti Noodles
+FOODS_3_596,FOODS_3,Kelloggs Peanut Butter (Creamy)
+FOODS_1_082,FOODS_1,Organic Valley Salted Butter Sticks
+FOODS_1_180,FOODS_1,Kelloggs Whole Milk (1 gal)
+FOODS_3_679,FOODS_3,Dole Pretzels
+FOODS_3_424,FOODS_3,Chobani Roma Tomatoes
+FOODS_3_194,FOODS_3,Organic Valley Strawberry Jam
+FOODS_3_053,FOODS_3,Kraft Chocolate Chip Cookies
+FOODS_3_480,FOODS_3,Great Value Marinara Pasta Sauce
+FOODS_3_766,FOODS_3,Nature Valley Chocolate Chip Cookies
+FOODS_3_418,FOODS_3,Organic Valley Marinara Pasta Sauce
+FOODS_2_036,FOODS_2,Kelloggs Pork Sausage Links
+FOODS_3_169,FOODS_3,Tyson Honey Nut Cereal
+FOODS_3_683,FOODS_3,Silk Red Gala Apples
+FOODS_3_291,FOODS_3,Nestle Tortilla Chips
+FOODS_2_381,FOODS_2,Annie's Frozen Spinich
+FOODS_1_181,FOODS_1,Kraft 2% Reduced Fat Milk
+FOODS_3_561,FOODS_3,Marketside Potato Chips (Classic)
+FOODS_2_081,FOODS_2,Marketside Frozen Spinich
+FOODS_2_074,FOODS_2,Horizon Breakfast Burritos
+FOODS_2_052,FOODS_2,Kelloggs Ice Cream (Vanilla Bean)
+FOODS_3_214,FOODS_3,General Mills Pretzels
+FOODS_3_225,FOODS_3,Marketside Strawberry Jam
+FOODS_1_040,FOODS_1,Chobani Cream Cheese Spread
+FOODS_3_644,FOODS_3,Kelloggs Instant Coffee
+FOODS_3_028,FOODS_3,Stonyfield Pretzels
+FOODS_1_206,FOODS_1,Nature Valley Cage Free Brown Eggs
+FOODS_2_356,FOODS_2,Kelloggs Pork Loin Chops
+FOODS_3_383,FOODS_3,Quaker Yellow Onions
+FOODS_2_003,FOODS_2,Nestle Beef Patties (1/4 lb)
+FOODS_2_024,FOODS_2,Chobani Raw Shrimp (Peeled)
+FOODS_2_376,FOODS_2,Chobani Corned Beef
+FOODS_3_519,FOODS_3,Dole Roasted Peanuts
+FOODS_1_192,FOODS_1,Great Value Cottage Cheese (Low Fat)
+FOODS_3_208,FOODS_3,Great Value Chocolate Chip Cookies
+FOODS_2_170,FOODS_2,Horizon Hot Dogs (8ct)
+FOODS_2_333,FOODS_2,Annie's Beef Patties (1/4 lb)
+FOODS_3_398,FOODS_3,Nature Valley Avocados (Hass)
+FOODS_3_439,FOODS_3,Dole Baby Carrots Bag
+FOODS_1_209,FOODS_1,Marketside Whipped Topping
+FOODS_2_059,FOODS_2,Silk Veggie Burgers
+FOODS_1_103,FOODS_1,Dole Orange Juice (No Pulp)
+FOODS_1_094,FOODS_1,Nature Valley Unsalted Sweet Cream Butter
+FOODS_1_139,FOODS_1,Silk Swiss Cheese Slices
+FOODS_2_399,FOODS_2,Quaker Frozen Chicken Nuggets
+FOODS_3_504,FOODS_3,Chobani Strawberry Jam
+FOODS_3_178,FOODS_3,Organic Valley Roasted Peanuts
+FOODS_1_208,FOODS_1,Great Value Parmesan Shaker
+FOODS_3_163,FOODS_3,Nestle Strawberry Jam
+FOODS_3_386,FOODS_3,Organic Valley Honey Nut Cereal
+FOODS_3_326,FOODS_3,General Mills Spaghetti Noodles
+FOODS_3_310,FOODS_3,General Mills Organic Bananas (Bunch)
+FOODS_3_820,FOODS_3,Kelloggs Honey Nut Cereal
+FOODS_3_195,FOODS_3,Nestle Russet Potatoes (5lb)
+FOODS_3_533,FOODS_3,Kraft Whole Wheat Bread
+FOODS_3_712,FOODS_3,Chobani English Muffins
+FOODS_3_497,FOODS_3,Marketside Red Gala Apples
+FOODS_3_100,FOODS_3,Kelloggs Peanut Butter (Creamy)
+FOODS_2_311,FOODS_2,Dole Beef Chuck Roast
+FOODS_3_747,FOODS_3,Silk Potato Chips (Classic)
+FOODS_2_225,FOODS_2,Marketside Meatball Sub Kit
+FOODS_2_182,FOODS_2,General Mills Frozen Pepperoni Pizza
+FOODS_3_428,FOODS_3,Stonyfield Green Seedless Grapes
+FOODS_1_069,FOODS_1,Kraft Almond Milk (Unsweetened)
+FOODS_3_708,FOODS_3,Kelloggs Avocados (Hass)
+FOODS_3_448,FOODS_3,Great Value Honey Nut Cereal
+FOODS_2_063,FOODS_2,Quaker Beef Patties (1/4 lb)
+FOODS_3_615,FOODS_3,Dole Avocados (Hass)
+FOODS_1_047,FOODS_1,Quaker Margarine Tub
+FOODS_2_391,FOODS_2,Dole Ground Beef (93% Lean)
+FOODS_2_232,FOODS_2,Chobani Ice Cream (Vanilla Bean)
+FOODS_2_307,FOODS_2,Nestle Frozen Mixed Berries
+FOODS_1_005,FOODS_1,Kraft Cheddar Cheese Block
+FOODS_2_065,FOODS_2,Marketside Frozen Broccoli Florets
+FOODS_3_568,FOODS_3,Chobani White Rice (2lb)
+FOODS_1_153,FOODS_1,Tyson Greek Strawberry Yogurt
+FOODS_3_199,FOODS_3,Dole Sparkling Water (Lime)
+FOODS_3_370,FOODS_3,Organic Valley Fruit Snacks
+FOODS_3_388,FOODS_3,Kelloggs Spaghetti Noodles
+FOODS_2_257,FOODS_2,Marketside Frozen Waffles
+FOODS_3_771,FOODS_3,Nestle Bagged Salad Mix
+FOODS_2_146,FOODS_2,Organic Valley Pork Loin Chops
+FOODS_3_581,FOODS_3,Kraft Roasted Peanuts
+FOODS_3_106,FOODS_3,Horizon Sparkling Water (Lime)
+FOODS_2_175,FOODS_2,Quaker Frozen Lasagna
+FOODS_2_138,FOODS_2,Horizon Tilapia Fillets
+FOODS_1_024,FOODS_1,Chobani Chocolate Milk
+FOODS_3_187,FOODS_3,Silk Red Gala Apples
+FOODS_3_759,FOODS_3,Dole Marinara Pasta Sauce
+FOODS_3_438,FOODS_3,General Mills Classic Cola 2L
+FOODS_3_335,FOODS_3,Quaker Green Seedless Grapes
+FOODS_3_280,FOODS_3,Chobani Red Gala Apples
+FOODS_1_092,FOODS_1,Stonyfield Large Grade A Eggs (12ct)
+FOODS_1_190,FOODS_1,Nature Valley Cream Cheese Spread
+FOODS_2_112,FOODS_2,Great Value Ice Cream (Vanilla Bean)
+FOODS_2_322,FOODS_2,Organic Valley Ice Cream (Vanilla Bean)
+FOODS_3_271,FOODS_3,Quaker Roasted Peanuts
+FOODS_3_356,FOODS_3,Kelloggs Marinara Pasta Sauce
+FOODS_2_080,FOODS_2,Great Value Hot Dogs (8ct)
+FOODS_3_024,FOODS_3,Chobani Instant Coffee
+FOODS_3_513,FOODS_3,Marketside Granola Bars (Oats)
+FOODS_3_308,FOODS_3,Kelloggs Fruit Snacks
+FOODS_3_577,FOODS_3,Marketside Black Beans (15oz)
+FOODS_3_502,FOODS_3,General Mills Whole Wheat Bread
+FOODS_3_032,FOODS_3,Great Value Red Gala Apples
+FOODS_2_351,FOODS_2,Quaker Frozen Spinich
+FOODS_3_423,FOODS_3,Dole Iceberg Lettuce
+FOODS_1_123,FOODS_1,Silk Greek Strawberry Yogurt
+FOODS_1_074,FOODS_1,Horizon Probiotic Drink
+FOODS_3_162,FOODS_3,Organic Valley Peanut Butter (Creamy)
+FOODS_1_037,FOODS_1,Kraft Sour Cream (16oz)
+FOODS_3_509,FOODS_3,Annie's Sparkling Water (Lime)
+FOODS_3_768,FOODS_3,Great Value Instant Coffee
+FOODS_3_611,FOODS_3,Nestle Chocolate Chip Cookies
+FOODS_2_309,FOODS_2,Kraft Frozen Chicken Nuggets
+FOODS_3_276,FOODS_3,Kelloggs Pretzels
+FOODS_2_192,FOODS_2,Great Value Frozen French Fries
+FOODS_3_207,FOODS_3,Quaker Roma Tomatoes
+FOODS_2_189,FOODS_2,Annie's Frozen Chicken Nuggets
+FOODS_3_730,FOODS_3,Horizon Granola Bars (Oats)
+FOODS_2_242,FOODS_2,Organic Valley Frozen Pepperoni Pizza
+FOODS_1_127,FOODS_1,Quaker Sour Cream (16oz)
+FOODS_2_396,FOODS_2,Stonyfield Pork Sausage Links
+FOODS_3_515,FOODS_3,Nestle Black Beans (15oz)
+FOODS_3_706,FOODS_3,Organic Valley Instant Coffee
+FOODS_3_685,FOODS_3,Annie's Potato Chips (Classic)
+FOODS_3_415,FOODS_3,Quaker Tortilla Chips
+FOODS_2_067,FOODS_2,Nestle Frozen Mixed Berries
+FOODS_3_029,FOODS_3,Annie's Fruit Snacks
+FOODS_1_042,FOODS_1,Horizon Cottage Cheese (Low Fat)
+FOODS_1_044,FOODS_1,Stonyfield Probiotic Drink
+FOODS_3_514,FOODS_3,Organic Valley Canned Sweet Corn
+FOODS_3_112,FOODS_3,Great Value Black Beans (15oz)
+FOODS_3_077,FOODS_3,Annie's Marinara Pasta Sauce
+FOODS_3_718,FOODS_3,Nature Valley Baby Carrots Bag
+FOODS_3_810,FOODS_3,Horizon Classic Cola 2L
+FOODS_1_175,FOODS_1,Quaker Soy Milk (Vanilla)
+FOODS_2_079,FOODS_2,Quaker Turkey Bacon
+FOODS_3_433,FOODS_3,Marketside English Muffins
+FOODS_2_184,FOODS_2,Chobani Smoked Turkey Deli Slices
+FOODS_3_797,FOODS_3,Annie's Chocolate Chip Cookies
+FOODS_3_463,FOODS_3,Quaker Fruit Snacks
+FOODS_1_216,FOODS_1,Chobani String Cheese Snacks
+FOODS_3_091,FOODS_3,Silk Fruit Snacks
+FOODS_2_144,FOODS_2,Great Value Raw Shrimp (Peeled)
+FOODS_3_387,FOODS_3,Nestle Marinara Pasta Sauce
+FOODS_3_212,FOODS_3,Kelloggs Avocados (Hass)
+FOODS_3_583,FOODS_3,Dole Green Seedless Grapes
+FOODS_3_495,FOODS_3,Quaker English Muffins
+FOODS_2_291,FOODS_2,Nestle Frozen Spinich
+FOODS_2_051,FOODS_2,Nestle Frozen Spinich
+FOODS_2_327,FOODS_2,Dole Breaded Fish Sticks
+FOODS_3_450,FOODS_3,Organic Valley Spaghetti Noodles
+FOODS_2_093,FOODS_2,Annie's Beef Patties (1/4 lb)
+FOODS_2_134,FOODS_2,General Mills Breakfast Burritos
+FOODS_3_181,FOODS_3,Kraft Avocados (Hass)
+FOODS_3_098,FOODS_3,Organic Valley Baby Carrots Bag
+FOODS_3_585,FOODS_3,Tyson Bagged Salad Mix
+FOODS_3_705,FOODS_3,Marketside Roasted Peanuts
+FOODS_3_451,FOODS_3,Nestle Granola Bars (Oats)
+FOODS_3_765,FOODS_3,Annie's Roma Tomatoes
+FOODS_3_306,FOODS_3,Organic Valley Bagged Salad Mix
+FOODS_3_034,FOODS_3,Organic Valley Potato Chips (Classic)
+FOODS_2_245,FOODS_2,Kraft Frozen Broccoli Florets
+FOODS_2_303,FOODS_2,Quaker Beef Patties (1/4 lb)
+FOODS_3_185,FOODS_3,Tyson English Muffins
+FOODS_1_112,FOODS_1,Great Value Salted Butter Sticks
+FOODS_2_321,FOODS_2,Marketside Frozen Spinich
+FOODS_1_054,FOODS_1,General Mills Chocolate Milk
+FOODS_3_071,FOODS_3,Dole Russet Potatoes (5lb)
+FOODS_1_006,FOODS_1,General Mills String Cheese Snacks
+FOODS_3_569,FOODS_3,Tyson Yellow Onions
+FOODS_3_277,FOODS_3,Kraft Fruit Snacks
+FOODS_3_237,FOODS_3,Annie's Iceberg Lettuce
+FOODS_2_026,FOODS_2,Horizon Pork Loin Chops
+FOODS_3_467,FOODS_3,Nestle Sliced White Bread
+FOODS_3_411,FOODS_3,Silk Strawberry Jam
+FOODS_3_489,FOODS_3,Tyson Instant Coffee
+FOODS_3_069,FOODS_3,Kraft Peanut Butter (Creamy)
+FOODS_2_340,FOODS_2,Kelloggs Honey Ham Slices
+FOODS_3_320,FOODS_3,Great Value White Rice (2lb)
+FOODS_2_364,FOODS_2,Stonyfield Smoked Turkey Deli Slices
+FOODS_2_282,FOODS_2,Horizon Frozen French Fries
+FOODS_3_246,FOODS_3,General Mills Fruit Snacks
+FOODS_3_532,FOODS_3,Kelloggs Baby Carrots Bag
+FOODS_3_081,FOODS_3,Marketside Black Beans (15oz)
+FOODS_3_065,FOODS_3,Marketside Potato Chips (Classic)
+FOODS_3_604,FOODS_3,Stonyfield Marinara Pasta Sauce
+FOODS_3_102,FOODS_3,General Mills Russet Potatoes (5lb)
+FOODS_3_167,FOODS_3,Dole Tortilla Chips
+FOODS_2_049,FOODS_2,Marketside Turkey Bacon
+FOODS_3_591,FOODS_3,Quaker Sliced White Bread
+FOODS_3_334,FOODS_3,Nature Valley Instant Coffee
+FOODS_2_196,FOODS_2,Kelloggs Corned Beef
+FOODS_3_347,FOODS_3,Silk Whole Wheat Bread
+FOODS_3_616,FOODS_3,Chobani Bagged Salad Mix
+FOODS_3_496,FOODS_3,Great Value Organic Bananas (Bunch)
+FOODS_3_261,FOODS_3,Kraft Sparkling Water (Lime)
+FOODS_2_104,FOODS_2,Chobani Breakfast Burritos
+FOODS_2_014,FOODS_2,Nature Valley Breakfast Burritos
+FOODS_1_096,FOODS_1,Great Value String Cheese Snacks
+FOODS_2_348,FOODS_2,Stonyfield Tilapia Fillets
+FOODS_3_493,FOODS_3,Annie's Pretzels
+FOODS_2_156,FOODS_2,Stonyfield Pork Sausage Links
+FOODS_1_168,FOODS_1,Chobani Shredded Mozzarella
+FOODS_2_385,FOODS_2,Marketside Frozen Lasagna
+FOODS_2_060,FOODS_2,Stonyfield Chicken Breast (Boneless)
+FOODS_3_336,FOODS_3,Great Value Avocados (Hass)
+FOODS_3_328,FOODS_3,Chobani Canned Sweet Corn
+FOODS_3_242,FOODS_3,Organic Valley Green Seedless Grapes
+FOODS_1_205,FOODS_1,Annie's Soy Milk (Vanilla)
+FOODS_1_124,FOODS_1,Stonyfield Unsalted Sweet Cream Butter
+FOODS_2_255,FOODS_2,Quaker Meatball Sub Kit
+FOODS_3_211,FOODS_3,Nestle Green Seedless Grapes
+FOODS_2_033,FOODS_2,Marketside Beef Patties (1/4 lb)
+FOODS_3_645,FOODS_3,Kraft Green Seedless Grapes
+FOODS_3_012,FOODS_3,Stonyfield Tortilla Chips
+FOODS_2_361,FOODS_2,Tyson Ground Beef (93% Lean)
+FOODS_3_182,FOODS_3,General Mills Bagged Salad Mix
+FOODS_3_205,FOODS_3,Annie's Black Beans (15oz)
+FOODS_3_559,FOODS_3,Quaker Red Gala Apples
+FOODS_2_055,FOODS_2,Dole Frozen Lasagna
+FOODS_3_536,FOODS_3,Chobani Russet Potatoes (5lb)
+FOODS_2_042,FOODS_2,Horizon Frozen French Fries
+FOODS_3_019,FOODS_3,Nestle Black Beans (15oz)
+FOODS_2_047,FOODS_2,Quaker Frozen Waffles
+FOODS_3_700,FOODS_3,Stonyfield Canned Sweet Corn
+FOODS_3_186,FOODS_3,Horizon Organic Bananas (Bunch)
+FOODS_2_115,FOODS_2,Nestle Frozen Lasagna
+FOODS_2_171,FOODS_2,Silk Frozen Spinich
+FOODS_1_143,FOODS_1,Quaker Blueberry Yogurt 4pk
+FOODS_3_609,FOODS_3,Marketside Iceberg Lettuce
+FOODS_3_656,FOODS_3,Great Value Baby Carrots Bag
+FOODS_3_096,FOODS_3,Great Value Potato Chips (Classic)
+FOODS_1_038,FOODS_1,General Mills Heavy Whipping Cream
+FOODS_3_487,FOODS_3,Dole Chocolate Chip Cookies
+FOODS_3_618,FOODS_3,Horizon Fruit Snacks
+FOODS_3_827,FOODS_3,Silk Roma Tomatoes
+FOODS_2_382,FOODS_2,Nature Valley Ice Cream (Vanilla Bean)
+FOODS_3_322,FOODS_3,Organic Valley Tortilla Chips
+FOODS_2_009,FOODS_2,Tyson Frozen Chicken Nuggets
+FOODS_2_025,FOODS_2,Tyson Frozen Lasagna
+FOODS_3_382,FOODS_3,Nature Valley White Rice (2lb)
+FOODS_2_173,FOODS_2,Annie's Salami Trio
+FOODS_3_631,FOODS_3,Dole Yellow Onions
+FOODS_3_775,FOODS_3,Dole Organic Bananas (Bunch)
+FOODS_3_675,FOODS_3,Nestle Instant Coffee
+FOODS_1_129,FOODS_1,Marketside Almond Milk (Unsweetened)
+FOODS_2_220,FOODS_2,Stonyfield Honey Ham Slices
+FOODS_3_589,FOODS_3,Annie's Organic Bananas (Bunch)
+FOODS_1_182,FOODS_1,General Mills Large Grade A Eggs (12ct)
+FOODS_3_200,FOODS_3,Chobani Honey Nut Cereal
+FOODS_3_155,FOODS_3,Silk Organic Bananas (Bunch)
+FOODS_2_229,FOODS_2,Kraft Turkey Bacon
+FOODS_3_331,FOODS_3,Silk Roma Tomatoes
+FOODS_2_352,FOODS_2,Great Value Ice Cream (Vanilla Bean)
+FOODS_3_657,FOODS_3,Marketside Whole Wheat Bread
+FOODS_2_106,FOODS_2,Horizon Corned Beef
+FOODS_3_174,FOODS_3,Nature Valley Black Beans (15oz)
+FOODS_2_143,FOODS_2,Quaker Salami Trio
+FOODS_2_167,FOODS_2,Dole Frozen Waffles
+FOODS_1_204,FOODS_1,Stonyfield Chocolate Milk
+FOODS_3_464,FOODS_3,Great Value English Muffins
+FOODS_3_048,FOODS_3,Great Value Granola Bars (Oats)
+FOODS_3_726,FOODS_3,General Mills Sparkling Water (Lime)
+FOODS_3_381,FOODS_3,Annie's Russet Potatoes (5lb)
+FOODS_3_128,FOODS_3,Great Value Classic Cola 2L
+FOODS_2_153,FOODS_2,Tyson Beef Patties (1/4 lb)
+FOODS_3_666,FOODS_3,Horizon Marinara Pasta Sauce
+FOODS_1_035,FOODS_1,Nestle Cheddar Cheese Block
+FOODS_2_109,FOODS_2,Annie's Turkey Bacon
+FOODS_3_761,FOODS_3,Tyson Granola Bars (Oats)
+FOODS_3_269,FOODS_3,Annie's Roma Tomatoes
+FOODS_2_062,FOODS_2,Nature Valley Frozen Pepperoni Pizza
+FOODS_2_174,FOODS_2,Nature Valley Raw Shrimp (Peeled)
+FOODS_2_346,FOODS_2,Horizon Corned Beef
+FOODS_1_065,FOODS_1,Marketside Cheddar Cheese Block
+FOODS_3_015,FOODS_3,Quaker Marinara Pasta Sauce
+FOODS_2_092,FOODS_2,Stonyfield Frozen Pepperoni Pizza
+FOODS_3_659,FOODS_3,Nestle Strawberry Jam
+FOODS_2_078,FOODS_2,Nature Valley Tilapia Fillets
+FOODS_2_083,FOODS_2,Nestle Salami Trio
+FOODS_3_410,FOODS_3,Horizon Peanut Butter (Creamy)
+FOODS_3_046,FOODS_3,Nature Valley Marinara Pasta Sauce
+FOODS_3_803,FOODS_3,Nestle Pretzels
+FOODS_1_214,FOODS_1,General Mills Unsalted Sweet Cream Butter
+FOODS_3_051,FOODS_3,Nestle Iceberg Lettuce
+FOODS_2_262,FOODS_2,General Mills Ice Cream (Vanilla Bean)
+FOODS_2_099,FOODS_2,Nestle Frozen Chicken Nuggets
+FOODS_2_266,FOODS_2,Horizon Pork Loin Chops
+FOODS_3_461,FOODS_3,Annie's Bagged Salad Mix
+FOODS_3_523,FOODS_3,Silk Bagged Salad Mix
+FOODS_3_002,FOODS_3,Organic Valley Sliced White Bread
+FOODS_3_333,FOODS_3,Annie's Roasted Peanuts
+FOODS_3_025,FOODS_3,Tyson Green Seedless Grapes
+FOODS_3_175,FOODS_3,Quaker Iceberg Lettuce
+FOODS_2_038,FOODS_2,General Mills Atlantic Salmon Fillet
+FOODS_2_176,FOODS_2,Great Value Pork Loin Chops
+FOODS_3_538,FOODS_3,Horizon Yellow Onions
+FOODS_3_488,FOODS_3,Chobani Roasted Peanuts
+FOODS_2_142,FOODS_2,Nature Valley Ice Cream (Vanilla Bean)
+FOODS_1_041,FOODS_1,Tyson Oat Milk (Barista Blend)
+FOODS_3_146,FOODS_3,Organic Valley Chocolate Chip Cookies
+FOODS_3_316,FOODS_3,Stonyfield Whole Wheat Bread
+FOODS_2_005,FOODS_2,Kraft Frozen Broccoli Florets
+FOODS_2_034,FOODS_2,Organic Valley Smoked Turkey Deli Slices
+FOODS_2_344,FOODS_2,Chobani Breakfast Burritos
+FOODS_1_116,FOODS_1,Kelloggs Cage Free Brown Eggs
+FOODS_2_107,FOODS_2,Silk Frozen Waffles
+FOODS_1_015,FOODS_1,Quaker Liquid Egg Whites
+FOODS_1_001,FOODS_1,Marketside 2% Reduced Fat Milk
+FOODS_3_190,FOODS_3,Nature Valley Classic Cola 2L
+FOODS_3_731,FOODS_3,Silk Canned Sweet Corn
+FOODS_3_160,FOODS_3,Great Value Baby Carrots Bag
+FOODS_3_357,FOODS_3,Kraft Spaghetti Noodles
+FOODS_2_035,FOODS_2,Nestle Frozen Broccoli Florets
+FOODS_3_373,FOODS_3,Kraft Red Gala Apples
+FOODS_3_470,FOODS_3,General Mills Baby Carrots Bag
+FOODS_3_520,FOODS_3,Chobani Instant Coffee
+FOODS_1_178,FOODS_1,Organic Valley Parmesan Shaker
+FOODS_3_293,FOODS_3,Kraft Honey Nut Cereal
+FOODS_3_605,FOODS_3,Annie's Spaghetti Noodles
+FOODS_1_090,FOODS_1,Horizon Whole Milk (1 gal)
+FOODS_3_074,FOODS_3,Horizon Tortilla Chips
+FOODS_3_537,FOODS_3,Tyson White Rice (2lb)
+FOODS_2_201,FOODS_2,Tyson Frozen Spinich
+FOODS_3_153,FOODS_3,Tyson Fruit Snacks
+FOODS_2_072,FOODS_2,Chobani Frozen French Fries
+FOODS_2_230,FOODS_2,General Mills Hot Dogs (8ct)
+FOODS_3_344,FOODS_3,Chobani Potato Chips (Classic)
+FOODS_3_663,FOODS_3,Dole Tortilla Chips
+FOODS_1_130,FOODS_1,Organic Valley Cream Cheese Spread
+FOODS_1_163,FOODS_1,Nestle Orange Juice (No Pulp)
+FOODS_3_129,FOODS_3,Marketside Baby Carrots Bag
+FOODS_2_353,FOODS_2,Marketside Salami Trio
+FOODS_3_560,FOODS_3,Great Value Sliced White Bread
+FOODS_3_422,FOODS_3,General Mills Black Beans (15oz)
+FOODS_3_239,FOODS_3,Quaker Chocolate Chip Cookies
+FOODS_3_092,FOODS_3,Stonyfield English Muffins
+FOODS_2_022,FOODS_2,General Mills Ice Cream (Vanilla Bean)
+FOODS_3_571,FOODS_3,Silk Sparkling Water (Lime)
+FOODS_3_653,FOODS_3,Annie's Sliced White Bread
+FOODS_2_398,FOODS_2,Nature Valley Atlantic Salmon Fillet
+FOODS_3_784,FOODS_3,Great Value Russet Potatoes (5lb)
+FOODS_3_141,FOODS_3,Annie's Granola Bars (Oats)
+FOODS_3_684,FOODS_3,Stonyfield Sliced White Bread
+FOODS_1_021,FOODS_1,Kraft Pepper Jack Cubes
+FOODS_3_624,FOODS_3,Great Value Classic Cola 2L
+FOODS_1_115,FOODS_1,Nestle Soy Milk (Vanilla)
+FOODS_1_028,FOODS_1,Stonyfield Parmesan Shaker
+FOODS_2_135,FOODS_2,Dole Meatball Sub Kit
+FOODS_3_525,FOODS_3,Annie's Fruit Snacks
+FOODS_3_629,FOODS_3,Kraft Russet Potatoes (5lb)
+FOODS_2_211,FOODS_2,Nestle Ground Beef (93% Lean)
+FOODS_2_334,FOODS_2,Nature Valley Smoked Turkey Deli Slices
+FOODS_3_606,FOODS_3,Nature Valley Granola Bars (Oats)
+FOODS_3_183,FOODS_3,Dole Pretzels
+FOODS_1_097,FOODS_1,Marketside Sour Cream (16oz)
+FOODS_2_316,FOODS_2,Stonyfield Corned Beef
+FOODS_2_375,FOODS_2,Dole Meatball Sub Kit
+FOODS_1_080,FOODS_1,Great Value Vanilla Bean Yogurt
+FOODS_2_157,FOODS_2,Annie's Frozen Mixed Berries
+FOODS_1_051,FOODS_1,Nestle Pepper Jack Cubes
+FOODS_1_145,FOODS_1,Marketside Soy Milk (Vanilla)
+FOODS_1_185,FOODS_1,Tyson Cheddar Cheese Block
+FOODS_1_195,FOODS_1,Nestle Liquid Egg Whites
+FOODS_3_035,FOODS_3,Nestle Classic Cola 2L
+FOODS_3_781,FOODS_3,Annie's Whole Wheat Bread
+FOODS_2_020,FOODS_2,Kelloggs Hot Dogs (8ct)
+FOODS_2_137,FOODS_2,Tyson Frozen Waffles
+FOODS_2_085,FOODS_2,Kraft Frozen Lasagna
+FOODS_3_414,FOODS_3,Nature Valley Yellow Onions
+FOODS_3_152,FOODS_3,Chobani Pretzels
+FOODS_3_078,FOODS_3,Nature Valley Spaghetti Noodles
+FOODS_3_001,FOODS_3,Marketside Red Gala Apples
+FOODS_3_698,FOODS_3,Horizon Spaghetti Noodles
+FOODS_3_405,FOODS_3,Kraft Sliced White Bread
+FOODS_2_302,FOODS_2,Nature Valley Frozen Pepperoni Pizza
+FOODS_3_599,FOODS_3,Dole White Rice (2lb)
+FOODS_2_219,FOODS_2,Silk Frozen Chicken Nuggets
+FOODS_3_222,FOODS_3,Nature Valley Baby Carrots Bag
+FOODS_3_057,FOODS_3,Tyson Avocados (Hass)
+FOODS_3_197,FOODS_3,Kraft Yellow Onions
+FOODS_3_130,FOODS_3,Organic Valley Whole Wheat Bread
+FOODS_2_070,FOODS_2,General Mills Honey Ham Slices
+FOODS_3_325,FOODS_3,Kraft Marinara Pasta Sauce
+FOODS_3_603,FOODS_3,Silk Honey Nut Cereal
+FOODS_2_149,FOODS_2,Kraft Veggie Burgers
+FOODS_1_152,FOODS_1,Chobani Large Grade A Eggs (12ct)
+FOODS_1_003,FOODS_1,Nestle Greek Strawberry Yogurt
+FOODS_3_286,FOODS_3,Nature Valley Peanut Butter (Creamy)
+FOODS_1_207,FOODS_1,Quaker Ricotta Cheese
+FOODS_3_384,FOODS_3,Great Value Tortilla Chips
+FOODS_3_352,FOODS_3,Great Value Yellow Onions
+FOODS_2_126,FOODS_2,Nature Valley Pork Sausage Links
+FOODS_3_748,FOODS_3,Stonyfield Classic Cola 2L
+FOODS_1_066,FOODS_1,Organic Valley String Cheese Snacks
+FOODS_3_825,FOODS_3,Tyson Black Beans (15oz)
+FOODS_3_707,FOODS_3,Nestle Green Seedless Grapes
+FOODS_3_287,FOODS_3,Quaker Strawberry Jam
+FOODS_3_094,FOODS_3,Nature Valley Red Gala Apples
+FOODS_1_117,FOODS_1,Kraft Ricotta Cheese
+FOODS_1_063,FOODS_1,Quaker Greek Strawberry Yogurt
+FOODS_2_216,FOODS_2,Chobani Pork Sausage Links
+FOODS_2_141,FOODS_2,Annie's Frozen Spinich
+FOODS_1_174,FOODS_1,Nature Valley Chocolate Milk
+FOODS_3_557,FOODS_3,Annie's English Muffins
+FOODS_1_138,FOODS_1,Horizon Shredded Mozzarella
+FOODS_3_494,FOODS_3,Nature Valley Fruit Snacks
+FOODS_3_253,FOODS_3,Annie's Baby Carrots Bag
+FOODS_1_072,FOODS_1,Chobani Cottage Cheese (Low Fat)
+FOODS_2_100,FOODS_2,Kelloggs Honey Ham Slices
+FOODS_3_123,FOODS_3,Silk English Muffins
+FOODS_1_076,FOODS_1,Stonyfield Half & Half Creamer
+FOODS_2_339,FOODS_2,Nestle Frozen Chicken Nuggets
+FOODS_3_671,FOODS_3,Quaker Iceberg Lettuce
+FOODS_1_128,FOODS_1,Great Value Heavy Whipping Cream
+FOODS_2_297,FOODS_2,Tyson Breaded Fish Sticks
+FOODS_3_392,FOODS_3,Chobani Iceberg Lettuce
+FOODS_3_243,FOODS_3,Nestle Avocados (Hass)
+FOODS_3_062,FOODS_3,Nature Valley Organic Bananas (Bunch)
+FOODS_3_058,FOODS_3,Horizon Bagged Salad Mix
+FOODS_1_049,FOODS_1,Marketside Swiss Cheese Slices
+FOODS_1_091,FOODS_1,Silk 2% Reduced Fat Milk
+FOODS_3_103,FOODS_3,Dole White Rice (2lb)
+FOODS_3_159,FOODS_3,Quaker Classic Cola 2L
+FOODS_3_395,FOODS_3,Silk Roasted Peanuts
+FOODS_3_539,FOODS_3,Silk Tortilla Chips
+FOODS_1_202,FOODS_1,Horizon Salted Butter Sticks
+FOODS_3_542,FOODS_3,Nature Valley Marinara Pasta Sauce
+FOODS_3_303,FOODS_3,Quaker Instant Coffee
+FOODS_3_213,FOODS_3,Kraft Bagged Salad Mix
+FOODS_3_294,FOODS_3,General Mills Marinara Pasta Sauce
+FOODS_1_213,FOODS_1,Kraft Greek Strawberry Yogurt
+FOODS_3_817,FOODS_3,Marketside Yellow Onions
+FOODS_2_145,FOODS_2,Marketside Frozen Lasagna
+FOODS_2_162,FOODS_2,Organic Valley Frozen French Fries
+FOODS_1_016,FOODS_1,Great Value Half & Half Creamer
+FOODS_2_263,FOODS_2,Dole Salami Trio
+FOODS_1_048,FOODS_1,Great Value Shredded Mozzarella
+FOODS_3_715,FOODS_3,Silk Sliced White Bread
+FOODS_3_354,FOODS_3,Organic Valley Sparkling Water (Lime)
+FOODS_3_593,FOODS_3,Marketside Classic Cola 2L
+FOODS_2_221,FOODS_2,Annie's Beef Chuck Roast
+FOODS_3_643,FOODS_3,Nestle Roasted Peanuts
+FOODS_3_545,FOODS_3,Marketside Canned Sweet Corn
+FOODS_2_218,FOODS_2,Horizon Atlantic Salmon Fillet
+FOODS_2_121,FOODS_2,Tyson Ground Beef (93% Lean)
+FOODS_3_579,FOODS_3,Nestle Roma Tomatoes
+FOODS_3_791,FOODS_3,Dole Spaghetti Noodles
+FOODS_1_009,FOODS_1,Tyson Almond Milk (Unsweetened)
+FOODS_2_125,FOODS_2,Annie's Frozen Broccoli Florets
+FOODS_3_361,FOODS_3,Tyson Iceberg Lettuce
+FOODS_3_314,FOODS_3,Horizon Classic Cola 2L
+FOODS_3_749,FOODS_3,Annie's Baby Carrots Bag
+FOODS_2_002,FOODS_2,Organic Valley Frozen Pepperoni Pizza
+FOODS_2_238,FOODS_2,Nature Valley Frozen Peaches
+FOODS_3_005,FOODS_3,Kraft Baby Carrots Bag
+FOODS_2_041,FOODS_2,Tyson Beef Chuck Roast
+FOODS_1_146,FOODS_1,Organic Valley Cage Free Brown Eggs
+FOODS_3_266,FOODS_3,Horizon Canned Sweet Corn
+FOODS_2_237,FOODS_2,Annie's Breaded Fish Sticks
+FOODS_2_223,FOODS_2,Quaker Mixed Vegetable Medley
+FOODS_2_330,FOODS_2,Horizon Chicken Breast (Boneless)
+FOODS_2_251,FOODS_2,Silk Beef Chuck Roast
+FOODS_2_010,FOODS_2,Horizon Honey Ham Slices
+FOODS_3_774,FOODS_3,General Mills English Muffins
+FOODS_1_132,FOODS_1,Kelloggs Cottage Cheese (Low Fat)
+FOODS_3_564,FOODS_3,Kelloggs Whole Wheat Bread
+FOODS_3_482,FOODS_3,Organic Valley Granola Bars (Oats)
+FOODS_3_050,FOODS_3,Organic Valley Black Beans (15oz)
+FOODS_3_625,FOODS_3,Marketside Baby Carrots Bag
+FOODS_3_465,FOODS_3,Marketside Organic Bananas (Bunch)
+FOODS_3_588,FOODS_3,Stonyfield English Muffins
+FOODS_2_397,FOODS_2,Annie's Frozen Mixed Berries
+FOODS_2_108,FOODS_2,Stonyfield Tilapia Fillets
+FOODS_2_288,FOODS_2,Great Value Tilapia Fillets
+FOODS_2_367,FOODS_2,Quaker Frozen Mixed Berries
+FOODS_2_151,FOODS_2,Dole Ground Beef (93% Lean)
+FOODS_2_383,FOODS_2,Quaker Salami Trio
+FOODS_3_627,FOODS_3,Nestle Peanut Butter (Creamy)
+FOODS_2_275,FOODS_2,Nestle Frozen Broccoli Florets
+FOODS_2_217,FOODS_2,Tyson Frozen Mixed Berries
+FOODS_3_374,FOODS_3,General Mills Sliced White Bread
+FOODS_3_298,FOODS_3,Horizon Black Beans (15oz)
+FOODS_3_483,FOODS_3,Nestle Canned Sweet Corn
+FOODS_3_558,FOODS_3,Nature Valley Organic Bananas (Bunch)
+FOODS_1_025,FOODS_1,Tyson Soy Milk (Vanilla)
+FOODS_2_044,FOODS_2,Stonyfield Breakfast Burritos
+FOODS_3_189,FOODS_3,Annie's Potato Chips (Classic)
+FOODS_1_011,FOODS_1,Silk Oat Milk (Barista Blend)
+FOODS_1_026,FOODS_1,Horizon Cage Free Brown Eggs
+FOODS_3_770,FOODS_3,Organic Valley Avocados (Hass)
+FOODS_3_134,FOODS_3,General Mills White Rice (2lb)
+FOODS_3_391,FOODS_3,Dole Black Beans (15oz)
+FOODS_1_071,FOODS_1,Dole Oat Milk (Barista Blend)
+FOODS_3_043,FOODS_3,Silk Tortilla Chips
+FOODS_1_140,FOODS_1,Stonyfield Vanilla Bean Yogurt
+FOODS_2_064,FOODS_2,Great Value Smoked Turkey Deli Slices
+FOODS_3_687,FOODS_3,Quaker Baby Carrots Bag
+FOODS_3_452,FOODS_3,Kelloggs Canned Sweet Corn
+FOODS_3_729,FOODS_3,Tyson Spaghetti Noodles
+FOODS_2_258,FOODS_2,Organic Valley Tilapia Fillets
+FOODS_1_198,FOODS_1,General Mills Shredded Mozzarella
+FOODS_3_824,FOODS_3,Chobani Canned Sweet Corn
+FOODS_3_013,FOODS_3,Annie's Sparkling Water (Lime)
+FOODS_3_478,FOODS_3,Nature Valley Sparkling Water (Lime)
+FOODS_1_177,FOODS_1,Marketside Ricotta Cheese
+FOODS_3_010,FOODS_3,Horizon White Rice (2lb)
+FOODS_2_118,FOODS_2,General Mills Frozen Peaches
+FOODS_2_296,FOODS_2,Chobani Pork Loin Chops
+FOODS_3_168,FOODS_3,Chobani Sparkling Water (Lime)
+FOODS_3_612,FOODS_3,Kelloggs Roasted Peanuts
+FOODS_1_155,FOODS_1,Silk Cheddar Cheese Block
+FOODS_2_198,FOODS_2,General Mills Tilapia Fillets
+FOODS_1_020,FOODS_1,Kelloggs Vanilla Bean Yogurt
+FOODS_3_436,FOODS_3,Kelloggs Sliced White Bread
+FOODS_2_231,FOODS_2,Dole Frozen Spinich
+FOODS_1_149,FOODS_1,Kraft Whipped Topping
+FOODS_1_156,FOODS_1,Stonyfield String Cheese Snacks
+FOODS_1_105,FOODS_1,Tyson Liquid Egg Whites
+FOODS_2_286,FOODS_2,Nature Valley Corned Beef
+FOODS_1_167,FOODS_1,Dole Margarine Tub
+FOODS_3_486,FOODS_3,General Mills Roma Tomatoes
+FOODS_2_279,FOODS_2,Dole Frozen Chicken Nuggets
+FOODS_1_147,FOODS_1,Nestle Ricotta Cheese
+FOODS_3_440,FOODS_3,Chobani Whole Wheat Bread
+FOODS_3_716,FOODS_3,Stonyfield Potato Chips (Classic)
+FOODS_3_490,FOODS_3,Horizon Green Seedless Grapes
+FOODS_1_102,FOODS_1,General Mills Cottage Cheese (Low Fat)
+FOODS_3_149,FOODS_3,Kraft Green Seedless Grapes
+FOODS_3_582,FOODS_3,General Mills Instant Coffee
+FOODS_2_088,FOODS_2,Chobani Frozen Peaches
+FOODS_3_084,FOODS_3,Kelloggs Chocolate Chip Cookies
+FOODS_3_686,FOODS_3,Nature Valley Classic Cola 2L
+FOODS_3_544,FOODS_3,Great Value Granola Bars (Oats)
+FOODS_1_203,FOODS_1,Silk Blueberry Yogurt 4pk
+FOODS_3_206,FOODS_3,Nature Valley Iceberg Lettuce
+FOODS_3_196,FOODS_3,Kelloggs White Rice (2lb)
+FOODS_3_145,FOODS_3,Marketside Roma Tomatoes
+FOODS_3_426,FOODS_3,Horizon Roasted Peanuts
+FOODS_3_669,FOODS_3,Annie's Canned Sweet Corn
+FOODS_3_528,FOODS_3,Great Value Red Gala Apples
+FOODS_2_103,FOODS_2,Dole Mixed Vegetable Medley
+FOODS_3_660,FOODS_3,Kelloggs Russet Potatoes (5lb)
+FOODS_3_622,FOODS_3,Nature Valley Sliced White Bread
+FOODS_3_608,FOODS_3,Great Value Black Beans (15oz)
+FOODS_3_680,FOODS_3,Chobani Fruit Snacks
+FOODS_2_319,FOODS_2,Quaker Turkey Bacon
+FOODS_2_272,FOODS_2,Great Value Frozen Pepperoni Pizza
+FOODS_1_052,FOODS_1,Kelloggs Salted Butter Sticks
+FOODS_3_045,FOODS_3,Annie's Honey Nut Cereal
+FOODS_3_170,FOODS_3,Horizon Marinara Pasta Sauce
+FOODS_1_133,FOODS_1,Kraft Orange Juice (No Pulp)
+FOODS_2_190,FOODS_2,Nature Valley Honey Ham Slices
+FOODS_3_075,FOODS_3,Silk Sparkling Water (Lime)
+FOODS_3_531,FOODS_3,Nestle Classic Cola 2L
+FOODS_3_776,FOODS_3,Chobani Red Gala Apples
+FOODS_2_027,FOODS_2,Silk Breaded Fish Sticks
+FOODS_2_043,FOODS_2,Silk Mixed Vegetable Medley
+FOODS_1_109,FOODS_1,Annie's Swiss Cheese Slices
+FOODS_1_135,FOODS_1,Dole Liquid Egg Whites
+FOODS_1_062,FOODS_1,Nature Valley Large Grade A Eggs (12ct)
+FOODS_3_027,FOODS_3,Silk Bagged Salad Mix
+FOODS_2_124,FOODS_2,Stonyfield Smoked Turkey Deli Slices
+FOODS_2_210,FOODS_2,Organic Valley Chicken Breast (Boneless)
+FOODS_1_176,FOODS_1,Great Value Cage Free Brown Eggs
+FOODS_1_017,FOODS_1,Marketside Margarine Tub
+FOODS_2_050,FOODS_2,Organic Valley Hot Dogs (8ct)
+FOODS_3_068,FOODS_3,Kelloggs Whole Wheat Bread
+FOODS_2_177,FOODS_2,Marketside Breaded Fish Sticks
+FOODS_3_553,FOODS_3,Tyson Avocados (Hass)
+FOODS_2_284,FOODS_2,Stonyfield Breakfast Burritos
+FOODS_3_095,FOODS_3,Quaker Sliced White Bread
+FOODS_2_301,FOODS_2,Annie's Ground Beef (93% Lean)
+FOODS_3_620,FOODS_3,Stonyfield Organic Bananas (Bunch)
+FOODS_3_658,FOODS_3,Organic Valley Peanut Butter (Creamy)
+FOODS_1_014,FOODS_1,Nature Valley Probiotic Drink
+FOODS_3_345,FOODS_3,Tyson Classic Cola 2L
+FOODS_3_639,FOODS_3,Quaker Black Beans (15oz)
+FOODS_3_060,FOODS_3,Stonyfield Fruit Snacks
+FOODS_3_650,FOODS_3,Horizon English Muffins
+FOODS_3_073,FOODS_3,Tyson Yellow Onions
+FOODS_2_277,FOODS_2,Kraft Frozen Mixed Berries
+FOODS_2_224,FOODS_2,Great Value Breakfast Burritos
+FOODS_3_649,FOODS_3,Tyson Fruit Snacks
+FOODS_3_543,FOODS_3,Quaker Spaghetti Noodles
+FOODS_2_373,FOODS_2,Kraft Mixed Vegetable Medley
+FOODS_2_163,FOODS_2,Nestle Mixed Vegetable Medley
+FOODS_3_365,FOODS_3,Annie's Instant Coffee
+FOODS_1_101,FOODS_1,Kraft Oat Milk (Barista Blend)
+FOODS_3_429,FOODS_3,Annie's Avocados (Hass)
+FOODS_2_186,FOODS_2,Horizon Pork Sausage Links
+FOODS_2_001,FOODS_2,Marketside Ground Beef (93% Lean)
+FOODS_2_234,FOODS_2,Horizon Raw Shrimp (Peeled)
+FOODS_3_724,FOODS_3,Kelloggs Yellow Onions
+FOODS_3_733,FOODS_3,Annie's Iceberg Lettuce
+FOODS_3_457,FOODS_3,Tyson Roasted Peanuts
+FOODS_3_456,FOODS_3,Chobani Chocolate Chip Cookies
+FOODS_3_701,FOODS_3,Annie's Black Beans (15oz)
+FOODS_2_264,FOODS_2,Chobani Raw Shrimp (Peeled)
+FOODS_2_320,FOODS_2,Great Value Hot Dogs (8ct)
+FOODS_1_144,FOODS_1,Great Value Chocolate Milk
+FOODS_3_312,FOODS_3,Chobani Sliced White Bread
+FOODS_1_073,FOODS_1,Tyson Orange Juice (No Pulp)
+FOODS_3_492,FOODS_3,Stonyfield Bagged Salad Mix
+FOODS_3_677,FOODS_3,Kraft Avocados (Hass)
+FOODS_2_105,FOODS_2,Tyson Meatball Sub Kit
+FOODS_2_018,FOODS_2,Organic Valley Tilapia Fillets
+FOODS_3_554,FOODS_3,Horizon Bagged Salad Mix
+FOODS_1_191,FOODS_1,Quaker Oat Milk (Barista Blend)
+FOODS_3_815,FOODS_3,Quaker Russet Potatoes (5lb)
+FOODS_1_169,FOODS_1,Tyson Swiss Cheese Slices
+FOODS_3_709,FOODS_3,Kraft Bagged Salad Mix
+FOODS_3_114,FOODS_3,Organic Valley Roma Tomatoes
+FOODS_3_240,FOODS_3,Great Value Roasted Peanuts
+FOODS_3_157,FOODS_3,Annie's Sliced White Bread
+FOODS_2_335,FOODS_2,Quaker Frozen Broccoli Florets
+FOODS_2_004,FOODS_2,Kelloggs Smoked Turkey Deli Slices
+FOODS_3_826,FOODS_3,Horizon Iceberg Lettuce
+FOODS_2_308,FOODS_2,Kelloggs Atlantic Salmon Fillet
+FOODS_2_132,FOODS_2,Kelloggs Frozen French Fries
+FOODS_2_370,FOODS_2,Organic Valley Honey Ham Slices
+FOODS_3_420,FOODS_3,Kelloggs Granola Bars (Oats)
+FOODS_3_445,FOODS_3,Annie's Yellow Onions
+FOODS_1_188,FOODS_1,Stonyfield Heavy Whipping Cream
+FOODS_3_056,FOODS_3,Chobani Green Seedless Grapes
+FOODS_2_236,FOODS_2,Stonyfield Pork Loin Chops
+FOODS_2_188,FOODS_2,Stonyfield Atlantic Salmon Fillet
+FOODS_2_202,FOODS_2,Horizon Ice Cream (Vanilla Bean)
+FOODS_3_773,FOODS_3,Kraft Fruit Snacks
+FOODS_3_375,FOODS_3,Dole Potato Chips (Classic)
+FOODS_2_133,FOODS_2,Kraft Mixed Vegetable Medley
+FOODS_3_105,FOODS_3,Tyson Tortilla Chips
+FOODS_3_484,FOODS_3,Kelloggs Black Beans (15oz)
+FOODS_2_120,FOODS_2,Chobani Chicken Breast (Boneless)
+FOODS_2_011,FOODS_2,Silk Beef Chuck Roast
+FOODS_1_064,FOODS_1,Great Value Unsalted Sweet Cream Butter
+FOODS_3_778,FOODS_3,Horizon Potato Chips (Classic)
+FOODS_3_125,FOODS_3,Annie's Red Gala Apples
+FOODS_3_735,FOODS_3,Quaker Chocolate Chip Cookies
+FOODS_3_780,FOODS_3,Stonyfield Baby Carrots Bag
+FOODS_3_641,FOODS_3,Marketside Roma Tomatoes
+FOODS_2_314,FOODS_2,Horizon Breakfast Burritos
+FOODS_3_813,FOODS_3,Annie's Peanut Butter (Creamy)
+FOODS_2_206,FOODS_2,Nature Valley Pork Loin Chops
+FOODS_2_208,FOODS_2,Great Value Frozen Peaches
+FOODS_3_762,FOODS_3,Horizon Canned Sweet Corn
+FOODS_3_193,FOODS_3,Marketside Peanut Butter (Creamy)
+FOODS_3_416,FOODS_3,Great Value Sparkling Water (Lime)
+FOODS_2_235,FOODS_2,Silk Frozen Lasagna
+FOODS_3_621,FOODS_3,Annie's Red Gala Apples
+FOODS_2_058,FOODS_2,Horizon Frozen Peaches
+FOODS_3_437,FOODS_3,Kraft Potato Chips (Classic)
+FOODS_3_268,FOODS_3,Stonyfield Iceberg Lettuce
+FOODS_1_039,FOODS_1,Dole Almond Milk (Unsweetened)
+FOODS_1_186,FOODS_1,Horizon String Cheese Snacks
+FOODS_3_297,FOODS_3,Tyson Canned Sweet Corn
+FOODS_1_068,FOODS_1,Kelloggs Heavy Whipping Cream
+FOODS_3_552,FOODS_3,Chobani Green Seedless Grapes
+FOODS_3_396,FOODS_3,Stonyfield Instant Coffee
+FOODS_2_329,FOODS_2,Tyson Veggie Burgers
+FOODS_2_323,FOODS_2,Nestle Salami Trio
+FOODS_2_169,FOODS_2,Tyson Turkey Bacon
+FOODS_3_518,FOODS_3,General Mills Chocolate Chip Cookies
+FOODS_2_031,FOODS_2,Quaker Ground Beef (93% Lean)
+FOODS_3_550,FOODS_3,General Mills Roasted Peanuts
+FOODS_2_213,FOODS_2,Kraft Beef Patties (1/4 lb)
+FOODS_3_049,FOODS_3,Marketside Canned Sweet Corn
+FOODS_3_717,FOODS_3,Annie's Classic Cola 2L
+FOODS_3_358,FOODS_3,General Mills Granola Bars (Oats)
+FOODS_3_425,FOODS_3,Tyson Chocolate Chip Cookies
+FOODS_2_249,FOODS_2,Tyson Frozen Chicken Nuggets
+FOODS_3_401,FOODS_3,Marketside Fruit Snacks
+FOODS_1_134,FOODS_1,General Mills Probiotic Drink
+FOODS_3_506,FOODS_3,Horizon White Rice (2lb)
+FOODS_2_260,FOODS_2,Kelloggs Hot Dogs (8ct)
+FOODS_3_161,FOODS_3,Marketside Whole Wheat Bread
+FOODS_2_295,FOODS_2,Dole Frozen Lasagna
+FOODS_3_802,FOODS_3,Organic Valley Bagged Salad Mix
+FOODS_3_198,FOODS_3,General Mills Tortilla Chips
+FOODS_2_332,FOODS_2,Stonyfield Frozen Pepperoni Pizza
+FOODS_2_358,FOODS_2,General Mills Frozen Peaches
+FOODS_2_203,FOODS_2,Silk Salami Trio
+FOODS_2_394,FOODS_2,Horizon Smoked Turkey Deli Slices
+FOODS_3_247,FOODS_3,Dole English Muffins
+FOODS_2_130,FOODS_2,Organic Valley Honey Ham Slices
+FOODS_3_390,FOODS_3,General Mills Canned Sweet Corn
+FOODS_2_069,FOODS_2,Kraft Frozen Chicken Nuggets
+FOODS_3_447,FOODS_3,Quaker Sparkling Water (Lime)
+FOODS_2_392,FOODS_2,Chobani Frozen Pepperoni Pizza
+FOODS_1_119,FOODS_1,Dole Whipped Topping
+FOODS_2_110,FOODS_2,Nature Valley Hot Dogs (8ct)
+FOODS_3_104,FOODS_3,Chobani Yellow Onions
+FOODS_2_053,FOODS_2,Kraft Salami Trio
+FOODS_3_275,FOODS_3,Nestle Bagged Salad Mix
+FOODS_3_235,FOODS_3,Silk Canned Sweet Corn
+FOODS_3_341,FOODS_3,Kraft Organic Bananas (Bunch)
+FOODS_3_166,FOODS_3,General Mills Yellow Onions
+FOODS_3_085,FOODS_3,Kraft Roasted Peanuts
+FOODS_2_215,FOODS_2,Dole Frozen Broccoli Florets
+FOODS_3_204,FOODS_3,Stonyfield Canned Sweet Corn
+FOODS_3_427,FOODS_3,Silk Instant Coffee
+FOODS_2_366,FOODS_2,Nature Valley Pork Sausage Links
+FOODS_2_140,FOODS_2,Stonyfield Hot Dogs (8ct)
+FOODS_3_642,FOODS_3,Organic Valley Chocolate Chip Cookies
+FOODS_3_640,FOODS_3,Great Value Iceberg Lettuce
+FOODS_3_340,FOODS_3,Kelloggs English Muffins
+FOODS_2_343,FOODS_2,Dole Mixed Vegetable Medley
+FOODS_1_197,FOODS_1,Kraft Margarine Tub
+FOODS_3_408,FOODS_3,Chobani Baby Carrots Bag
+FOODS_3_719,FOODS_3,Quaker Whole Wheat Bread
+FOODS_1_081,FOODS_1,Marketside Pepper Jack Cubes
+FOODS_3_158,FOODS_3,Nature Valley Potato Chips (Classic)
+FOODS_3_522,FOODS_3,Horizon Avocados (Hass)
+FOODS_3_637,FOODS_3,Annie's Granola Bars (Oats)
+FOODS_3_047,FOODS_3,Quaker Spaghetti Noodles
+FOODS_3_044,FOODS_3,Stonyfield Sparkling Water (Lime)
+FOODS_3_216,FOODS_3,Chobani English Muffins
+FOODS_3_218,FOODS_3,Horizon Red Gala Apples
+FOODS_3_667,FOODS_3,Silk Spaghetti Noodles
+FOODS_1_114,FOODS_1,Organic Valley Chocolate Milk
+FOODS_3_031,FOODS_3,Quaker Organic Bananas (Bunch)
+FOODS_1_125,FOODS_1,Annie's Cheddar Cheese Block
+FOODS_3_309,FOODS_3,Kraft English Muffins
+FOODS_3_821,FOODS_3,Kraft Marinara Pasta Sauce
+FOODS_1_075,FOODS_1,Silk Liquid Egg Whites
+FOODS_3_061,FOODS_3,Annie's English Muffins
+FOODS_2_205,FOODS_2,Annie's Frozen Lasagna
+FOODS_3_754,FOODS_3,Organic Valley White Rice (2lb)
+FOODS_2_387,FOODS_2,Nestle Breaded Fish Sticks
+FOODS_3_419,FOODS_3,Nestle Spaghetti Noodles
+FOODS_2_278,FOODS_2,General Mills Atlantic Salmon Fillet
+FOODS_3_272,FOODS_3,Great Value Instant Coffee
+FOODS_3_244,FOODS_3,Kelloggs Bagged Salad Mix
+FOODS_2_336,FOODS_2,Great Value Pork Sausage Links
+FOODS_1_118,FOODS_1,General Mills Parmesan Shaker
+FOODS_2_350,FOODS_2,Nature Valley Hot Dogs (8ct)
+FOODS_2_012,FOODS_2,Stonyfield Frozen French Fries
+FOODS_3_567,FOODS_3,Dole Russet Potatoes (5lb)
+FOODS_3_647,FOODS_3,Dole Bagged Salad Mix
+FOODS_1_030,FOODS_1,Nature Valley Whole Milk (1 gal)
+FOODS_2_066,FOODS_2,Organic Valley Pork Sausage Links
+FOODS_2_122,FOODS_2,Horizon Frozen Pepperoni Pizza
+FOODS_2_305,FOODS_2,Marketside Frozen Broccoli Florets
+FOODS_3_630,FOODS_3,General Mills White Rice (2lb)
+FOODS_3_173,FOODS_3,Annie's Canned Sweet Corn
+FOODS_2_331,FOODS_2,Silk Ground Beef (93% Lean)
+FOODS_3_055,FOODS_3,Dole Instant Coffee
+FOODS_3_179,FOODS_3,Nestle Instant Coffee
+FOODS_3_251,FOODS_3,Silk Potato Chips (Classic)
+FOODS_3_188,FOODS_3,Stonyfield Sliced White Bread
+FOODS_3_763,FOODS_3,Silk Black Beans (15oz)
+FOODS_3_402,FOODS_3,Organic Valley English Muffins
+FOODS_2_227,FOODS_2,Nestle Frozen Waffles
+FOODS_3_623,FOODS_3,Quaker Potato Chips (Classic)
+FOODS_2_180,FOODS_2,Kelloggs Chicken Breast (Boneless)
+FOODS_3_710,FOODS_3,General Mills Pretzels
+FOODS_1_050,FOODS_1,Organic Valley Vanilla Bean Yogurt
+FOODS_1_078,FOODS_1,Nature Valley Shredded Mozzarella
+FOODS_3_147,FOODS_3,Nestle Roasted Peanuts
+FOODS_3_323,FOODS_3,Nestle Sparkling Water (Lime)
+FOODS_2_113,FOODS_2,Marketside Salami Trio
+FOODS_3_379,FOODS_3,Silk Peanut Butter (Creamy)
+FOODS_3_421,FOODS_3,Kraft Canned Sweet Corn
+FOODS_2_045,FOODS_2,Annie's Meatball Sub Kit
+FOODS_1_158,FOODS_1,Nature Valley Heavy Whipping Cream
+FOODS_3_072,FOODS_3,Chobani White Rice (2lb)
+FOODS_2_338,FOODS_2,Organic Valley Atlantic Salmon Fillet
+FOODS_3_777,FOODS_3,Tyson Sliced White Bread
+FOODS_3_278,FOODS_3,General Mills English Muffins
+FOODS_2_084,FOODS_2,Kelloggs Raw Shrimp (Peeled)
+FOODS_2_269,FOODS_2,Annie's Veggie Burgers
+FOODS_1_034,FOODS_1,Organic Valley Unsalted Sweet Cream Butter
+FOODS_3_270,FOODS_3,Nature Valley Chocolate Chip Cookies
+FOODS_2_290,FOODS_2,Organic Valley Hot Dogs (8ct)
+FOODS_2_032,FOODS_2,Great Value Frozen Pepperoni Pizza
+FOODS_3_758,FOODS_3,General Mills Honey Nut Cereal
+FOODS_2_148,FOODS_2,Kelloggs Frozen Peaches
+FOODS_3_003,FOODS_3,Nestle Potato Chips (Classic)
+FOODS_3_619,FOODS_3,Silk English Muffins
+FOODS_2_355,FOODS_2,Nestle Frozen Lasagna
+FOODS_2_228,FOODS_2,Kelloggs Tilapia Fillets
+FOODS_3_262,FOODS_3,General Mills Honey Nut Cereal
+FOODS_1_199,FOODS_1,Dole Swiss Cheese Slices
+FOODS_3_360,FOODS_3,Chobani Black Beans (15oz)
+FOODS_3_527,FOODS_3,Quaker Organic Bananas (Bunch)
+FOODS_2_037,FOODS_2,Kraft Frozen Mixed Berries
+FOODS_3_006,FOODS_3,General Mills Whole Wheat Bread
+FOODS_2_095,FOODS_2,Quaker Frozen Broccoli Florets
+FOODS_2_292,FOODS_2,Kelloggs Ice Cream (Vanilla Bean)
+FOODS_3_040,FOODS_3,Chobani Russet Potatoes (5lb)
+FOODS_3_556,FOODS_3,Stonyfield Fruit Snacks
+FOODS_3_722,FOODS_3,Organic Valley Russet Potatoes (5lb)
+FOODS_3_442,FOODS_3,Horizon Strawberry Jam
+FOODS_3_798,FOODS_3,Nature Valley Roasted Peanuts
+FOODS_2_023,FOODS_2,Dole Salami Trio
+FOODS_3_673,FOODS_3,Marketside Chocolate Chip Cookies
+FOODS_1_070,FOODS_1,General Mills Cream Cheese Spread
+FOODS_2_270,FOODS_2,Nature Valley Chicken Breast (Boneless)
+FOODS_3_223,FOODS_3,Quaker Whole Wheat Bread
+FOODS_2_091,FOODS_2,Silk Ground Beef (93% Lean)
+FOODS_2_089,FOODS_2,Tyson Veggie Burgers
+FOODS_2_265,FOODS_2,Tyson Frozen Lasagna
+FOODS_3_172,FOODS_3,Stonyfield Granola Bars (Oats)
+FOODS_2_363,FOODS_2,Silk Beef Patties (1/4 lb)
+FOODS_2_102,FOODS_2,General Mills Frozen French Fries
+FOODS_2_317,FOODS_2,Annie's Frozen Waffles
+FOODS_2_378,FOODS_2,Horizon Tilapia Fillets
+FOODS_1_136,FOODS_1,Chobani Half & Half Creamer
+FOODS_3_443,FOODS_3,Silk Russet Potatoes (5lb)
+FOODS_3_720,FOODS_3,Great Value Peanut Butter (Creamy)
+FOODS_2_298,FOODS_2,Horizon Frozen Peaches
+FOODS_2_185,FOODS_2,Tyson Frozen Broccoli Florets
+FOODS_1_060,FOODS_1,Stonyfield Whole Milk (1 gal)
+FOODS_2_136,FOODS_2,Chobani Corned Beef
+FOODS_3_110,FOODS_3,Nature Valley Granola Bars (Oats)
+FOODS_2_377,FOODS_2,Tyson Frozen Waffles
+FOODS_3_380,FOODS_3,Stonyfield Strawberry Jam
+FOODS_1_164,FOODS_1,Kelloggs Probiotic Drink
+FOODS_3_743,FOODS_3,Dole English Muffins
+FOODS_1_029,FOODS_1,Annie's Whipped Topping
+FOODS_3_229,FOODS_3,Kraft Tortilla Chips
+FOODS_3_119,FOODS_3,Dole Avocados (Hass)
+FOODS_3_549,FOODS_3,Kraft Chocolate Chip Cookies
+FOODS_2_386,FOODS_2,Organic Valley Pork Loin Chops
+FOODS_3_529,FOODS_3,Marketside Sliced White Bread
+FOODS_2_008,FOODS_2,Chobani Atlantic Salmon Fillet
+FOODS_2_250,FOODS_2,Horizon Honey Ham Slices
+FOODS_2_261,FOODS_2,Kraft Frozen Spinich
+FOODS_3_597,FOODS_3,Kraft Strawberry Jam
+FOODS_3_453,FOODS_3,Kraft Black Beans (15oz)
+FOODS_3_036,FOODS_3,Kelloggs Baby Carrots Bag
+FOODS_3_122,FOODS_3,Horizon Fruit Snacks
+FOODS_1_053,FOODS_1,Kraft Blueberry Yogurt 4pk
+FOODS_1_212,FOODS_1,Kelloggs Large Grade A Eggs (12ct)
+FOODS_3_221,FOODS_3,Annie's Classic Cola 2L
+FOODS_1_093,FOODS_1,Annie's Greek Strawberry Yogurt
+FOODS_1_002,FOODS_1,Organic Valley Large Grade A Eggs (12ct)
+FOODS_3_143,FOODS_3,Quaker Black Beans (15oz)
+FOODS_1_157,FOODS_1,Annie's Sour Cream (16oz)
+FOODS_3_670,FOODS_3,Nature Valley Black Beans (15oz)
+FOODS_2_345,FOODS_2,Tyson Meatball Sub Kit
+FOODS_2_172,FOODS_2,Stonyfield Ice Cream (Vanilla Bean)
+FOODS_3_600,FOODS_3,Chobani Yellow Onions
+FOODS_2_389,FOODS_2,Kraft Veggie Burgers
+FOODS_2_178,FOODS_2,Organic Valley Frozen Peaches
+FOODS_1_141,FOODS_1,Annie's Pepper Jack Cubes
+FOODS_2_094,FOODS_2,Nature Valley Smoked Turkey Deli Slices
+FOODS_3_018,FOODS_3,Organic Valley Canned Sweet Corn
+FOODS_3_430,FOODS_3,Nature Valley Bagged Salad Mix
+FOODS_1_059,FOODS_1,Silk Whipped Topping
+FOODS_3_215,FOODS_3,Dole Fruit Snacks
+FOODS_2_200,FOODS_2,Chobani Hot Dogs (8ct)
+FOODS_2_161,FOODS_2,Marketside Beef Chuck Roast
+FOODS_2_328,FOODS_2,Chobani Frozen Peaches
+FOODS_3_397,FOODS_3,Annie's Green Seedless Grapes
+FOODS_1_107,FOODS_1,Silk Margarine Tub
+FOODS_2_076,FOODS_2,Stonyfield Corned Beef
+FOODS_2_253,FOODS_2,Annie's Mixed Vegetable Medley
+FOODS_2_324,FOODS_2,Kelloggs Raw Shrimp (Peeled)
+FOODS_3_343,FOODS_3,Dole Sliced White Bread
+FOODS_2_087,FOODS_2,Dole Breaded Fish Sticks
+FOODS_3_004,FOODS_3,Kelloggs Classic Cola 2L
+FOODS_1_057,FOODS_1,Tyson Ricotta Cheese
+FOODS_1_010,FOODS_1,Horizon Cream Cheese Spread
+FOODS_2_077,FOODS_2,Annie's Frozen Waffles
+FOODS_1_122,FOODS_1,Horizon Large Grade A Eggs (12ct)
+FOODS_2_312,FOODS_2,Chobani Frozen French Fries
+FOODS_1_126,FOODS_1,Nature Valley String Cheese Snacks
+FOODS_1_179,FOODS_1,Nestle Whipped Topping
+FOODS_2_273,FOODS_2,Marketside Beef Patties (1/4 lb)
+FOODS_2_039,FOODS_2,Dole Frozen Chicken Nuggets
+FOODS_2_243,FOODS_2,Nestle Beef Patties (1/4 lb)
+FOODS_2_111,FOODS_2,Quaker Frozen Spinich
+FOODS_2_268,FOODS_2,Stonyfield Frozen Peaches
+FOODS_1_193,FOODS_1,Marketside Orange Juice (No Pulp)
+FOODS_1_171,FOODS_1,Silk Pepper Jack Cubes
+FOODS_2_354,FOODS_2,Organic Valley Raw Shrimp (Peeled)
+FOODS_2_123,FOODS_2,Silk Beef Patties (1/4 lb)
+FOODS_2_214,FOODS_2,General Mills Smoked Turkey Deli Slices
+FOODS_1_211,FOODS_1,Nestle 2% Reduced Fat Milk
+FOODS_3_016,FOODS_3,Great Value Spaghetti Noodles
+FOODS_2_310,FOODS_2,General Mills Honey Ham Slices
+FOODS_2_007,FOODS_2,Dole Frozen Mixed Berries
+FOODS_2_028,FOODS_2,Stonyfield Frozen Peaches
+FOODS_2_259,FOODS_2,Nestle Turkey Bacon
+FOODS_2_154,FOODS_2,Horizon Smoked Turkey Deli Slices
+FOODS_2_393,FOODS_2,Tyson Beef Patties (1/4 lb)
+FOODS_3_662,FOODS_3,General Mills Yellow Onions
+FOODS_3_713,FOODS_3,Tyson Organic Bananas (Bunch)
+FOODS_3_111,FOODS_3,Quaker Canned Sweet Corn
+FOODS_3_017,FOODS_3,Marketside Granola Bars (Oats)
+FOODS_1_151,FOODS_1,Dole 2% Reduced Fat Milk
+FOODS_2_191,FOODS_2,Quaker Beef Chuck Roast
+FOODS_3_806,FOODS_3,General Mills Organic Bananas (Bunch)
+FOODS_3_033,FOODS_3,Marketside Sliced White Bread
+FOODS_2_160,FOODS_2,Great Value Honey Ham Slices
+FOODS_2_281,FOODS_2,Tyson Beef Chuck Roast
+FOODS_2_057,FOODS_2,Tyson Breaded Fish Sticks
+FOODS_3_779,FOODS_3,Silk Classic Cola 2L
+FOODS_3_009,FOODS_3,Tyson Russet Potatoes (5lb)
+FOODS_3_315,FOODS_3,Silk Baby Carrots Bag
+FOODS_1_189,FOODS_1,Annie's Almond Milk (Unsweetened)
+FOODS_1_056,FOODS_1,Chobani Cage Free Brown Eggs
+FOODS_3_576,FOODS_3,Great Value Canned Sweet Corn
+FOODS_2_155,FOODS_2,Silk Frozen Broccoli Florets
+FOODS_2_165,FOODS_2,Kraft Meatball Sub Kit
+FOODS_2_179,FOODS_2,Nestle Veggie Burgers
+FOODS_3_799,FOODS_3,Quaker Instant Coffee
+FOODS_2_341,FOODS_2,Kraft Beef Chuck Roast
+FOODS_3_575,FOODS_3,Quaker Granola Bars (Oats)
+FOODS_2_040,FOODS_2,Chobani Honey Ham Slices
+FOODS_1_148,FOODS_1,Kelloggs Parmesan Shaker
+FOODS_2_256,FOODS_2,Great Value Corned Beef
+FOODS_1_008,FOODS_1,Chobani Heavy Whipping Cream
+FOODS_3_209,FOODS_3,Marketside Roasted Peanuts
+FOODS_2_114,FOODS_2,Organic Valley Raw Shrimp (Peeled)
+FOODS_2_127,FOODS_2,Quaker Frozen Mixed Berries
+FOODS_3_366,FOODS_3,Nature Valley Green Seedless Grapes
+FOODS_3_284,FOODS_3,Stonyfield Baby Carrots Bag
+FOODS_3_751,FOODS_3,Quaker Peanut Butter (Creamy)
+FOODS_3_691,FOODS_3,Nestle Russet Potatoes (5lb)
+FOODS_2_147,FOODS_2,Nestle Breaded Fish Sticks
+FOODS_3_417,FOODS_3,Marketside Honey Nut Cereal
+FOODS_1_160,FOODS_1,Great Value Cream Cheese Spread
+FOODS_1_022,FOODS_1,General Mills Salted Butter Sticks
+FOODS_2_168,FOODS_2,Chobani Tilapia Fillets
+FOODS_3_500,FOODS_3,Kelloggs Classic Cola 2L
+FOODS_2_365,FOODS_2,Annie's Frozen Broccoli Florets
+FOODS_3_364,FOODS_3,Stonyfield Roasted Peanuts
+FOODS_3_254,FOODS_3,Nature Valley Whole Wheat Bread
+FOODS_2_280,FOODS_2,Chobani Honey Ham Slices
+FOODS_3_548,FOODS_3,Kelloggs Roma Tomatoes
+FOODS_3_471,FOODS_3,Dole Whole Wheat Bread
+FOODS_3_088,FOODS_3,Chobani Avocados (Hass)
+FOODS_3_736,FOODS_3,Great Value Roasted Peanuts
+FOODS_2_207,FOODS_2,Quaker Breaded Fish Sticks
+FOODS_3_510,FOODS_3,Nature Valley Honey Nut Cereal
+FOODS_2_195,FOODS_2,Nestle Meatball Sub Kit
+FOODS_2_395,FOODS_2,Silk Frozen Broccoli Florets
+FOODS_3_180,FOODS_3,Kelloggs Green Seedless Grapes
+FOODS_2_271,FOODS_2,Quaker Ground Beef (93% Lean)
+FOODS_2_300,FOODS_2,Stonyfield Chicken Breast (Boneless)
+FOODS_2_017,FOODS_2,Marketside Frozen Waffles
+FOODS_2_048,FOODS_2,Great Value Tilapia Fillets
+FOODS_2_369,FOODS_2,Marketside Frozen Chicken Nuggets
+FOODS_3_517,FOODS_3,Kraft Roma Tomatoes
+FOODS_3_409,FOODS_3,Tyson Whole Wheat Bread
+FOODS_3_164,FOODS_3,Kelloggs Russet Potatoes (5lb)
+FOODS_3_633,FOODS_3,Tyson Sparkling Water (Lime)
+FOODS_3_613,FOODS_3,Kraft Instant Coffee
+FOODS_1_111,FOODS_1,Quaker Pepper Jack Cubes
+FOODS_3_353,FOODS_3,Marketside Tortilla Chips
+FOODS_2_313,FOODS_2,Tyson Mixed Vegetable Medley
+FOODS_3_359,FOODS_3,Dole Canned Sweet Corn
+FOODS_3_210,FOODS_3,Organic Valley Instant Coffee
+FOODS_1_089,FOODS_1,Tyson Whipped Topping
+FOODS_2_097,FOODS_2,Marketside Frozen Mixed Berries
+FOODS_2_187,FOODS_2,Silk Frozen Mixed Berries
+FOODS_3_256,FOODS_3,Great Value Strawberry Jam
+FOODS_2_372,FOODS_2,Kelloggs Frozen French Fries
+FOODS_3_338,FOODS_3,Organic Valley Pretzels
+FOODS_2_090,FOODS_2,Horizon Chicken Breast (Boneless)
+FOODS_3_626,FOODS_3,Organic Valley Whole Wheat Bread
+FOODS_3_696,FOODS_3,Chobani Honey Nut Cereal
+FOODS_2_287,FOODS_2,Quaker Frozen Waffles
+FOODS_3_745,FOODS_3,Tyson Red Gala Apples
+FOODS_3_165,FOODS_3,Kraft White Rice (2lb)
+FOODS_3_038,FOODS_3,General Mills Peanut Butter (Creamy)
+FOODS_3_371,FOODS_3,Nestle English Muffins
+FOODS_3_264,FOODS_3,Chobani Spaghetti Noodles
+FOODS_3_790,FOODS_3,General Mills Marinara Pasta Sauce
+FOODS_2_246,FOODS_2,General Mills Pork Sausage Links
+FOODS_2_158,FOODS_2,Nature Valley Atlantic Salmon Fillet
+FOODS_3_137,FOODS_3,Tyson Sparkling Water (Lime)
+FOODS_1_033,FOODS_1,Marketside Greek Strawberry Yogurt
+FOODS_3_296,FOODS_3,Chobani Granola Bars (Oats)
+FOODS_3_690,FOODS_3,Organic Valley Strawberry Jam
+FOODS_3_507,FOODS_3,Silk Yellow Onions
+FOODS_1_095,FOODS_1,Quaker Cheddar Cheese Block
+FOODS_3_796,FOODS_3,Stonyfield Roma Tomatoes
+FOODS_2_390,FOODS_2,General Mills Chicken Breast (Boneless)
+FOODS_3_737,FOODS_3,Marketside Instant Coffee
+FOODS_3_693,FOODS_3,Kraft Yellow Onions
+FOODS_2_006,FOODS_2,General Mills Pork Sausage Links
+FOODS_3_022,FOODS_3,General Mills Chocolate Chip Cookies
+FOODS_2_129,FOODS_2,Marketside Frozen Chicken Nuggets
+FOODS_1_131,FOODS_1,Nestle Oat Milk (Barista Blend)
+FOODS_2_337,FOODS_2,Marketside Frozen Mixed Berries
+FOODS_2_248,FOODS_2,Chobani Atlantic Salmon Fillet
+FOODS_2_159,FOODS_2,Quaker Frozen Chicken Nuggets
+FOODS_2_226,FOODS_2,Organic Valley Corned Beef
+FOODS_2_068,FOODS_2,Kelloggs Atlantic Salmon Fillet
+FOODS_2_193,FOODS_2,Marketside Mixed Vegetable Medley
+FOODS_1_159,FOODS_1,Quaker Almond Milk (Unsweetened)
+FOODS_2_071,FOODS_2,Dole Beef Chuck Roast
+FOODS_1_098,FOODS_1,Organic Valley Heavy Whipping Cream
+FOODS_3_337,FOODS_3,Marketside Bagged Salad Mix
+FOODS_1_084,FOODS_1,Kelloggs Chocolate Milk
+FOODS_1_077,FOODS_1,Annie's Margarine Tub
+FOODS_3_472,FOODS_3,Chobani Peanut Butter (Creamy)
+FOODS_2_073,FOODS_2,Tyson Mixed Vegetable Medley
+FOODS_2_252,FOODS_2,Stonyfield Frozen French Fries
+FOODS_2_254,FOODS_2,Nature Valley Breakfast Burritos
+FOODS_3_512,FOODS_3,Great Value Spaghetti Noodles
+FOODS_3_563,FOODS_3,Nestle Baby Carrots Bag
+FOODS_2_362,FOODS_2,Horizon Frozen Pepperoni Pizza
+FOODS_2_096,FOODS_2,Great Value Pork Sausage Links
+FOODS_3_255,FOODS_3,Quaker Peanut Butter (Creamy)
+FOODS_2_209,FOODS_2,Marketside Veggie Burgers
+FOODS_3_602,FOODS_3,Horizon Sparkling Water (Lime)
+FOODS_3_260,FOODS_3,Kelloggs Tortilla Chips
+FOODS_2_117,FOODS_2,Kraft Breaded Fish Sticks
+FOODS_2_239,FOODS_2,Quaker Veggie Burgers
+FOODS_3_350,FOODS_3,Nature Valley Russet Potatoes (5lb)
+FOODS_3_595,FOODS_3,Nestle Whole Wheat Bread
+FOODS_2_015,FOODS_2,Quaker Meatball Sub Kit
+FOODS_2_046,FOODS_2,Nature Valley Corned Beef
+FOODS_3_220,FOODS_3,Stonyfield Potato Chips (Classic)
+FOODS_2_379,FOODS_2,Silk Turkey Bacon
+FOODS_3_466,FOODS_3,Organic Valley Red Gala Apples
+FOODS_3_521,FOODS_3,Tyson Green Seedless Grapes
+FOODS_3_601,FOODS_3,Tyson Tortilla Chips
+FOODS_3_703,FOODS_3,Quaker Roma Tomatoes
+FOODS_3_171,FOODS_3,Silk Spaghetti Noodles
+FOODS_1_079,FOODS_1,Quaker Swiss Cheese Slices
