@@ -21,7 +21,7 @@ The system is built as a decoupled microservice to ensure scalability and separa
 
 
 ## Technical Implementation
-* **Model:** Gradient Boosted Trees (LightGBM) with a custom **Tweedie Loss** function to handle sparse, zero-inflated retail data.
+* **Model:** Gradient Boosted Trees (LightGBM) for efficient model training
 * **Uncertainty:** Implemented **Quantile Regression** (0.005 to 0.995) to generate prediction intervals, allowing users to tune their risk-tolerance.
 * **Optimization:** Leveraged **Polars** for feature engineering to achieve a 5x speedup over standard Pandas operations.
 
@@ -35,3 +35,11 @@ docker build -t m5-engine .
 
 # Run the inference server
 docker run -p 8000:8000 m5-engine
+```
+
+## Future Development
+- Improve model calibration and accuracy through hyper-parameter tuning, tracking performance on Weights and Biases ( in progress )
+- Implement Temporal Fusion Transformers to process future SNAP sales effectively ( in progress )
+- Upscale system to use all data from all stores. Approx 30x size increase
+- Compare several models to analyze in when each model is best fit 
+
