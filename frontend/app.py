@@ -199,7 +199,7 @@ if run_btn and item_id:
                 d2.metric("Calibration State", "Overconfident" if capture < 85 else "Underconfident" if capture > 98 else "Calibrated")
 
             with gloss_col:
-                st.markdown("### 📖 Glossary")
+                st.markdown("### Glossary")
                 with st.expander("What do these mean?", expanded=True):
                     st.write("**WSPL:** Error score for probability. Lower = better distribution fit.")
                     st.write("**Interval Capture:** How often actual sales fell within our 'Ribbon'. Target is 95%.")
