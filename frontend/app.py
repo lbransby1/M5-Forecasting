@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # --- 1. SET PAGE CONFIG ---
 #config = toml.load("config.toml")
-st.set_page_config(layout="wide", page_icon="📈", page_title="M5-Forecasting.ino")
+st.set_page_config(layout="wide", page_icon="📈", page_title="M5-Forecasting")
 
 API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 
