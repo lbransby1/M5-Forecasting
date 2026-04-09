@@ -5,6 +5,31 @@
 
 ![M5 Engine Demo](https://raw.githubusercontent.com/lbransby1/M5-Forecasting/832b2211cd305b5034f34cde4fa2f5dd3bd75f35/images/m5-demo.gif)
 
+walmart-m5-system/
+├── training/               <-- "The Lab" (Runs on Lambda Labs)
+│   ├── download_data.py    # Fetches from Kaggle
+│   ├── name_map.py         # LLM name generation
+│   ├── pre_process.py      # Melts CSV to Parquet
+│   ├── train_lgbm.py       # Fast, 10-store global model
+│   ├── train_tft.py        # prestige transformer model
+│   └── requirements.txt    # Heavy ML libs (torch, lightgbm)
+│
+├── backend/                <-- "The Service" (Runs on Railway)
+│   ├── main.py             # FastAPI app
+│   ├── data/
+│   │   └── product_map.json # The names the LLM made
+│   ├── models/             # API downloads weights here from W&B
+│   ├── Dockerfile
+│   └── requirements.txt    # Lean libs (fastapi, uvicorn)
+│
+├── frontend/               <-- "The Dashboard" (Streamlit/React)
+│   ├── app.py
+│   └── Dockerfile
+│
+├── docker-compose.yml      # Spins up Backend + Frontend locally
+└── .gitignore              # MUST ignore training/data/
+
+
 ## The Challenge
 Retailers face a multi-billion dollar "Inventory Gap": overstocking leads to waste, while understocking leads to lost revenue. Most baseline models predict the *mean* (the average), but real-world supply chain decisions require **Quantile Estimates** to calculate **Safety Stock**.
 

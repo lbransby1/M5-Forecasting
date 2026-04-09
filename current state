@@ -1,0 +1,29 @@
+Newest updates
+~~~~~~~~~~~~~~
+
+Experiments
+    LightGBM model trained on full M5 dataset, using temporal feature engineering to improve the loss by ~10%. Saved onto W&B
+    Model is saved into model folder
+    New temporal feature dataset also saved
+
+Training
+    contains an LLM based item labels generator that produces labels based on max, min, std, mean, and avg sale price of an item
+    Not connected to anything at the moment
+
+
+
+Old code
+~~~~~~~~
+
+Backend
+    Only uses one store's items
+    Uses LightGBM with 9 quantiles, very simply trained
+    Randomly assigned labels; brand and item
+    containerized with docker, hosted on railway
+    API gives predictions for next 28 days, with a 28 day back test
+
+
+Frontend
+    Streamlit, displays back test and future prediction
+    display model calibration for each item
+    able to search for item, sorting by name/volatility
