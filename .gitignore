@@ -1,0 +1,12 @@
+# Datasets (Large Files)
+data/raw/*.csv
+data/processed/*.parquet
+
+# Weights & Biases
+wandb/
+.wandb
+
+# Python artifacts (optional but recommended)
+__pycache__/
+*.py[cod]
+.env
