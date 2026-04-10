@@ -9,6 +9,7 @@ import uvicorn
 
 app = FastAPI(title="M5 Forecasting API")
 
+# --- 1. MIDDLEWARE ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,11 +17,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- CONFIGURATION ---
+# --- 2. CONFIGURATION & CALENDAR ---
 DATA_DIR = "backend/data"
 PROCESSED_DATA_PATH = f"{DATA_DIR}/processed/m5_improved.parquet"
 LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
 MODEL_DIR = "models/model_alpha"
+
+# Load Calendar globally for fast lookups
 CALENDAR = pd.read_csv("backend/data/raw/calendar.csv")
 CALENDAR['d_num'] = CALENDAR['d'].str.replace('d_', '').astype(int)
 
@@ -36,18 +39,15 @@ def load_assets():
             MODELS[q] = lgb.Booster(model_file=path)
     print(f"🏁 Startup complete. Loaded {len(MODELS)} models.")
 
-# --- HELPERS ---
+# --- 3. HELPERS ---
 
 def get_history(item_id, count=56):
     if not os.path.exists(PROCESSED_DATA_PATH):
         return [0.0] * count
     try:
-        # Optimization: collect only what we need
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
         result = df.filter(pl.col("item_id") == item_id).tail(count).collect()
-        if result.is_empty():
-            return [0.0] * count
-        return result["sales"].to_list()
+        return result["sales"].to_list() if not result.is_empty() else [0.0] * count
     except:
         return [0.0] * count
 
@@ -56,18 +56,10 @@ def get_item_context(item_id: str):
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
         last_row = df.filter(pl.col("item_id") == item_id).tail(1).collect()
-        if last_row.is_empty(): return None
-        
-        # Convert to dict and handle categorical/string types
-        ctx = last_row.to_dicts()[0]
-        
-        # CRITICAL: If your model expects numbers for IDs, 
-        # you need to extract the underlying category index.
-        # This code assumes Polars/LightGBM handled the string-to-cat conversion.
-        return ctx
+        return last_row.to_dicts()[0] if not last_row.is_empty() else None
     except: return None
 
-# --- PREDICTION ---
+# --- 4. PREDICTION ---
 
 @app.get("/predict/{item_id}")
 def predict(item_id: str, current_stock: float = 0.0):
@@ -76,30 +68,26 @@ def predict(item_id: str, current_stock: float = 0.0):
     ctx = get_item_context(item_id)
     if not ctx: raise HTTPException(status_code=404, detail="Item not found.")
 
-    # Get 56 days: 28 for backtest seed, 28 for current history
     sales_history = np.array(get_history(item_id, 56)) 
-    
     if len(sales_history) < 56:
-        # Pad with zeros if history is short to prevent slice errors
         sales_history = np.pad(sales_history, (56 - len(sales_history), 0), 'constant')
+
+    # Get the current day 'd' from data (e.g., 1941)
+    current_d = int(ctx.get('d', 1941))
 
     def run_forecast_loop(seed_sales, start_d):
         preds = {q: [] for q in QUANTILES}
         current_window = list(seed_sales)
         
         for i in range(28):
-            # 🔍 Look up the CALENDAR for the specific future day
-            target_d = start_d + i
-            day_info = CALENDAR[CALENDAR['d_num'] == target_d].iloc[0]
+            target_day = start_d + i
+            day_info = CALENDAR[CALENDAR['d_num'] == target_day].iloc[0]
             
-            # BUILD THE 14-FEATURE VECTOR WITH REAL FUTURE CONTEXT
             feat_row = [
                 ctx.get('item_id'), ctx.get('dept_id'), ctx.get('cat_id'), 
                 ctx.get('store_id'), ctx.get('state_id'),
-                day_info['wday'],      # Real future day of week!
-                day_info['month'],     # Real future month!
-                ctx.get('sell_price'), 
-                ctx.get('price_norm'),
+                day_info['wday'], day_info['month'], 
+                ctx.get('sell_price', 0), ctx.get('price_norm', 0),
                 np.mean(current_window[-7:]),  
                 np.mean(current_window[-28:]), 
                 day_info['snap_CA'], day_info['snap_TX'], day_info['snap_WI']
@@ -111,7 +99,6 @@ def predict(item_id: str, current_stock: float = 0.0):
                 'roll_mean_7', 'roll_mean_28', 'snap_CA', 'snap_TX', 'snap_WI'
             ])
             
-            # Cast categoricals for LightGBM
             for col in ['item_id', 'dept_id', 'cat_id', 'store_id', 'state_id']:
                 df_exec[col] = df_exec[col].astype('category')
 
@@ -120,15 +107,15 @@ def predict(item_id: str, current_stock: float = 0.0):
                 preds[q].append(p)
             
             current_window.append(preds["0.5"][-1])
-            
         return preds
 
     try:
-        # Correct Slicing: 
-        # bt_seed = first 28 days (0-27)
-        # f_seed = last 28 days (28-55)
-        bt_preds = run_forecast_loop(sales_history[:28])
-        f_preds = run_forecast_loop(sales_history[28:])
+        # ✅ FIX: Passing start_d to functions
+        # Backtest starts 28 days ago
+        bt_preds = run_forecast_loop(sales_history[:28], start_d=(current_d - 27))
+        # Forecast starts tomorrow
+        f_preds = run_forecast_loop(sales_history[28:], start_d=(current_d + 1))
+        
         actuals = sales_history[28:]
         
         return {
@@ -139,7 +126,6 @@ def predict(item_id: str, current_stock: float = 0.0):
             "metrics": {"accuracy": round(float(np.mean(actuals)), 2)}
         }
     except Exception as e:
-        # This will show you exactly which line failed in the Railway logs
         print(f"Prediction Crash: {e}")
         raise HTTPException(status_code=500, detail=f"Inference Error: {e}")
 
@@ -150,6 +136,5 @@ def get_leaderboard_data():
     return []
 
 if __name__ == "__main__":
-    # Use Railway's preferred port
     port = int(os.environ.get("PORT", 8080))
     uvicorn.run(app, host="0.0.0.0", port=port)
