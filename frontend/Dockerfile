@@ -1,27 +1,16 @@
 FROM python:3.11-slim
 
-# Install system dependencies for LightGBM
-RUN apt-get update && apt-get install -y \
-    libgomp1 \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
-# 1. Install requirements (from the backend folder)
-COPY backend/requirements.txt .
+# 1. Install dependencies from the frontend subfolder
+COPY frontend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 2. Copy the backend code into the container's backend folder
-COPY backend/ ./backend/
+# 2. Copy everything from the root so it can see the frontend folder
+COPY . .
 
-# 3. Copy the models from the ROOT models folder into the container
-COPY models/ ./models/
+# 3. Expose the port
+EXPOSE 8501
 
-# 4. Copy the start script from the root
-COPY start.sh .
-RUN chmod +x start.sh
-
-# 5. Set Python path so it can find the backend module
-ENV PYTHONPATH=/app
-
-CMD ["./start.sh"]
+# 4. Use the full path to the module to ensure it starts
+CMD ["python", "-m", "streamlit", "run", "frontend/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
