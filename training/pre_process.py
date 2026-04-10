@@ -23,20 +23,30 @@ def preprocess_m5(add_features=True):
 
     # 2. LAZY LOADING (Scan instead of Read)
     sales = pl.scan_csv(RAW_DATA_DIR / "sales_train_evaluation.csv")
-    calendar = pl.scan_csv(RAW_DATA_DIR / "calendar.csv")
-    prices = pl.scan_csv(RAW_DATA_DIR / "sell_prices.csv")
+    # calendar = pl.scan_csv(RAW_DATA_DIR / "calendar.csv")
+    # prices = pl.scan_csv(RAW_DATA_DIR / "sell_prices.csv")
 
     id_vars = ["id", "item_id", "dept_id", "cat_id", "store_id", "state_id"]
 
     # 3. BUILD PIPELINE
+    calendar = pl.scan_csv(RAW_DATA_DIR / "calendar.csv").with_columns([
+    pl.col("d").cast(pl.Categorical) # d needs to be categorical to match sales
+])
+
+    prices = pl.scan_csv(RAW_DATA_DIR / "sell_prices.csv").with_columns([
+    pl.col("store_id").cast(pl.Categorical), # MUST match sales store_id type
+    pl.col("item_id").cast(pl.Categorical)   # MUST match sales item_id type
+])
+
+# 2. Build the main pipeline
     pipeline = (
-        sales.unpivot(index=id_vars, variable_name="d", value_name="sales")
-        # Optimization: Cast categories immediately after unpivot to save RAM
-        .with_columns([
-            pl.col(c).cast(pl.Categorical) for c in id_vars if c != "id"
-        ])
-        .join(calendar, on="d", how="left")
-        .join(prices, on=["store_id", "item_id", "wm_yr_wk"], how="left")
+    sales.unpivot(index=id_vars, variable_name="d", value_name="sales")
+    .with_columns([
+        pl.col(c).cast(pl.Categorical) for c in id_vars if c != "id"
+    ])
+    .with_columns(pl.col("d").cast(pl.Categorical)) # Ensure 'd' is categorical here too
+    .join(calendar, on="d", how="left")
+    .join(prices, on=["store_id", "item_id", "wm_yr_wk"], how="left")
         .with_columns([
             pl.col("sales").cast(pl.Int16),
             pl.col("sell_price").cast(pl.Float32),
