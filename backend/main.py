@@ -71,33 +71,39 @@ def predict(item_id: str, current_stock: float = 0.0):
         current_window = list(seed_sales)
         
         for i in range(28):
-            # BUILD THE 14-FEATURE VECTOR
-            # Must match the training columns exactly!
+            # BUILD THE EXACT 14-FEATURE VECTOR 
+            # Order matches your list: item, dept, cat, store, state, calendar, rolling
             feat_row = [
-                ctx.get('wday', 1), 
-                ctx.get('month', 1), 
-                ctx.get('sell_price', 0), 
-                ctx.get('price_norm', 0),
-                np.mean(current_window[-7:]),  
-                np.mean(current_window[-28:]), 
-                ctx.get('snap_CA', 0), 
-                ctx.get('snap_TX', 0), 
-                ctx.get('snap_WI', 0),
-                # Add 5 lags to reach 14 features
-                current_window[-1], 
-                current_window[-2], 
-                current_window[-3], 
-                current_window[-7], 
-                current_window[-14]
+                ctx.get('item_id'),   # 1
+                ctx.get('dept_id'),   # 2
+                ctx.get('cat_id'),    # 3
+                ctx.get('store_id'),  # 4
+                ctx.get('state_id'),  # 5
+                ctx.get('wday', 1),    # 6
+                ctx.get('month', 1),   # 7
+                ctx.get('sell_price', 0), # 8
+                ctx.get('price_norm', 0), # 9
+                np.mean(current_window[-7:]),  # 10: roll_mean_7
+                np.mean(current_window[-28:]), # 11: roll_mean_28
+                ctx.get('snap_CA', 0), # 12
+                ctx.get('snap_TX', 0), # 13
+                ctx.get('snap_WI', 0)  # 14
             ]
             
+            # Convert categorical strings/ints to the format LightGBM expects
+            # If your model used LabelEncoding, ensure ctx values are integers.
             x = np.array(feat_row).reshape(1, -1)
+            
             for q in QUANTILES:
                 p = max(0.0, float(MODELS[q].predict(x)[0]))
                 preds[q].append(p)
+            
+            # Update the sliding window with the median forecast
             current_window.append(preds["0.5"][-1])
+            
         return preds
-
+    
+    
     try:
         bt_preds = run_forecast_loop(sales_history[:28])
         f_preds = run_forecast_loop(sales_history[28:])
