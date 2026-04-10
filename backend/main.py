@@ -99,20 +99,13 @@ def predict(item_id: str, current_stock: float = 0.0):
 
     def run_forecast_loop(seed_sales, start_d):
         preds = {q: [] for q in QUANTILES}
-        # Start with a list of floats to ensure JSON compatibility later
         current_window = [float(x) for x in seed_sales]
         
         for i in range(28):
             target_day = int(start_d + i)
-            
-            # Safety check: ensure day exists in calendar
             day_matches = CALENDAR[CALENDAR['d_num'] == target_day]
-            if day_matches.empty:
-                day_info = CALENDAR.iloc[-1] # Fallback to last known day
-            else:
-                day_info = day_matches.iloc[0]
+            day_info = day_matches.iloc[0] if not day_matches.empty else CALENDAR.iloc[-1]
             
-            # --- FEATURE ASSEMBLY ---
             feat_row = [
                 int(MAPPINGS.get('item_id', {}).get(str(ctx.get('item_id')), 0)),
                 int(MAPPINGS.get('dept_id', {}).get(str(ctx.get('dept_id')), 0)),
@@ -123,14 +116,19 @@ def predict(item_id: str, current_stock: float = 0.0):
                 int(day_info['month']), 
                 float(ctx.get('sell_price', 0)), 
                 float(ctx.get('price_norm', 0)),
-                # STEP 3: LAG ALIGNMENT (28-day gap)
                 float(np.mean(current_window[-35:-28])) if len(current_window) >= 35 else 0.0,
                 float(np.mean(current_window[-56:-28])) if len(current_window) >= 56 else 0.0,
                 int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
             ]
             
-            x = np.array(feat_row).reshape(1, -1)
+            # --- DEBUG PRINT: ONLY PRINT THE FIRST DAY OF THE FORECAST ---
+            if i == 0:
+                print(f"DEBUG [Day {target_day}]: {feat_row}")
+                # Optional: Print feature names to verify order
+                # print(f"FEATURES: {FEATURES}")
 
+            x = np.array(feat_row).reshape(1, -1)
+            
             # --- MULTI-QUANTILE INFERENCE ---
             current_preds = []
             for q in QUANTILES:
