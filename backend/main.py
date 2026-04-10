@@ -9,7 +9,6 @@ import uvicorn
 
 app = FastAPI(title="M5 Forecasting API")
 
-# --- 1. MIDDLEWARE ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- 2. CONFIGURATION ---
+# --- CONFIGURATION ---
 DATA_DIR = "backend/data"
 PROCESSED_DATA_PATH = f"{DATA_DIR}/processed/m5_improved.parquet"
 LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
@@ -35,49 +34,35 @@ def load_assets():
             MODELS[q] = lgb.Booster(model_file=path)
     print(f"🏁 Startup complete. Loaded {len(MODELS)} models.")
 
-# --- 3. HELPER FUNCTIONS ---
+# --- HELPERS ---
 
 def get_history(item_id, count=56):
-    """Missing function re-added to prevent NameError crash."""
     if not os.path.exists(PROCESSED_DATA_PATH):
         return [0.0] * count
     try:
         q = pl.scan_parquet(PROCESSED_DATA_PATH)
         result = q.filter(pl.col("item_id") == item_id).tail(count).collect()
-        if result.is_empty():
-            return [0.0] * count
-        return result["sales"].to_list()
-    except Exception as e:
-        print(f"❌ Error reading history: {e}")
+        return result["sales"].to_list() if not result.is_empty() else [0.0] * count
+    except:
         return [0.0] * count
 
 def get_item_context(item_id: str):
-    if not os.path.exists(PROCESSED_DATA_PATH):
-        return None
+    """Fetches the latest state of an item (prices, snap, calendar context)."""
+    if not os.path.exists(PROCESSED_DATA_PATH): return None
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
         last_row = df.filter(pl.col("item_id") == item_id).tail(1).collect()
         return last_row.to_dicts()[0] if not last_row.is_empty() else None
-    except:
-        return None
+    except: return None
 
-# --- 4. ENDPOINTS ---
-
-@app.get("/leaderboard")
-def get_leaderboard():
-    if os.path.exists(LEADERBOARD_PATH):
-        df = pd.read_csv(LEADERBOARD_PATH)
-        return df.head(100).to_dict(orient="records")
-    raise HTTPException(status_code=404, detail="Leaderboard not found")
+# --- PREDICTION ---
 
 @app.get("/predict/{item_id}")
 def predict(item_id: str, current_stock: float = 0.0):
-    if not MODELS:
-        raise HTTPException(status_code=503, detail="Models not loaded.")
-
+    if not MODELS: raise HTTPException(status_code=503, detail="Models not loaded.")
+    
     ctx = get_item_context(item_id)
-    if not ctx:
-        raise HTTPException(status_code=404, detail="Item data not found.")
+    if not ctx: raise HTTPException(status_code=404, detail="Item not found.")
 
     sales_history = np.array(get_history(item_id, 56)) 
     
@@ -86,13 +71,24 @@ def predict(item_id: str, current_stock: float = 0.0):
         current_window = list(seed_sales)
         
         for i in range(28):
-            # Feature engineering matching your notebook
+            # BUILD THE 14-FEATURE VECTOR
+            # Must match the training columns exactly!
             feat_row = [
-                ctx.get('wday', 1), ctx.get('month', 1), 
-                ctx.get('sell_price', 0), ctx.get('price_norm', 0),
+                ctx.get('wday', 1), 
+                ctx.get('month', 1), 
+                ctx.get('sell_price', 0), 
+                ctx.get('price_norm', 0),
                 np.mean(current_window[-7:]),  
                 np.mean(current_window[-28:]), 
-                ctx.get('snap_CA', 0), ctx.get('snap_TX', 0), ctx.get('snap_WI', 0)
+                ctx.get('snap_CA', 0), 
+                ctx.get('snap_TX', 0), 
+                ctx.get('snap_WI', 0),
+                # Add 5 lags to reach 14 features
+                current_window[-1], 
+                current_window[-2], 
+                current_window[-3], 
+                current_window[-7], 
+                current_window[-14]
             ]
             
             x = np.array(feat_row).reshape(1, -1)
@@ -109,17 +105,20 @@ def predict(item_id: str, current_stock: float = 0.0):
         
         return {
             "item_id": item_id,
-            "product_name": str(item_id), # Fixed 'id' error
+            "product_name": str(item_id),
             "history": [float(x) for x in actuals],
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
-            "metrics": {
-                "backtest_accuracy": round(float(np.mean(actuals)), 2)
-            }
+            "metrics": {"accuracy": round(float(np.mean(actuals)), 2)}
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Inference Error: {e}")
 
+@app.get("/leaderboard")
+def leaderboard():
+    if os.path.exists(LEADERBOARD_PATH):
+        return pd.read_csv(LEADERBOARD_PATH).head(100).to_dict(orient="records")
+    return []
+
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
