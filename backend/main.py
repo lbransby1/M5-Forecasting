@@ -79,63 +79,81 @@ def get_item_context(item_id: str):
 
 @app.get("/predict/{item_id}")
 def predict(item_id: str, current_stock: float = 0.0):
-    if not MODELS: raise HTTPException(status_code=503, detail="Models not loaded.")
+    if not MODELS: 
+        raise HTTPException(status_code=503, detail="Models not loaded.")
     
     ctx = get_item_context(item_id)
-    if not ctx: raise HTTPException(status_code=404, detail="Item not found.")
+    if not ctx: 
+        raise HTTPException(status_code=404, detail="Item not found.")
 
+    # Get 56 days of history
     sales_history = np.array(get_history(item_id, 56)) 
+    
+    # Ensure history is exactly 56 days (Backtest + Lag buffer)
     if len(sales_history) < 56:
         sales_history = np.pad(sales_history, (56 - len(sales_history), 0), 'constant')
+    elif len(sales_history) > 56:
+        sales_history = sales_history[-56:]
 
     current_d = int(ctx.get('d', 1941))
 
     def run_forecast_loop(seed_sales, start_d):
         preds = {q: [] for q in QUANTILES}
-        # Ensure seed_sales is at least 56 days to prevent "Empty Slice" warnings
-        current_window = list(seed_sales)
+        # Start with a list of floats to ensure JSON compatibility later
+        current_window = [float(x) for x in seed_sales]
         
         for i in range(28):
-            target_day = start_d + i
-            day_info = CALENDAR[CALENDAR['d_num'] == target_day].iloc[0]
+            target_day = int(start_d + i)
             
-            # --- STEP 1: INTEGER MAPPING (Forcing int type) ---
-            # Using .get() ensures we don't crash on missing keys
-            # Casting to int forces LightGBM to use numeric comparison
+            # Safety check: ensure day exists in calendar
+            day_matches = CALENDAR[CALENDAR['d_num'] == target_day]
+            if day_matches.empty:
+                day_info = CALENDAR.iloc[-1] # Fallback to last known day
+            else:
+                day_info = day_matches.iloc[0]
+            
+            # --- FEATURE ASSEMBLY ---
             feat_row = [
-                int(MAPPINGS['item_id'].get(ctx.get('item_id'), 0)),
-                int(MAPPINGS['dept_id'].get(ctx.get('dept_id'), 0)),
-                int(MAPPINGS['cat_id'].get(ctx.get('cat_id'), 0)),
-                int(MAPPINGS['store_id'].get(ctx.get('store_id'), 0)),
-                int(MAPPINGS['state_id'].get(ctx.get('state_id'), 0)),
+                int(MAPPINGS.get('item_id', {}).get(str(ctx.get('item_id')), 0)),
+                int(MAPPINGS.get('dept_id', {}).get(str(ctx.get('dept_id')), 0)),
+                int(MAPPINGS.get('cat_id', {}).get(str(ctx.get('cat_id')), 0)),
+                int(MAPPINGS.get('store_id', {}).get(str(ctx.get('store_id')), 0)),
+                int(MAPPINGS.get('state_id', {}).get(str(ctx.get('state_id')), 0)),
                 int(day_info['wday']), 
                 int(day_info['month']), 
                 float(ctx.get('sell_price', 0)), 
                 float(ctx.get('price_norm', 0)),
-                # --- STEP 3: LAG LOGIC (With Safety Check) ---
+                # STEP 3: LAG ALIGNMENT (28-day gap)
                 float(np.mean(current_window[-35:-28])) if len(current_window) >= 35 else 0.0,
                 float(np.mean(current_window[-56:-28])) if len(current_window) >= 56 else 0.0,
                 int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
             ]
             
-            # Use a NumPy array for prediction instead of a DataFrame
-            # Since we converted IDs to integers, LightGBM won't complain about strings
             x = np.array(feat_row).reshape(1, -1)
 
+            # --- MULTI-QUANTILE INFERENCE ---
+            current_preds = []
             for q in QUANTILES:
-                # Use 'predict' with categorical_feature spec ignored since we are passing ints
                 p = max(0.0, float(MODELS[q].predict(x)[0]))
                 preds[q].append(p)
+                current_preds.append(p)
             
-            # STEP 2: RECURSIVE ENERGY
-            expected_val = np.mean([preds[q][-1] for q in QUANTILES])
+            # STEP 2: RECURSIVE ENERGY (EXPECTED VALUE)
+            # This prevents the forecast from flatlining
+            expected_val = float(np.mean(current_preds))
             current_window.append(expected_val)
             
         return preds
 
     try:
+        # Backtest: Uses historical seed to predict the last known 28 days
+        # start_d for backtest should be (current_d - 27)
         bt_preds = run_forecast_loop(sales_history[:28], start_d=(current_d - 27))
+        
+        # Forecast: Uses current history to predict the next 28 days
+        # start_d for forecast should be (current_d + 1)
         f_preds = run_forecast_loop(sales_history[28:], start_d=(current_d + 1))
+        
         actuals = sales_history[28:]
         
         return {
@@ -143,11 +161,13 @@ def predict(item_id: str, current_stock: float = 0.0):
             "history": [float(x) for x in actuals],
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
-            "metrics": {"accuracy": round(float(np.mean(actuals)), 2)}
+            "metrics": {
+                "accuracy": round(float(np.mean(actuals)) if len(actuals) > 0 else 0.0, 2)
+            }
         }
     except Exception as e:
         print(f"Prediction Crash: {e}")
-        raise HTTPException(status_code=500, detail=f"Inference Error: {e}")
+        raise HTTPException(status_code=500, detail=f"Inference Error: {str(e)}")
 
 @app.get("/leaderboard")
 def get_leaderboard_data():
