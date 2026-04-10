@@ -25,32 +25,35 @@ LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
 MODEL_DIR = "models"
 
 MODELS = {}
-QUANTILES = [0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.975]
 
-# --- 3. LIFECYCLE EVENTS ---
+# 1. Update the Quantile list to match your actual files
+QUANTILES = [0.005, 0.025, 0.165, 0.25, 0.5, 0.75, 0.835, 0.975, 0.995]
+
+# 2. Update the Pathing logic
+MODEL_DIR = "models/model_alpha"  # Matches your subfolder structure
+
 @app.on_event("startup")
 def load_assets():
-    print(f"🚀 Application Startup: Current Directory is {os.getcwd()}")
-    
-    # Check if data directory exists
-    if not os.path.exists(DATA_DIR):
-        print(f"⚠️ Warning: Data directory not found at {DATA_DIR}")
-
-    # Load Quantile Models
-    print("🚀 Loading Models...")
+    print(f"🚀 Loading Alpha Models from {MODEL_DIR}...")
     models_loaded = 0
+    
     for q in QUANTILES:
-        path = f"{MODEL_DIR}/lgbm_q_{q}.pkl"
+        # Matches your filename pattern: model_alpha_0.5.txt
+        path = f"{MODEL_DIR}/model_alpha_{q}.txt"
+        
         if os.path.exists(path):
             try:
-                MODELS[q] = joblib.load(path)
+                # IMPORTANT: LightGBM .txt files are loaded differently than .pkl
+                import lightgbm as lgb
+                MODELS[q] = lgb.Booster(model_file=path)
                 models_loaded += 1
+                print(f"✅ Loaded: {path}")
             except Exception as e:
-                print(f"❌ Error loading model {path}: {e}")
+                print(f"❌ Error loading {path}: {e}")
         else:
-            print(f"⚠️ Missing model file: {path}")
-    
-    print(f"✅ Startup complete. Loaded {models_loaded}/{len(QUANTILES)} models.")
+            print(f"⚠️ Missing model: {path}")
+            
+    print(f"🏁 Startup complete. Loaded {models_loaded}/{len(QUANTILES)} models.")
 
 # --- 4. HELPER LOGIC ---
 
