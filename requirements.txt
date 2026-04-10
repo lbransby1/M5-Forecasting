@@ -8,3 +8,5 @@ statsmodels
 tqdm
 joblib
 polars
+pyarrow
+fastparquet
