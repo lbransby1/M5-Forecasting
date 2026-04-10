@@ -30,7 +30,9 @@ MODELS = {}
 QUANTILES = [0.005, 0.025, 0.165, 0.25, 0.5, 0.75, 0.835, 0.975, 0.995]
 
 # 2. Update the Pathing logic
-MODEL_DIR = "models/model_alpha"  # Matches your subfolder structure
+# Use absolute-style paths relative to the /app workdir
+MODEL_DIR = "models/model_alpha" 
+DATA_DIR = "backend/data" # Based on your file tree
 
 @app.on_event("startup")
 def load_assets():

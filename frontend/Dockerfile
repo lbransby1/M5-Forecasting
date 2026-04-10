@@ -1,24 +1,27 @@
 FROM python:3.11-slim
 
-# 1. Install system dependencies for LightGBM (CRITICAL FIX)
+# Install system dependencies for LightGBM
 RUN apt-get update && apt-get install -y \
     libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 2. Install Python dependencies
-COPY requirements.txt .
+# 1. Install requirements (from the backend folder)
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 3. Copy the rest of the project
-COPY . .
+# 2. Copy the backend code into the container's backend folder
+COPY backend/ ./backend/
 
-# 4. Make sure your scripts are executable
-RUN chmod +x start.sh scripts/run_pipeline.sh
+# 3. Copy the models from the ROOT models folder into the container
+COPY models/ ./models/
 
-# 5. EXPOSE the port (Railway uses $PORT, but we'll list 8080 as a default)
-EXPOSE 8080
+# 4. Copy the start script from the root
+COPY start.sh .
+RUN chmod +x start.sh
 
-# 6. Run the start script which triggers the pipeline then the API
+# 5. Set Python path so it can find the backend module
+ENV PYTHONPATH=/app
+
 CMD ["./start.sh"]
