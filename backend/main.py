@@ -21,6 +21,8 @@ DATA_DIR = "backend/data"
 PROCESSED_DATA_PATH = f"{DATA_DIR}/processed/m5_improved.parquet"
 LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
 MODEL_DIR = "models/model_alpha"
+CALENDAR = pd.read_csv("backend/data/raw/calendar.csv")
+CALENDAR['d_num'] = CALENDAR['d'].str.replace('d_', '').astype(int)
 
 MODELS = {}
 QUANTILES = ["0.005", "0.025", "0.165", "0.25", "0.5", "0.75", "0.835", "0.975", "0.995"]
@@ -81,33 +83,35 @@ def predict(item_id: str, current_stock: float = 0.0):
         # Pad with zeros if history is short to prevent slice errors
         sales_history = np.pad(sales_history, (56 - len(sales_history), 0), 'constant')
 
-    def run_forecast_loop(seed_sales):
+    def run_forecast_loop(seed_sales, start_d):
         preds = {q: [] for q in QUANTILES}
         current_window = list(seed_sales)
         
         for i in range(28):
-            # 14 FEATURES - EXACT ORDER MATTERS
+            # 🔍 Look up the CALENDAR for the specific future day
+            target_d = start_d + i
+            day_info = CALENDAR[CALENDAR['d_num'] == target_d].iloc[0]
+            
+            # BUILD THE 14-FEATURE VECTOR WITH REAL FUTURE CONTEXT
             feat_row = [
                 ctx.get('item_id'), ctx.get('dept_id'), ctx.get('cat_id'), 
                 ctx.get('store_id'), ctx.get('state_id'),
-                ctx.get('wday', 1), ctx.get('month', 1), 
-                ctx.get('sell_price', 0), ctx.get('price_norm', 0),
-                np.mean(current_window[-7:]),  # roll_mean_7
-                np.mean(current_window[-28:]), # roll_mean_28
-                # ADD THE MISSING 3 FEATURES TO REACH 14
-                current_window[-1],  # lag_1 (Immediate momentum)
-                current_window[-7],  # lag_7 (Weekly seasonality)
-                ctx.get('snap_CA', 0) if ctx.get('state_id') == 'CA' else (ctx.get('snap_TX') if ctx.get('state_id') == 'TX' else ctx.get('snap_WI', 0))
+                day_info['wday'],      # Real future day of week!
+                day_info['month'],     # Real future month!
+                ctx.get('sell_price'), 
+                ctx.get('price_norm'),
+                np.mean(current_window[-7:]),  
+                np.mean(current_window[-28:]), 
+                day_info['snap_CA'], day_info['snap_TX'], day_info['snap_WI']
             ]
             
-            # Use the DataFrame fix to handle categoricals properly
             df_exec = pd.DataFrame([feat_row], columns=[
                 'item_id', 'dept_id', 'cat_id', 'store_id', 'state_id', 
                 'wday', 'month', 'sell_price', 'price_norm', 
-                'roll_mean_7', 'roll_mean_28', 'lag_1', 'lag_7', 'snap'
+                'roll_mean_7', 'roll_mean_28', 'snap_CA', 'snap_TX', 'snap_WI'
             ])
             
-            # Cast categoricals
+            # Cast categoricals for LightGBM
             for col in ['item_id', 'dept_id', 'cat_id', 'store_id', 'state_id']:
                 df_exec[col] = df_exec[col].astype('category')
 
