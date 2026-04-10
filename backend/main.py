@@ -153,7 +153,17 @@ def predict(item_id: str, store_id: str, current_stock: float = 0.0):
 def get_leaderboard_data():
     if os.path.exists(LEADERBOARD_PATH):
         df = pd.read_csv(LEADERBOARD_PATH).head(500)
-        # Merging human-readable names
+        
+        # 🛠️ PATCH: If store_id is missing, try to get it from the parquet
+        if 'store_id' not in df.columns:
+            try:
+                # Get unique item-store pairs from the main data
+                meta_df = pl.scan_parquet(PROCESSED_DATA_PATH).select(["item_id", "store_id", "dept_id"]).unique().collect().to_pandas()
+                df = df.merge(meta_df, on="item_id", how="left")
+            except Exception as e:
+                print(f"Metadata Merge Failed: {e}")
+        
+        # Merge human-readable names
         df['product_name'] = df['item_id'].map(PRODUCT_NAMES).fillna(df['item_id'])
         return df.fillna("N/A").to_dict(orient="records")
     return []
