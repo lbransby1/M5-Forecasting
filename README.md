@@ -1,70 +1,46 @@
 # M5 Forecasting Engine 📈
 
 > **Live Production API:** [m5forecasting.info](https://m5forecasting.info)  
-> **Infrastructure:** Docker + FastAPI + LightGBM + Railway
+> **Infrastructure:** Docker + FastAPI + LightGBM + Railway + Streamlit
 
 ![M5 Engine Demo](https://raw.githubusercontent.com/lbransby1/M5-Forecasting/832b2211cd305b5034f34cde4fa2f5dd3bd75f35/images/m5-demo.gif)
 
-walmart-m5-system/
-├── training/               <-- "The Lab" (Runs on Lambda Labs)
-│   ├── download_data.py    # Fetches from Kaggle
-│   ├── name_map.py         # LLM name generation
-│   ├── pre_process.py      # Melts CSV to Parquet
-│   ├── train_lgbm.py       # Fast, 10-store global model
-│   ├── train_tft.py        # prestige transformer model
-│   └── requirements.txt    # Heavy ML libs (torch, lightgbm)
-│
-├── backend/                <-- "The Service" (Runs on Railway)
-│   ├── main.py             # FastAPI app
-│   ├── data/
-│   │   └── product_map.json # The names the LLM made
-│   ├── models/             # API downloads weights here from W&B
-│   ├── Dockerfile
-│   └── requirements.txt    # Lean libs (fastapi, uvicorn)
-│
-├── frontend/               <-- "The Dashboard" (Streamlit/React)
-│   ├── app.py
-│   └── Dockerfile
-│
-├── docker-compose.yml      # Spins up Backend + Frontend locally
-└── .gitignore              # MUST ignore training/data/
+## 🎯 The Challenge
+Retailers face a multi-billion dollar "Inventory Gap." While baseline models predict the *mean*, real-world supply chain decisions require **Quantile Estimates** to calculate **Safety Stock** and mitigate the risks of intermittent demand. 
 
+This project delivers a production-grade forecasting engine capable of localized inference across **10 distinct geographical regions**, handling **58M+ rows** of historical data with sub-second latency.
 
-## The Challenge
-Retailers face a multi-billion dollar "Inventory Gap": overstocking leads to waste, while understocking leads to lost revenue. Most baseline models predict the *mean* (the average), but real-world supply chain decisions require **Quantile Estimates** to calculate **Safety Stock**.
+## 🏗️ System Architecture
+The system is architected as a decoupled microservice to ensure separation of concerns and computational efficiency:
 
-This project implements a high-performance forecasting engine designed to provide hierarchical quantile predictions for the M5 Uncertainty dataset.
+1.  **Backend (FastAPI):** High-performance inference engine serving 9 distinct quantile boosters. It manages **recursive autoregressive loops** to maintain feature integrity over 28-day horizons.
+2.  **ETL Pipeline (Polars):** Leverages Rust-backed Polars for server-side feature extraction, achieving a 98% reduction in memory overhead (46GB down to 700MB) compared to standard Pandas.
+3.  **Frontend (Streamlit):** An interactive dashboard providing probabilistic "Fan Charts" and inventory metrics.
+4.  **DevOps:** Containerized via multi-stage Docker builds and deployed with automated CI/CD via GitHub Actions and Railway.
 
-## System Architecture
-The system is built as a decoupled microservice to ensure scalability and separation of concerns:
+## 🚀 Key Technical Milestones
+* **Recursive Stability:** Engineered a custom loop that feeds predicted values back into rolling windows, utilizing a **weighted-quantile expectation** to prevent autoregressive decay and maintain forecast "energy".
+* **Localized Inference:** Implemented store-specific filtering, allowing users to query unique item-store combinations (e.g., California vs. Wisconsin demand) to account for regional exogenous factors like SNAP benefit cycles.
+* **Probabilistic Uncertainty:** Utilized **Quantile Regression** (0.005 to 0.995) to generate calibrated prediction intervals. This allows for "Safety Stock" calculation by targeting specific risk-tolerance levels (e.g., 75th or 95th percentile).
+* **Human-Centric Mapping:** Integrated a mapping layer that translates granular SKU-level codes into human-readable product names (e.g., "Decorative Craft Stickers"), improving searchability for non-technical stakeholders.
 
-1. **Inference Engine:** Optimized LightGBM model utilizing recursive lag features and rolling window statistics.
-2. **API Layer:** FastAPI wrapper handles asynchronous requests and serves model weights via a RESTful endpoint.
-3. **Containerization:** Multi-stage Docker build to minimize image size and ensure environment parity.
-4. **Cloud Infrastructure:** Continuous Deployment (CD) via Railway, utilizing automated health checks and SSL termination.
+## 🛠️ Technical Stack
+* **Modeling:** LightGBM (Gradient Boosted Trees)
+* **Data Processing:** Polars, NumPy, Pandas
+* **API Framework:** FastAPI, Uvicorn
+* **Visualization:** Plotly, Streamlit
+* **Environment:** Docker, Python 3.11
 
+## 💻 Local Development
 
+### Prerequisites
+* Docker and Docker Compose
+* Python 3.11+
 
-## Technical Implementation
-* **Model:** Gradient Boosted Trees (LightGBM) for efficient model training
-* **Uncertainty:** Implemented **Quantile Regression** (0.005 to 0.995) to generate prediction intervals, allowing users to tune their risk-tolerance.
-* **Optimization:** Leveraged **Polars** for feature engineering to achieve a 5x speedup over standard Pandas operations.
-
-## Local Development
+### Steps
 ```bash
 # Clone the repository
 git clone [https://github.com/lbransby1/M5-Forecasting.git](https://github.com/lbransby1/M5-Forecasting.git)
 
-# Build the Docker container
-docker build -t m5-engine .
-
-# Run the inference server
-docker run -p 8000:8000 m5-engine
-```
-
-## Future Development
-- Improve model calibration and accuracy through hyper-parameter tuning, tracking performance on Weights and Biases ( in progress )
-- Implement Temporal Fusion Transformers to process future SNAP sales effectively ( in progress )
-- Upscale system to use all data from all stores. Approx 30x size increase
-- Compare several models to analyze in when each model is best fit 
-
+# Build and run with Docker Compose
+docker-compose up --build
