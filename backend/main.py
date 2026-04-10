@@ -25,7 +25,7 @@ LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
 MODEL_DIR = "models/model_alpha"
 MAPPING_PATH = "backend/category_mappings.json"
 
-# Load Assets
+# Load Calendar globally
 CALENDAR = pd.read_csv("backend/data/raw/calendar.csv")
 CALENDAR['d_num'] = CALENDAR['d'].str.replace('d_', '').astype(int)
 
@@ -52,41 +52,39 @@ def load_assets():
         print(f"📖 Loading categorical mappings from {MAPPING_PATH}...")
         with open(MAPPING_PATH, "r") as f:
             MAPPINGS = json.load(f)
-            
-    print(f"🏁 Startup complete. Loaded {len(MODELS)} models and categorical maps.")
+    print(f"🏁 Startup complete. Loaded {len(MODELS)} models.")
 
-# --- 3. HELPERS ---
+# --- 3. HELPERS (Updated for Store-Level Filtering) ---
 
-def get_history(item_id, count=84):
+def get_history(item_id: str, store_id: str, count=84):
     if not os.path.exists(PROCESSED_DATA_PATH): return [0.0] * count
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
-        result = df.filter(pl.col("item_id") == item_id).tail(count).collect()
+        # Filter for the specific item AND store
+        result = df.filter((pl.col("item_id") == item_id) & (pl.col("store_id") == store_id)).tail(count).collect()
         return result["sales"].to_list() if not result.is_empty() else [0.0] * count
     except: return [0.0] * count
 
-def get_item_context(item_id: str):
+def get_item_context(item_id: str, store_id: str):
     if not os.path.exists(PROCESSED_DATA_PATH): return None
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
-        last_row = df.filter(pl.col("item_id") == item_id).tail(1).collect()
+        # Filter for the specific item AND store
+        last_row = df.filter((pl.col("item_id") == item_id) & (pl.col("store_id") == store_id)).tail(1).collect()
         return last_row.to_dicts()[0] if not last_row.is_empty() else None
     except: return None
 
 # --- 4. PREDICTION ---
 
 @app.get("/predict/{item_id}")
-def predict(item_id: str, current_stock: float = 0.0):
-    if not MODELS: 
-        raise HTTPException(status_code=503, detail="Models not loaded.")
+def predict(item_id: str, store_id: str, current_stock: float = 0.0):
+    if not MODELS: raise HTTPException(status_code=503, detail="Models not loaded.")
     
-    ctx = get_item_context(item_id)
-    if not ctx: 
-        raise HTTPException(status_code=404, detail="Item not found.")
+    ctx = get_item_context(item_id, store_id)
+    if not ctx: raise HTTPException(status_code=404, detail="Item/Store combination not found.")
 
-    # 🛠️ INCREASED BUFFER: Fetch 84 days (56 for lags + 28 for seed)
     history_needed = 84
-    sales_history = np.array(get_history(item_id, history_needed)) 
+    sales_history = np.array(get_history(item_id, store_id, history_needed)) 
     
     if len(sales_history) < history_needed:
         sales_history = np.pad(sales_history, (history_needed - len(sales_history), 0), 'constant')
@@ -101,9 +99,9 @@ def predict(item_id: str, current_stock: float = 0.0):
         
         for i in range(28):
             target_day = int(start_d + i)
-            day_info = CALENDAR[CALENDAR['d_num'] == target_day].iloc[0]
+            day_matches = CALENDAR[CALENDAR['d_num'] == target_day]
+            day_info = day_matches.iloc[0] if not day_matches.empty else CALENDAR.iloc[-1]
             
-            # Assembly with high-fidelity casting
             feat_row = [
                 int(MAPPINGS.get('item_id', {}).get(str(ctx.get('item_id')), 0)),
                 int(MAPPINGS.get('dept_id', {}).get(str(ctx.get('dept_id')), 0)),
@@ -112,62 +110,44 @@ def predict(item_id: str, current_stock: float = 0.0):
                 int(MAPPINGS.get('state_id', {}).get(str(ctx.get('state_id')), 0)),
                 int(day_info['wday']), int(day_info['month']), 
                 float(ctx.get('sell_price', 0)), float(ctx.get('price_norm', 0)),
-                # STEP 3: LAG ALIGNMENT
                 float(np.mean(current_window[-35:-28])), 
                 float(np.mean(current_window[-56:-28])), 
                 int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
             ]
             
             x = np.array(feat_row).reshape(1, -1)
-            
-            # --- THE FIX: BOOSTED RECURSION ---
             current_day_preds = []
             for q in QUANTILES:
                 p = max(0.0, float(MODELS[q].predict(x)[0]))
                 preds[q].append(p)
                 current_day_preds.append(p)
             
-            # Instead of the conservative Median (0.5), use a Weighted Mean
-            # We weight the higher quantiles slightly more to preserve 'Spikiness'
-            # This is a common MLE 'hack' for zero-inflated retail data
             p_mean = np.mean(current_day_preds)
             p_high = preds["0.75"][-1]
-            
-            # Blend the mean and the 75th percentile to keep the 'Rolling Mean' healthy
             recursive_value = (p_mean * 0.7) + (p_high * 0.3)
             current_window.append(recursive_value)
             
         return preds
 
     try:
-        # sales_history is 84 days: [0:56] is historical context, [56:84] is the 'active' evaluation window
-        
-        # Backtest predicts the LAST 28 days of history (Days 56-84)
-        # To do this, it needs the 56 days PRIOR to that as seed
         bt_preds = run_forecast_loop(sales_history[:56], start_d=(current_d - 27))
-        
-        # Forecast predicts the NEXT 28 days into the future
-        # It uses the last 56 days of the current history as seed
-        f_preds = run_forecast_loop(sales_history[28:], start_d=(current_d + 1))
+        f_preds = run_forecast_loop(sales_history[56:], start_d=(current_d + 1))
         
         return {
             "item_id": str(item_id),
-            "history": [float(x) for x in sales_history], # Full 84-86 days
+            "store_id": str(store_id),
+            "history": [float(x) for x in sales_history],
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
-            "metrics": {
-                "accuracy": round(float(np.mean(sales_history[-28:])), 2)
-            }
+            "metrics": {"accuracy": round(float(np.mean(sales_history[-28:])), 2)}
         }
-    
     except Exception as e:
-        print(f"Prediction Crash: {e}")
         raise HTTPException(status_code=500, detail=f"Inference Error: {str(e)}")
 
 @app.get("/leaderboard")
 def get_leaderboard_data():
     if os.path.exists(LEADERBOARD_PATH):
-        return pd.read_csv(LEADERBOARD_PATH).head(100).fillna("N/A").to_dict(orient="records")
+        return pd.read_csv(LEADERBOARD_PATH).head(500).fillna("N/A").to_dict(orient="records")
     return []
 
 if __name__ == "__main__":
