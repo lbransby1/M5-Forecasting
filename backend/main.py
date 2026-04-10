@@ -147,26 +147,32 @@ def predict(item_id: str, current_stock: float = 0.0):
 
     # --- 3. METRICS ---
     actuals = np.array(full_h[-28:])
+
     losses = []
     for q_str in QUANTILES:
         q = float(q_str)
+        # Convert to float() to avoid numpy types
         err = actuals - np.array(bt_preds[q_str])
         losses.append(np.mean(np.where(err >= 0, q * err, (q-1) * err)))
     
-    within = sum(1 for i in range(28) if bt_preds['0.025'][i] <= actuals[i] <= bt_preds['0.975'][i])
+    # Ensure these are standard Python ints/floats
+    backtest_acc = float((sum(1 for i in range(28) if bt_preds['0.025'][i] <= actuals[i] <= bt_preds['0.975'][i]) / 28) * 100)
+    avg_loss = float(np.mean(losses))
+    mpiw_val = float(np.mean(np.array(f_preds['0.975']) - np.array(f_preds['0.025'])))
 
-    total_expected_demand = sum(f_preds['0.5'])
+    total_expected_demand = float(sum(f_preds['0.5']))
     risk_info = calculate_stocking_risk(total_expected_demand, current_stock)
 
     return {
         "item_id": item_id,
-        "history": list(actuals),
-        "backtest": bt_preds,
-        "forecast": f_preds,
+        "product_name": str(id),
+        "history": [float(x) for x in actuals], # Convert list to floats
+        "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()}, # Convert dict lists
+        "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()}, # Convert dict lists
         "metrics": {
-            "wspl": round(float(np.mean(losses)), 4),
-            "backtest_accuracy": round((within/28)*100, 1),
-            "mpiw": round(float(np.mean(np.array(f_preds['0.975']) - np.array(f_preds['0.025']))), 2)
+            "wspl": round(avg_loss, 4),
+            "backtest_accuracy": round(backtest_acc, 1),
+            "mpiw": round(mpiw_val, 2)
         },
         "risk_assessment": risk_info
     }
