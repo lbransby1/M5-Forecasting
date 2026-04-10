@@ -40,19 +40,29 @@ def get_history(item_id, count=56):
     if not os.path.exists(PROCESSED_DATA_PATH):
         return [0.0] * count
     try:
-        q = pl.scan_parquet(PROCESSED_DATA_PATH)
-        result = q.filter(pl.col("item_id") == item_id).tail(count).collect()
-        return result["sales"].to_list() if not result.is_empty() else [0.0] * count
+        # Optimization: collect only what we need
+        df = pl.scan_parquet(PROCESSED_DATA_PATH)
+        result = df.filter(pl.col("item_id") == item_id).tail(count).collect()
+        if result.is_empty():
+            return [0.0] * count
+        return result["sales"].to_list()
     except:
         return [0.0] * count
 
 def get_item_context(item_id: str):
-    """Fetches the latest state of an item (prices, snap, calendar context)."""
     if not os.path.exists(PROCESSED_DATA_PATH): return None
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
         last_row = df.filter(pl.col("item_id") == item_id).tail(1).collect()
-        return last_row.to_dicts()[0] if not last_row.is_empty() else None
+        if last_row.is_empty(): return None
+        
+        # Convert to dict and handle categorical/string types
+        ctx = last_row.to_dicts()[0]
+        
+        # CRITICAL: If your model expects numbers for IDs, 
+        # you need to extract the underlying category index.
+        # This code assumes Polars/LightGBM handled the string-to-cat conversion.
+        return ctx
     except: return None
 
 # --- PREDICTION ---
@@ -64,67 +74,76 @@ def predict(item_id: str, current_stock: float = 0.0):
     ctx = get_item_context(item_id)
     if not ctx: raise HTTPException(status_code=404, detail="Item not found.")
 
+    # Get 56 days: 28 for backtest seed, 28 for current history
     sales_history = np.array(get_history(item_id, 56)) 
     
+    if len(sales_history) < 56:
+        # Pad with zeros if history is short to prevent slice errors
+        sales_history = np.pad(sales_history, (56 - len(sales_history), 0), 'constant')
+
     def run_forecast_loop(seed_sales):
         preds = {q: [] for q in QUANTILES}
         current_window = list(seed_sales)
         
         for i in range(28):
-            # BUILD THE EXACT 14-FEATURE VECTOR 
-            # Order matches your list: item, dept, cat, store, state, calendar, rolling
+            # 14 FEATURES - ENSURE NUMERIC TYPES
             feat_row = [
-                ctx.get('item_id'),   # 1
-                ctx.get('dept_id'),   # 2
-                ctx.get('cat_id'),    # 3
-                ctx.get('store_id'),  # 4
-                ctx.get('state_id'),  # 5
-                ctx.get('wday', 1),    # 6
-                ctx.get('month', 1),   # 7
-                ctx.get('sell_price', 0), # 8
-                ctx.get('price_norm', 0), # 9
-                np.mean(current_window[-7:]),  # 10: roll_mean_7
-                np.mean(current_window[-28:]), # 11: roll_mean_28
-                ctx.get('snap_CA', 0), # 12
-                ctx.get('snap_TX', 0), # 13
-                ctx.get('snap_WI', 0)  # 14
+                ctx.get('item_id'),   # If this fails, use a mapping dict
+                ctx.get('dept_id'), 
+                ctx.get('cat_id'), 
+                ctx.get('store_id'), 
+                ctx.get('state_id'),
+                float(ctx.get('wday', 1)), 
+                float(ctx.get('month', 1)), 
+                float(ctx.get('sell_price', 0)), 
+                float(ctx.get('price_norm', 0)),
+                float(np.mean(current_window[-7:])),
+                float(np.mean(current_window[-28:])),
+                float(ctx.get('snap_CA', 0)), 
+                float(ctx.get('snap_TX', 0)), 
+                float(ctx.get('snap_WI', 0))
             ]
             
-            # Convert categorical strings/ints to the format LightGBM expects
-            # If your model used LabelEncoding, ensure ctx values are integers.
+            # Use a list of floats to avoid numpy dtype issues in JSON
             x = np.array(feat_row).reshape(1, -1)
             
             for q in QUANTILES:
-                p = max(0.0, float(MODELS[q].predict(x)[0]))
+                # predict() returns a list/array
+                res = MODELS[q].predict(x)
+                p = max(0.0, float(res[0]))
                 preds[q].append(p)
             
-            # Update the sliding window with the median forecast
             current_window.append(preds["0.5"][-1])
             
         return preds
-    
-    
+
     try:
+        # Correct Slicing: 
+        # bt_seed = first 28 days (0-27)
+        # f_seed = last 28 days (28-55)
         bt_preds = run_forecast_loop(sales_history[:28])
         f_preds = run_forecast_loop(sales_history[28:])
         actuals = sales_history[28:]
         
         return {
-            "item_id": item_id,
-            "product_name": str(item_id),
+            "item_id": str(item_id),
             "history": [float(x) for x in actuals],
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
             "metrics": {"accuracy": round(float(np.mean(actuals)), 2)}
         }
     except Exception as e:
+        # This will show you exactly which line failed in the Railway logs
+        print(f"Prediction Crash: {e}")
         raise HTTPException(status_code=500, detail=f"Inference Error: {e}")
 
 @app.get("/leaderboard")
-def leaderboard():
+def get_leaderboard_data():
     if os.path.exists(LEADERBOARD_PATH):
-        return pd.read_csv(LEADERBOARD_PATH).head(100).to_dict(orient="records")
+        return pd.read_csv(LEADERBOARD_PATH).head(100).fillna("N/A").to_dict(orient="records")
     return []
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    # Use Railway's preferred port
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run(app, host="0.0.0.0", port=port)

@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pandas
-requests
-lightgbm
-scikit-learn
-statsmodels
-joblib
