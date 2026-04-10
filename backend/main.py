@@ -86,41 +86,32 @@ def predict(item_id: str, current_stock: float = 0.0):
         current_window = list(seed_sales)
         
         for i in range(28):
-            # 1. BUILD THE ROW
-            # We use .get() to avoid KeyErrors
+            # 14 FEATURES - EXACT ORDER MATTERS
             feat_row = [
-                ctx.get('item_id'),   
-                ctx.get('dept_id'), 
-                ctx.get('cat_id'), 
-                ctx.get('store_id'), 
-                ctx.get('state_id'),
-                ctx.get('wday', 1), 
-                ctx.get('month', 1), 
-                ctx.get('sell_price', 0), 
-                ctx.get('price_norm', 0),
-                np.mean(current_window[-7:]),
-                np.mean(current_window[-28:]),
-                ctx.get('snap_CA', 0), 
-                ctx.get('snap_TX', 0), 
-                ctx.get('snap_WI', 0)
+                ctx.get('item_id'), ctx.get('dept_id'), ctx.get('cat_id'), 
+                ctx.get('store_id'), ctx.get('state_id'),
+                ctx.get('wday', 1), ctx.get('month', 1), 
+                ctx.get('sell_price', 0), ctx.get('price_norm', 0),
+                np.mean(current_window[-7:]),  # roll_mean_7
+                np.mean(current_window[-28:]), # roll_mean_28
+                # ADD THE MISSING 3 FEATURES TO REACH 14
+                current_window[-1],  # lag_1 (Immediate momentum)
+                current_window[-7],  # lag_7 (Weekly seasonality)
+                ctx.get('snap_CA', 0) if ctx.get('state_id') == 'CA' else (ctx.get('snap_TX') if ctx.get('state_id') == 'TX' else ctx.get('snap_WI', 0))
             ]
             
-            # 2. THE FIX: Convert the list to a Pandas DataFrame with 1 row
-            # This allows LightGBM to handle the string-to-category conversion internally
-            # matching how it was handled in your notebook.
+            # Use the DataFrame fix to handle categoricals properly
             df_exec = pd.DataFrame([feat_row], columns=[
                 'item_id', 'dept_id', 'cat_id', 'store_id', 'state_id', 
                 'wday', 'month', 'sell_price', 'price_norm', 
-                'roll_mean_7', 'roll_mean_28', 'snap_CA', 'snap_TX', 'snap_WI'
+                'roll_mean_7', 'roll_mean_28', 'lag_1', 'lag_7', 'snap'
             ])
             
-            # 3. Ensure categorical columns are typed as 'category'
-            cat_cols = ['item_id', 'dept_id', 'cat_id', 'store_id', 'state_id']
-            for col in cat_cols:
+            # Cast categoricals
+            for col in ['item_id', 'dept_id', 'cat_id', 'store_id', 'state_id']:
                 df_exec[col] = df_exec[col].astype('category')
 
             for q in QUANTILES:
-                # Use the dataframe instead of a numpy array
                 p = max(0.0, float(MODELS[q].predict(df_exec)[0]))
                 preds[q].append(p)
             
