@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 #config = toml.load("config.toml")
 st.set_page_config(layout="wide", page_icon="📈", page_title="M5-Forecasting")
 
-RAW_API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+RAW_API_URL = os.getenv("API_URL", "https://m5-back-production.up.railway.app")
 
 # Clean it: Remove trailing slashes and ensure it starts with http
 API_URL = RAW_API_URL.rstrip("/")
