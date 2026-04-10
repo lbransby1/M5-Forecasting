@@ -86,31 +86,42 @@ def predict(item_id: str, current_stock: float = 0.0):
         current_window = list(seed_sales)
         
         for i in range(28):
-            # 14 FEATURES - ENSURE NUMERIC TYPES
+            # 1. BUILD THE ROW
+            # We use .get() to avoid KeyErrors
             feat_row = [
-                ctx.get('item_id'),   # If this fails, use a mapping dict
+                ctx.get('item_id'),   
                 ctx.get('dept_id'), 
                 ctx.get('cat_id'), 
                 ctx.get('store_id'), 
                 ctx.get('state_id'),
-                float(ctx.get('wday', 1)), 
-                float(ctx.get('month', 1)), 
-                float(ctx.get('sell_price', 0)), 
-                float(ctx.get('price_norm', 0)),
-                float(np.mean(current_window[-7:])),
-                float(np.mean(current_window[-28:])),
-                float(ctx.get('snap_CA', 0)), 
-                float(ctx.get('snap_TX', 0)), 
-                float(ctx.get('snap_WI', 0))
+                ctx.get('wday', 1), 
+                ctx.get('month', 1), 
+                ctx.get('sell_price', 0), 
+                ctx.get('price_norm', 0),
+                np.mean(current_window[-7:]),
+                np.mean(current_window[-28:]),
+                ctx.get('snap_CA', 0), 
+                ctx.get('snap_TX', 0), 
+                ctx.get('snap_WI', 0)
             ]
             
-            # Use a list of floats to avoid numpy dtype issues in JSON
-            x = np.array(feat_row).reshape(1, -1)
+            # 2. THE FIX: Convert the list to a Pandas DataFrame with 1 row
+            # This allows LightGBM to handle the string-to-category conversion internally
+            # matching how it was handled in your notebook.
+            df_exec = pd.DataFrame([feat_row], columns=[
+                'item_id', 'dept_id', 'cat_id', 'store_id', 'state_id', 
+                'wday', 'month', 'sell_price', 'price_norm', 
+                'roll_mean_7', 'roll_mean_28', 'snap_CA', 'snap_TX', 'snap_WI'
+            ])
             
+            # 3. Ensure categorical columns are typed as 'category'
+            cat_cols = ['item_id', 'dept_id', 'cat_id', 'store_id', 'state_id']
+            for col in cat_cols:
+                df_exec[col] = df_exec[col].astype('category')
+
             for q in QUANTILES:
-                # predict() returns a list/array
-                res = MODELS[q].predict(x)
-                p = max(0.0, float(res[0]))
+                # Use the dataframe instead of a numpy array
+                p = max(0.0, float(MODELS[q].predict(df_exec)[0]))
                 preds[q].append(p)
             
             current_window.append(preds["0.5"][-1])
