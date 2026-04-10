@@ -92,36 +92,42 @@ def predict(item_id: str, current_stock: float = 0.0):
 
     def run_forecast_loop(seed_sales, start_d):
         preds = {q: [] for q in QUANTILES}
+        # Ensure seed_sales is at least 56 days to prevent "Empty Slice" warnings
         current_window = list(seed_sales)
         
         for i in range(28):
             target_day = start_d + i
             day_info = CALENDAR[CALENDAR['d_num'] == target_day].iloc[0]
             
-            # --- STEP 1: INTEGER MAPPING ---
+            # --- STEP 1: INTEGER MAPPING (Forcing int type) ---
+            # Using .get() ensures we don't crash on missing keys
+            # Casting to int forces LightGBM to use numeric comparison
             feat_row = [
-                MAPPINGS['item_id'].get(ctx.get('item_id'), 0),
-                MAPPINGS['dept_id'].get(ctx.get('dept_id'), 0),
-                MAPPINGS['cat_id'].get(ctx.get('cat_id'), 0),
-                MAPPINGS['store_id'].get(ctx.get('store_id'), 0),
-                MAPPINGS['state_id'].get(ctx.get('state_id'), 0),
-                day_info['wday'], 
-                day_info['month'], 
-                ctx.get('sell_price', 0), 
-                ctx.get('price_norm', 0),
-                # --- STEP 3: 28-DAY LAG LOGIC ---
-                float(np.mean(current_window[-35:-28])), 
-                float(np.mean(current_window[-56:-28])), 
-                day_info['snap_CA'], day_info['snap_TX'], day_info['snap_WI']
+                int(MAPPINGS['item_id'].get(ctx.get('item_id'), 0)),
+                int(MAPPINGS['dept_id'].get(ctx.get('dept_id'), 0)),
+                int(MAPPINGS['cat_id'].get(ctx.get('cat_id'), 0)),
+                int(MAPPINGS['store_id'].get(ctx.get('store_id'), 0)),
+                int(MAPPINGS['state_id'].get(ctx.get('state_id'), 0)),
+                int(day_info['wday']), 
+                int(day_info['month']), 
+                float(ctx.get('sell_price', 0)), 
+                float(ctx.get('price_norm', 0)),
+                # --- STEP 3: LAG LOGIC (With Safety Check) ---
+                float(np.mean(current_window[-35:-28])) if len(current_window) >= 35 else 0.0,
+                float(np.mean(current_window[-56:-28])) if len(current_window) >= 56 else 0.0,
+                int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
             ]
             
-            df_exec = pd.DataFrame([feat_row], columns=FEATURES)
+            # Use a NumPy array for prediction instead of a DataFrame
+            # Since we converted IDs to integers, LightGBM won't complain about strings
+            x = np.array(feat_row).reshape(1, -1)
 
             for q in QUANTILES:
-                p = max(0.0, float(MODELS[q].predict(df_exec)[0]))
+                # Use 'predict' with categorical_feature spec ignored since we are passing ints
+                p = max(0.0, float(MODELS[q].predict(x)[0]))
                 preds[q].append(p)
             
-            # --- STEP 2: RECURSIVE ENERGY (MEAN OF QUANTILES) ---
+            # STEP 2: RECURSIVE ENERGY
             expected_val = np.mean([preds[q][-1] for q in QUANTILES])
             current_window.append(expected_val)
             
