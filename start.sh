@@ -28,4 +28,5 @@ bash "$PIPELINE_PATH"
 
 # 4. Start API
 echo "🌐 [STAGE 2/2] Starting FastAPI Server..."
+# The ${PORT:-8000} syntax means: Use $PORT if it exists, otherwise use 8000
 uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}
