@@ -12,7 +12,12 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 #config = toml.load("config.toml")
 st.set_page_config(layout="wide", page_icon="📈", page_title="M5-Forecasting")
 
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+RAW_API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+
+# Clean it: Remove trailing slashes and ensure it starts with http
+API_URL = RAW_API_URL.rstrip("/")
+if not API_URL.startswith("http"):
+    API_URL = f"http://{API_URL}"
 
 # --- 2. FORCE SIDEBAR WIDTH ---
 
