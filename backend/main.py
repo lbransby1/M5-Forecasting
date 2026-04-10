@@ -101,47 +101,41 @@ def predict(item_id: str, current_stock: float = 0.0):
         
         for i in range(28):
             target_day = int(start_d + i)
-            day_matches = CALENDAR[CALENDAR['d_num'] == target_day]
+            day_info = CALENDAR[CALENDAR['d_num'] == target_day].iloc[0]
             
-            # Use real calendar info if available, else use rotating dummy values
-            if not day_matches.empty:
-                day_info = day_matches.iloc[0]
-                wday = int(day_info['wday'])
-                month = int(day_info['month'])
-                snap_ca, snap_tx, snap_wi = int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
-            else:
-                # Fallback: Guessing weekday based on start_d + i
-                wday = int((target_day % 7) + 1)
-                month = int(((target_day // 30) % 12) + 1)
-                snap_ca, snap_tx, snap_wi = 0, 0, 0 # No SNAP known in the future
-
+            # Assembly with high-fidelity casting
             feat_row = [
                 int(MAPPINGS.get('item_id', {}).get(str(ctx.get('item_id')), 0)),
                 int(MAPPINGS.get('dept_id', {}).get(str(ctx.get('dept_id')), 0)),
                 int(MAPPINGS.get('cat_id', {}).get(str(ctx.get('cat_id')), 0)),
                 int(MAPPINGS.get('store_id', {}).get(str(ctx.get('store_id')), 0)),
                 int(MAPPINGS.get('state_id', {}).get(str(ctx.get('state_id')), 0)),
-                wday, month, 
-                float(ctx.get('sell_price', 0)), 
-                float(ctx.get('price_norm', 0)),
-                # Information State (28-day Lag)
-                float(np.mean(current_window[-35:-28])) if len(current_window) >= 35 else 0.0,
-                float(np.mean(current_window[-56:-28])) if len(current_window) >= 56 else 0.0,
-                snap_ca, snap_tx, snap_wi
+                int(day_info['wday']), int(day_info['month']), 
+                float(ctx.get('sell_price', 0)), float(ctx.get('price_norm', 0)),
+                # STEP 3: LAG ALIGNMENT
+                float(np.mean(current_window[-35:-28])), 
+                float(np.mean(current_window[-56:-28])), 
+                int(day_info['snap_CA']), int(day_info['snap_TX']), int(day_info['snap_WI'])
             ]
             
-            if i == 0: print(f"DEBUG [Day {target_day}]: {feat_row}")
-
             x = np.array(feat_row).reshape(1, -1)
-            current_preds = []
+            
+            # --- THE FIX: BOOSTED RECURSION ---
+            current_day_preds = []
             for q in QUANTILES:
                 p = max(0.0, float(MODELS[q].predict(x)[0]))
                 preds[q].append(p)
-                current_preds.append(p)
+                current_day_preds.append(p)
             
-            # Expected value keeps the rolling mean healthy
-            expected_val = float(np.mean(current_preds))
-            current_window.append(expected_val)
+            # Instead of the conservative Median (0.5), use a Weighted Mean
+            # We weight the higher quantiles slightly more to preserve 'Spikiness'
+            # This is a common MLE 'hack' for zero-inflated retail data
+            p_mean = np.mean(current_day_preds)
+            p_high = preds["0.75"][-1]
+            
+            # Blend the mean and the 75th percentile to keep the 'Rolling Mean' healthy
+            recursive_value = (p_mean * 0.7) + (p_high * 0.3)
+            current_window.append(recursive_value)
             
         return preds
 
