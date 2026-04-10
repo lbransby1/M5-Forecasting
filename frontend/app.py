@@ -36,39 +36,39 @@ if df_items is not None and not df_items.empty:
     # 1. STORE FILTER
     stores = sorted(list(df_items['store_id'].unique()))
     selected_store = st.sidebar.selectbox("Select Store Location", stores)
-    
-    # Filter global list by store first
     df_store = df_items[df_items['store_id'] == selected_store]
 
-    # 2. DEPT FILTER
-    depts = ["All"] + sorted(list(df_store['dept_id'].unique()))
-    selected_dept = st.sidebar.selectbox("Filter Department", depts)
+    # 2. SEARCH BY PRODUCT NAME
+    search = st.sidebar.text_input("Search Product (e.g., Stickers)", "").lower()
     
     filtered = df_store
-    if selected_dept != "All":
-        filtered = filtered[filtered['dept_id'] == selected_dept]
-
-    # 3. SEARCH & SELECTION
-    search = st.sidebar.text_input("Search Product ID", "").lower()
     if search:
-        filtered = filtered[filtered['item_id'].str.lower().str.contains(search)]
+        filtered = filtered[
+            (filtered['product_name'].str.lower().str.contains(search)) | 
+            (filtered['item_id'].str.lower().str.contains(search))
+        ]
 
-    item_id = st.sidebar.selectbox("Select Product", options=filtered['item_id'].tolist())
+    # Map Name to ID for the selector
+    item_options = filtered.set_index('item_id')['product_name'].to_dict()
+    item_id = st.sidebar.selectbox(
+        "Select Product", 
+        options=list(item_options.keys()),
+        format_func=lambda x: item_options[x]
+    )
 
 st.sidebar.divider()
 current_stock = st.sidebar.number_input("Warehouse Stock Level", value=20)
 run_btn = st.sidebar.button("Run Analytics Report", type="primary", disabled=(item_id is None))
 
 if run_btn and item_id:
-    st.title(f"Inventory Report: {item_id}")
-    st.caption(f"Location: {selected_store} | Recursive Quantile Forecast")
-    
     with st.spinner("Fetching prediction data..."):
         try:
-            # Pass store_id as a query param
             res = requests.get(f"{API_URL}/predict/{item_id}?store_id={selected_store}&current_stock={current_stock}")
             data = res.json()
             
+            st.title(f"Inventory Report: {data.get('product_name', item_id)}")
+            st.caption(f"Location: {selected_store} | Recursive Quantile Forecast")
+
             h_sales = data.get('history', [])
             bt_data = data.get('backtest', {})
             f_data = data.get('forecast', {})

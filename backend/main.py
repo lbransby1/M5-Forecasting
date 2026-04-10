@@ -24,14 +24,16 @@ PROCESSED_DATA_PATH = f"{DATA_DIR}/processed/m5_improved.parquet"
 LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
 MODEL_DIR = "models/model_alpha"
 MAPPING_PATH = "backend/category_mappings.json"
+PRODUCT_MAP_PATH = "backend/product_map.json"
 
-# Load Calendar globally
+# Load Assets
 CALENDAR = pd.read_csv("backend/data/raw/calendar.csv")
 CALENDAR['d_num'] = CALENDAR['d'].str.replace('d_', '').astype(int)
 
 MODELS = {}
 QUANTILES = ["0.005", "0.025", "0.165", "0.25", "0.5", "0.75", "0.835", "0.975", "0.995"]
 MAPPINGS = {}
+PRODUCT_NAMES = {}
 
 FEATURES = [
     'item_id', 'dept_id', 'cat_id', 'store_id', 'state_id', 
@@ -47,12 +49,16 @@ def load_assets():
         if os.path.exists(path):
             MODELS[q] = lgb.Booster(model_file=path)
     
-    global MAPPINGS
+    global MAPPINGS, PRODUCT_NAMES
     if os.path.exists(MAPPING_PATH):
-        print(f"📖 Loading categorical mappings from {MAPPING_PATH}...")
         with open(MAPPING_PATH, "r") as f:
             MAPPINGS = json.load(f)
-    print(f"🏁 Startup complete. Loaded {len(MODELS)} models.")
+            
+    if os.path.exists(PRODUCT_MAP_PATH):
+        with open(PRODUCT_MAP_PATH, "r") as f:
+            PRODUCT_NAMES = json.load(f)
+            
+    print(f"🏁 Startup complete. Loaded {len(MODELS)} models and {len(PRODUCT_NAMES)} product names.")
 
 # --- 3. HELPERS (Updated for Store-Level Filtering) ---
 
@@ -60,7 +66,6 @@ def get_history(item_id: str, store_id: str, count=84):
     if not os.path.exists(PROCESSED_DATA_PATH): return [0.0] * count
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
-        # Filter for the specific item AND store
         result = df.filter((pl.col("item_id") == item_id) & (pl.col("store_id") == store_id)).tail(count).collect()
         return result["sales"].to_list() if not result.is_empty() else [0.0] * count
     except: return [0.0] * count
@@ -69,7 +74,6 @@ def get_item_context(item_id: str, store_id: str):
     if not os.path.exists(PROCESSED_DATA_PATH): return None
     try:
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
-        # Filter for the specific item AND store
         last_row = df.filter((pl.col("item_id") == item_id) & (pl.col("store_id") == store_id)).tail(1).collect()
         return last_row.to_dicts()[0] if not last_row.is_empty() else None
     except: return None
@@ -136,6 +140,7 @@ def predict(item_id: str, store_id: str, current_stock: float = 0.0):
         return {
             "item_id": str(item_id),
             "store_id": str(store_id),
+            "product_name": PRODUCT_NAMES.get(item_id, item_id),
             "history": [float(x) for x in sales_history],
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
@@ -147,7 +152,10 @@ def predict(item_id: str, store_id: str, current_stock: float = 0.0):
 @app.get("/leaderboard")
 def get_leaderboard_data():
     if os.path.exists(LEADERBOARD_PATH):
-        return pd.read_csv(LEADERBOARD_PATH).head(500).fillna("N/A").to_dict(orient="records")
+        df = pd.read_csv(LEADERBOARD_PATH).head(500)
+        # Merging human-readable names
+        df['product_name'] = df['item_id'].map(PRODUCT_NAMES).fillna(df['item_id'])
+        return df.fillna("N/A").to_dict(orient="records")
     return []
 
 if __name__ == "__main__":
