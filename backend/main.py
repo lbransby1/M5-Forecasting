@@ -140,19 +140,19 @@ def predict(item_id: str, current_stock: float = 0.0):
         return preds
 
     try:
-        # Step 3 Alignment: Use the 84-86 day buffer for feature calculation
-        # Backtest predicts the last 28 days of known history
+        # sales_history is 84 days: [0:56] is historical context, [56:84] is the 'active' evaluation window
+        
+        # Backtest predicts the LAST 28 days of history (Days 56-84)
+        # To do this, it needs the 56 days PRIOR to that as seed
         bt_preds = run_forecast_loop(sales_history[:56], start_d=(current_d - 27))
         
-        # Forecast predicts the next 28 days into the future
-        f_preds = run_forecast_loop(sales_history[56:], start_d=(current_d + 1))
+        # Forecast predicts the NEXT 28 days into the future
+        # It uses the last 56 days of the current history as seed
+        f_preds = run_forecast_loop(sales_history[28:], start_d=(current_d + 1))
         
-        # --- UPDATED FOR VISUALIZATION ---
-        # Instead of just the last 28 days, return the full history buffer
-        # This allows the frontend to plot a longer historical trend line
         return {
             "item_id": str(item_id),
-            "history": [float(x) for x in sales_history], # Returns all 86 days
+            "history": [float(x) for x in sales_history], # Full 84-86 days
             "backtest": {k: [float(x) for x in v] for k, v in bt_preds.items()},
             "forecast": {k: [float(x) for x in v] for k, v in f_preds.items()},
             "metrics": {
