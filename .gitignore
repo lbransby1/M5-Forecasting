@@ -10,3 +10,5 @@ wandb/
 __pycache__/
 *.py[cod]
 .env
+
+current state
