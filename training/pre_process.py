@@ -38,7 +38,9 @@ def preprocess_m5(add_features=True):
     for store in stores:
         print(f"📦 Processing Store: {store}...")
         
-        # Filter for just one store at a time to save RAM
+        # 1. Pre-filter prices to drastically speed up the join
+        store_prices = prices.lazy().filter(pl.col("store_id") == store)
+        
         store_pipeline = (
             sales_lazy.filter(pl.col("store_id") == store)
             .unpivot(index=["id", "item_id", "dept_id", "cat_id", "store_id", "state_id"], 
@@ -49,7 +51,9 @@ def preprocess_m5(add_features=True):
                 *[pl.col(c).cast(pl.Categorical) for c in ["item_id", "dept_id", "cat_id", "store_id", "state_id"]]
             ])
             .join(calendar.lazy(), on="d", how="left")
-            .join(prices.lazy(), on=["store_id", "item_id", "wm_yr_wk"], how="left")
+            .join(store_prices, on=["store_id", "item_id", "wm_yr_wk"], how="left")
+            # 2. CRITICAL: Sort chronologically before doing rolling math!
+            .sort(["item_id", "d"]) 
         )
 
         if add_features:
@@ -61,11 +65,15 @@ def preprocess_m5(add_features=True):
 
         # Save this store to a temp file
         temp_path = f"backend/data/processed/temp_{store}.parquet"
-        store_pipeline.sink_parquet(temp_path)
+        
+        # 3. CRITICAL FIX: Use .collect().write_parquet() instead of .sink_parquet()
+        store_pipeline.collect().write_parquet(temp_path)
         store_files.append(temp_path)
 
-    # 3. Final Step: Combine all store parquets into one
+        # 4. Final Step: Combine all store parquets into one
     print("🔗 Stitching all stores into final production parquet...")
+        
+        # We can still use sink_parquet here because it is just a dumb concatenation (no window functions)
     pl.concat([pl.scan_parquet(f) for f in store_files]).sink_parquet(OUTPUT_PATH)
     
     # Clean up temp files
