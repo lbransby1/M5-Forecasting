@@ -28,8 +28,13 @@ st.markdown("""
 def fetch_leaderboard():
     try:
         res = requests.get(f"{API_URL}/leaderboard")
-        if res.status_code == 200: return pd.DataFrame(res.json())
-    except: pass
+        if res.status_code == 200: 
+            # Extract the 'data' list from the JSON payload
+            payload = res.json()
+            return pd.DataFrame(payload.get("data", []))
+    except Exception as e: 
+        print(f"API Error: {e}")
+        pass
     return None
 
 # --- 3. SIDEBAR NAVIGATION ---
@@ -51,7 +56,7 @@ if df_items is not None and not df_items.empty:
         stores = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
         # Add a dummy column so subsequent code that filters by store_id doesn't crash
         df_items['store_id'] = "CA_1"
-        
+
     selected_store = st.sidebar.selectbox("Select Store Location", stores)
     df_store = df_items[df_items['store_id'] == selected_store]
 
