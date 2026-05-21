@@ -34,7 +34,7 @@ if run_btn and item_id:
             bt_data = data.get('backtest', {})
             f_data = data.get('forecast', {})
 
-            st.title(f"📈 {data.get('product_name', item_id)}")
+            st.title(f"{data.get('product_name', item_id)}")
             st.info(f"Location: **{selected_store}** | Forecasting Horizon: **28 Days**")
 
             # Render KPI Cards & get math outputs needed for diagnostics
@@ -43,10 +43,14 @@ if run_btn and item_id:
             st.divider()
 
             # Main Tabs
-            tab_forecast, tab_diagnostics = st.tabs(["📊 Probabilistic Forecast", "🧠 Model Diagnostics"])
+            tab_forecast, tab_diagnostics = st.tabs(["Probabilistic Forecast", "Model Diagnostics"])
 
             with tab_forecast:
-                plot_probabilistic_forecast(h_sales, bt_data, f_data)
+                # Add the toggle right above the chart
+                view_cumulative = st.toggle("Show Cumulative Volume (Smooths daily noise)", value=True)
+                
+                # Pass the toggle state into your new function
+                plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=view_cumulative)
 
             with tab_diagnostics:
                 plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower)
