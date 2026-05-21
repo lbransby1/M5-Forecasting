@@ -2,7 +2,7 @@
 import os
 import numpy as np
 import lightgbm as lgb
-from core.data import get_item_context, get_history, CALENDAR, MAPPINGS, PRODUCT_NAMES
+from backend.core.data import get_item_context, get_history, CALENDAR, MAPPINGS, PRODUCT_NAMES
 
 MODEL_DIR = "models/model_alpha"
 QUANTILES = ["0.005", "0.025", "0.165", "0.25", "0.5", "0.75", "0.835", "0.975", "0.995"]
