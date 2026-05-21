@@ -40,7 +40,18 @@ selected_store = None
 
 if df_items is not None and not df_items.empty:
     # Location Filter
-    stores = sorted(list(df_items['store_id'].unique()))
+    # --- SAFE STORE EXTRACTION ---
+    # Check if the backend successfully provided the store_id column
+    if 'store_id' in df_items.columns:
+        # Drop any nulls just in case, then get unique stores
+        valid_stores = df_items['store_id'].dropna().unique()
+        stores = sorted(list(valid_stores)) if len(valid_stores) > 0 else ["CA_1"]
+    else:
+        # Fallback to the standard 10 stores of the M5 dataset if the column is missing
+        stores = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
+        # Add a dummy column so subsequent code that filters by store_id doesn't crash
+        df_items['store_id'] = "CA_1"
+        
     selected_store = st.sidebar.selectbox("Select Store Location", stores)
     df_store = df_items[df_items['store_id'] == selected_store]
 
