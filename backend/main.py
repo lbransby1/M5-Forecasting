@@ -4,11 +4,14 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from schemas.payloads import ForecastResponse, LeaderboardResponse
-from core.data import load_data_assets, fetch_leaderboard
-from core.inference import load_ml_models, generate_full_forecast
+# --- UPDATE THESE 3 LINES ---
+from backend.schemas.payloads import ForecastResponse, LeaderboardResponse
+from backend.core.data import load_data_assets, fetch_leaderboard
+from backend.core.inference import load_ml_models, generate_full_forecast
+# ----------------------------
 
 app = FastAPI(title="M5 Forecasting API")
+# ... rest of the file stays exactly the same
 
 app.add_middleware(
     CORSMiddleware,
