@@ -21,9 +21,9 @@ def fetch_leaderboard():
     return None
 
 
-def fetch_forecast(item_id: str, store_id: str, current_stock: float):
+def fetch_forecast(item_id: str, store_id: str):
     try:
-        res = requests.get(f"{API_URL}/predict/{item_id}?store_id={store_id}&current_stock={current_stock}", timeout=10)
+        res = requests.get(f"{API_URL}/predict/{item_id}?store_id={store_id}", timeout=10)
         
         if res.status_code == 200:
             return res.json()
