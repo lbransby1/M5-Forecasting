@@ -22,7 +22,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 2. SIDEBAR NAVIGATION ---
-item_id, selected_store, current_stock, run_btn = render_sidebar()
+item_id, selected_store, run_btn = render_sidebar()
 
 # --- 3. MAIN ANALYTICS ENGINE ---
 if run_btn and item_id:
