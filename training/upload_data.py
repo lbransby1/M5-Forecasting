@@ -15,7 +15,7 @@ def upload_to_s3(file_path, bucket_name, s3_key):
     if not bucket_name:
         print("❌ Error: STORAGE_BUCKET_NAME environment variable is not set.")
         return
-        
+
     # 1. Verify file exists
     if not os.path.exists(file_path):
         print(f"Skipping: {file_path} not found.")
@@ -34,6 +34,10 @@ def upload_to_s3(file_path, bucket_name, s3_key):
         print(f"Uploading {file_path} to s3://{bucket_name}/{s3_key}...")
         s3_client.upload_file(str(file_path), bucket_name, s3_key)
         print("Upload successful.")
+
+        os.remove(file_path)
+        print(f"Deleted {file_path} after upload.")
+        
     except Exception as e:
         print(f"Upload failed: {e}")
 
