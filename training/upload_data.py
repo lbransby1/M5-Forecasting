@@ -10,6 +10,8 @@ secret_key = os.getenv("STORAGE_SECRET_ACCESS_KEY")
 
 def upload_to_s3(file_path, bucket_name, s3_key):
 
+    s3_key = f"raw/{s3_key}"
+
     bucket_name = os.getenv("STORAGE_BUCKET_NAME")
     
     if not bucket_name:
@@ -37,7 +39,6 @@ def upload_to_s3(file_path, bucket_name, s3_key):
 
         os.remove(file_path)
         print(f"Deleted {file_path} after upload.")
-        
     except Exception as e:
         print(f"Upload failed: {e}")
 
