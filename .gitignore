@@ -1,6 +1,8 @@
 # Datasets (Large Files)
 data/raw/*.csv
 data/processed/*.parquet
+*.parquet
+
 
 # Weights & Biases
 wandb/
@@ -12,3 +14,19 @@ __pycache__/
 .env
 
 current state
+requirements.txt
+backend/data/raw/
+backend/data/raw/calendar.csv
+backend/data/raw/sell_prices.csv
+backend/data/raw/sales_train_validation.csv
+backend/data/raw/sales_train_validation.csv 
+models/model_horizon/global_train_cache.csv
+models/model_horizon/global_val_cache.csv
+models/model_alpha_global/global_val_cache.csv
+models/model_alpha_global/global_train_cache.csv
+experiments/02_model architecture comparison/readme_final_evaluation_plots.png
+experiments/02_model architecture comparison/horizon_vs_recursive_degradation.png
+experiments/02_model architecture comparison/cumulative_error_divergence.png
+
+training_horizon_log.txt
+running indtructions

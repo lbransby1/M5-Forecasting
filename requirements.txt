@@ -10,3 +10,4 @@ joblib
 polars
 pyarrow
 fastparquet
+wandb
