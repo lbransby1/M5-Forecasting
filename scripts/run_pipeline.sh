@@ -13,13 +13,16 @@ mkdir -p backend/data/processed
 
 # CHECK: Does the final data already exist?
 if [ -f "$PROCESSED_FILE" ]; then
-    echo "✅ [SKIP] Processed data already exists at $PROCESSED_FILE."
-    echo "⏩ Skipping Download and Preprocessing stages."
+    echo "[SKIP] Processed data already exists at $PROCESSED_FILE."
+    echo "Skipping Download and Preprocessing stages."
 else
-    echo "📥 [STAGE 2/3] Fetching latest M5 Data..."
+    echo "📥 [STAGE 2/4] Fetching latest M5 Data..."
     python training/download_data.py --output_dir backend/data/raw
 
-    echo "🛠️ [STAGE 3/3] Running Polars Pre-processing (All Stores)..."
+    echo "🛠️ [STAGE 3/4] Uploading Data to S3..."
+    python training/upload_data.py
+
+    echo "🛠️ [STAGE 4/4] Running Polars Pre-processing (All Stores)..."
     python training/pre_process.py \
         --input_dir backend/data/raw \
         --output_file "$PROCESSED_FILE" \

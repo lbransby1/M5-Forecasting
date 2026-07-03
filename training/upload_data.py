@@ -3,6 +3,11 @@ from botocore.exceptions import ClientError
 from pathlib import Path
 import os
 
+endpoint = os.getenv("STORAGE_ENDPOINT_URL")
+access_key = os.getenv("STORAGE_ACCESS_KEY_ID")
+secret_key = os.getenv("STORAGE_SECRET_ACCESS_KEY")
+
+
 def upload_to_s3(file_path, bucket_name, s3_key):
     """Upload a file to an S3 bucket."""
     s3_client = boto3.client('s3') # Ensure AWS_ACCESS_KEY_ID etc. are in your ENV

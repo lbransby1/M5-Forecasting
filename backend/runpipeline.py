@@ -13,6 +13,9 @@ def run_script(script_name):
 
 if __name__ == "__main__":
     try:
+        # 0. Upload Data to S3
+        run_script("upload_data.py")
+        
         # 1. Data Preparation
         run_script("pre-process.py")
         
