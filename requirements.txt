@@ -11,3 +11,4 @@ polars
 pyarrow
 fastparquet
 wandb
+boto3
