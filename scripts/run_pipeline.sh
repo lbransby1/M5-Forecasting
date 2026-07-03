@@ -23,10 +23,7 @@ else
     python training/upload_data.py
 
     echo "Running Polars Pre-processing (All Stores)..."
-    python training/pre_process.py \
-        --input_dir backend/data/raw \
-        --output_file "$PROCESSED_FILE" \
-        --add_features
+ python3 pre_process.py --s3_raw_dir s3://efficient-snackbox-4rjagp/raw --s3_output_path s3://efficient-snackbox-4rjagp/processed/m5_improved.parquet
 
     echo "SUCCESS: Backend data is synced and processed."
 fi
