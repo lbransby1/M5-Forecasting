@@ -27,7 +27,7 @@ item_id, selected_store, run_btn = render_sidebar()
 # --- 3. MAIN ANALYTICS ENGINE ---
 if run_btn and item_id:
     with st.spinner("Synchronizing recursive quantile forecast..."):
-        data = fetch_forecast(item_id, selected_store, current_stock)
+        data = fetch_forecast(item_id, selected_store)
         
         # ADD THIS CHECK:
         if data is None:
@@ -61,10 +61,9 @@ if run_btn and item_id:
 
 else:
     # Landing Page
-    st.title("M5 Smart-Supply Engine")
-    st.write("Professional Quantile Forecasting for Retail Inventory Optimization.")
+    st.title("Uncertainty Quantification for Retail Inventory Optimization - M5 Walmart")
     
     c1, c2, c3 = st.columns(3)
-    c1.markdown("### Multi-stage Gradient Boosting with recursive lag optimization.")
-    c2.markdown("### 9 distinct quantiles to calculate safety-stock buffers.")
-    c3.markdown("### Polars backend for sub-second ETL.")
+    c1.markdown("Multi-stage Gradient Boosting with recursive lag optimization.")
+    c2.markdown("9 distinct quantiles to calculate safety-stock buffers.")
+    c3.markdown("Polars backend for sub-second ETL.")
