@@ -9,9 +9,16 @@ secret_key = os.getenv("STORAGE_SECRET_ACCESS_KEY")
 
 
 def upload_to_s3(file_path, bucket_name, s3_key):
+
+    bucket_name = os.getenv("STORAGE_BUCKET_NAME")
+    
+    if not bucket_name:
+        print("❌ Error: STORAGE_BUCKET_NAME environment variable is not set.")
+        return
+        
     # 1. Verify file exists
     if not os.path.exists(file_path):
-        print(f"⚠️ Skipping: {file_path} not found.")
+        print(f"Skipping: {file_path} not found.")
         return
 
     # 2. Initialize the client by explicitly passing the environment variables
@@ -24,11 +31,11 @@ def upload_to_s3(file_path, bucket_name, s3_key):
     )
     
     try:
-        print(f"⬆️ Uploading {file_path} to s3://{bucket_name}/{s3_key}...")
+        print(f"Uploading {file_path} to s3://{bucket_name}/{s3_key}...")
         s3_client.upload_file(str(file_path), bucket_name, s3_key)
-        print("✅ Upload successful.")
+        print("Upload successful.")
     except Exception as e:
-        print(f"❌ Upload failed: {e}")
+        print(f"Upload failed: {e}")
 
 if __name__ == "__main__":
     upload_to_s3("backend/data/raw/calendar.csv", "m5-walmart-data", "calendar.csv")
