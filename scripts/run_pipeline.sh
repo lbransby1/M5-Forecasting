@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+
 
 # Move to project root
 cd "$(dirname "$0")/.."
