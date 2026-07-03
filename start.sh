@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-echo "📍 Current Working Directory: $(pwd)"
-echo "📂 Top-level files: $(ls -F)"
+echo "Current Working Directory: $(pwd)"
+
 
 # 1. Manually check the two most likely locations
 if [ -f "./scripts/run_pipeline.sh" ]; then
@@ -10,8 +10,8 @@ if [ -f "./scripts/run_pipeline.sh" ]; then
 elif [ -f "./training/run_pipeline.sh" ]; then
     PIPELINE_PATH="./training/run_pipeline.sh"
 else
-    echo "❌ FATAL: run_pipeline.sh not found in /scripts or /training"
-    echo "🔍 Checking scripts folder content: $(ls -F scripts/ 2>/dev/null || echo 'Folder not found')"
+    echo "FATAL: run_pipeline.sh not found in /scripts or /training"
+    echo "Checking scripts folder content: $(ls -F scripts/ 2>/dev/null || echo 'Folder not found')"
     echo "🔍 Checking training folder content: $(ls -F training/ 2>/dev/null || echo 'Folder not found')"
     exit 1
 fi
@@ -23,10 +23,10 @@ sed -i 's/\r$//' "$PIPELINE_PATH"
 chmod +x "$PIPELINE_PATH"
 
 # 3. Run Pipeline
-echo "🚀 [STAGE 1/2] Running Data Pipeline..."
+echo "[STAGE 1/2] Running Data Pipeline..."
 bash "$PIPELINE_PATH"
 
 # 4. Start API
-echo "🌐 [STAGE 2/2] Starting FastAPI Server..."
+echo "[STAGE 2/2] Starting FastAPI Server..."
 # The ${PORT:-8000} syntax means: Use $PORT if it exists, otherwise use 8000
 uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}
