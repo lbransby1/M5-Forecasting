@@ -8,7 +8,7 @@ from wandb.integration.lightgbm import wandb_callback, log_summary
 
 # Setup paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_PATH = BASE_DIR / "data" / "processed" / "m5_improved.parquet"
+DATA_PATH = BASE_DIR / "backend"/ "data" / "processed" / "m5_improved.parquet"
 MODEL_DIR = BASE_DIR / "models" / "model_alpha"
 os.makedirs(MODEL_DIR, exist_ok=True)
 

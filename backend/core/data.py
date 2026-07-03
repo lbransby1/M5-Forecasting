@@ -8,8 +8,16 @@ import polars as pl
 DATA_DIR = "backend/data"
 PROCESSED_DATA_PATH = f"{DATA_DIR}/processed/m5_improved.parquet"
 LEADERBOARD_PATH = f"{DATA_DIR}/item_leaderboard.csv"
-MAPPING_PATH = "backend/category_mappings.json"
-PRODUCT_MAP_PATH = "backend/product_map.json"
+PRODUCT_MAP_PATH = f"{DATA_DIR}/product_map.json"
+
+MODEL_ARCH = os.environ.get("MODEL_ARCH", "recursive")
+
+def _default_mapping_path():
+    if MODEL_ARCH == "horizon":
+        return "models/model_horizon/category_mappings.json"
+    return "backend/category_mappings.json"
+
+MAPPING_PATH = os.environ.get("CATEGORY_MAPPINGS_PATH", _default_mapping_path())
 
 # --- GLOBAL ASSETS ---
 CALENDAR = pd.read_csv(f"{DATA_DIR}/raw/calendar.csv")
@@ -22,6 +30,9 @@ def load_data_assets():
     if os.path.exists(MAPPING_PATH):
         with open(MAPPING_PATH, "r") as f:
             MAPPINGS = json.load(f)
+        print(f"✅ Category mappings loaded from {MAPPING_PATH}")
+    else:
+        print(f"⚠️ Category mappings not found at {MAPPING_PATH}")
     if os.path.exists(PRODUCT_MAP_PATH):
         with open(PRODUCT_MAP_PATH, "r") as f:
             PRODUCT_NAMES = json.load(f)
@@ -41,6 +52,21 @@ def get_item_context(item_id: str, store_id: str):
         df = pl.scan_parquet(PROCESSED_DATA_PATH)
         last_row = df.filter((pl.col("item_id") == item_id) & (pl.col("store_id") == store_id)).tail(1).collect()
         return last_row.to_dicts()[0] if not last_row.is_empty() else None
+    except: return None
+
+def get_item_context_at_d(item_id: str, store_id: str, d: int):
+    if not os.path.exists(PROCESSED_DATA_PATH): return None
+    try:
+        df = pl.scan_parquet(PROCESSED_DATA_PATH)
+        row = (
+            df.filter(
+                (pl.col("item_id") == item_id)
+                & (pl.col("store_id") == store_id)
+                & (pl.col("d") == d)
+            )
+            .collect()
+        )
+        return row.to_dicts()[0] if not row.is_empty() else None
     except: return None
 
 def fetch_leaderboard():

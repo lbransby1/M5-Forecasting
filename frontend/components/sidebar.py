@@ -3,7 +3,7 @@ import streamlit as st
 from api_client import fetch_leaderboard
 
 def render_sidebar():
-    st.sidebar.title("🛠️ Inventory Ops")
+    st.sidebar.title("Inventory")
     df_items = fetch_leaderboard()
     
     item_id = None
@@ -40,7 +40,6 @@ def render_sidebar():
             )
 
     st.sidebar.divider()
-    current_stock = st.sidebar.number_input("Warehouse Stock Level", value=20, help="Initial inventory for risk simulation")
     run_btn = st.sidebar.button("Generate Analytics Report", type="primary", disabled=(item_id is None))
     
-    return item_id, selected_store, current_stock, run_btn
+    return item_id, selected_store, run_btn

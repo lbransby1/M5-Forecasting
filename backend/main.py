@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # --- UPDATE THESE 3 LINES ---
 from backend.schemas.payloads import ForecastResponse, LeaderboardResponse
-from backend.core.data import load_data_assets, fetch_leaderboard
+from backend.core.data import load_data_assets, fetch_leaderboard, MODEL_ARCH
 from backend.core.inference import load_ml_models, generate_full_forecast
 # ----------------------------
 
@@ -22,6 +22,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event():
+    print(f"📐 Model architecture: {MODEL_ARCH}")
     load_data_assets()
     load_ml_models()
 

@@ -43,7 +43,7 @@ def setup_raw_data(dest_dir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # This matches the --output_dir flag in your run_pipeline.sh
-    parser.add_argument("--output_dir", type=str, default="backend/data/raw")
+    parser.add_argument("--output_dir", type=str, default="data/raw")
     args = parser.parse_args()
     
     setup_raw_data(args.output_dir)

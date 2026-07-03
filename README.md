@@ -13,13 +13,14 @@ This project delivers a production-grade forecasting engine capable of localized
 ##  System Architecture
 The system is architected as a decoupled microservice to ensure separation of concerns and computational efficiency:
 
-1.  **Backend (FastAPI):** High-performance inference engine serving 9 distinct quantile boosters. It manages **recursive autoregressive loops** to maintain feature integrity over 28-day horizons.
+1.  **Backend (FastAPI):** High-performance inference engine serving 9 distinct quantile boosters. Supports **direct multi-horizon** inference (default in production via `MODEL_ARCH=horizon`) or legacy **recursive autoregressive** loops (`MODEL_ARCH=recursive`).
 2.  **ETL Pipeline (Polars):** Leverages Rust-backed Polars for server-side feature extraction, achieving a 98% reduction in memory overhead (46GB down to 700MB) compared to standard Pandas.
 3.  **Frontend (Streamlit):** An interactive dashboard providing probabilistic "Fan Charts" and inventory metrics.
 4.  **DevOps:** Containerized via multi-stage Docker builds and deployed with automated CI/CD via GitHub Actions and Railway.
 
 ##  Key Technical Milestones
-* **Recursive Stability:** Engineered a custom loop that feeds predicted values back into rolling windows, utilizing a **weighted-quantile expectation** to prevent autoregressive decay and maintain forecast "energy".
+* **Horizon Architecture:** Direct 28-step quantile predictions from a single anchor row using a `horizon_day` feature — validated to outperform recursive autoregression on pinball loss, especially at longer lead times.
+* **Recursive Stability (legacy):** Weighted-quantile feedback loop for autoregressive rolling features; available via `MODEL_ARCH=recursive` rollback.
 * **Localized Inference:** Implemented store-specific filtering, allowing users to query unique item-store combinations (e.g., California vs. Wisconsin demand) to account for regional exogenous factors like SNAP benefit cycles.
 * **Probabilistic Uncertainty:** Utilized **Quantile Regression** (0.005 to 0.995) to generate calibrated prediction intervals. This allows for "Safety Stock" calculation by targeting specific risk-tolerance levels (e.g., 75th or 95th percentile).
 * **Human-Centric Mapping:** Integrated a mapping layer that translates granular SKU-level codes into human-readable product names (e.g., "Decorative Craft Stickers"), improving searchability for non-technical stakeholders.
@@ -44,3 +45,14 @@ git clone [https://github.com/lbransby1/M5-Forecasting.git](https://github.com/l
 
 # Build and run with Docker Compose
 docker-compose up --build
+```
+
+### Production (Railway)
+
+Set on the backend service:
+
+```
+MODEL_ARCH=horizon
+```
+
+Rollback: set `MODEL_ARCH=recursive`. Ensure all 9 files in `models/model_horizon/` and `category_mappings.json` are in the Docker build before deploying.

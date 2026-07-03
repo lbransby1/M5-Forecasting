@@ -20,11 +20,25 @@ def fetch_leaderboard():
         print(f"API Error: {e}")
     return None
 
+
 def fetch_forecast(item_id: str, store_id: str, current_stock: float):
     try:
-        res = requests.get(f"{API_URL}/predict/{item_id}?store_id={store_id}&current_stock={current_stock}")
+        res = requests.get(f"{API_URL}/predict/{item_id}?store_id={store_id}&current_stock={current_stock}", timeout=10)
+        
         if res.status_code == 200:
             return res.json()
+        elif res.status_code == 503:
+            st.error("**Server under maintenance.** Please try again in a few minutes.")
+        elif res.status_code == 500:
+            st.error("**Internal Server Error.** The backend encountered an issue processing your request.")
+        else:
+            st.error(f"**Unexpected Error:** Server returned status code {res.status_code}")
+            
+    except requests.exceptions.ConnectionError:
+        st.error("**Connection refused.** Please check if the backend server is running.")
+    except requests.exceptions.Timeout:
+        st.error("**Request timed out.** The server is taking too long to respond.")
     except Exception as e:
-        st.error(f"Failed to fetch forecast: {e}")
+        st.error(f"An unknown error occurred: {e}")
+        
     return None
