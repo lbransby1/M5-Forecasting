@@ -14,7 +14,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path.cwd()))
 from core.pre_process import resolve_raw_dir
-print(resolve_raw_dir(os.environ.get("RAW_DIR_OVERRIDE") or None))
+
+try:
+    sys.stdout.write(resolve_raw_dir(os.environ.get("RAW_DIR_OVERRIDE") or None))
+except FileNotFoundError:
+    sys.exit(1)
 PY
 }
 
@@ -76,10 +80,10 @@ else
     python core/download_data.py --output_dir backend/data/raw
 
     echo "Running local preprocessing..."
-    RAW_DIR="$(resolve_raw_dir 2>/dev/null || echo backend/data/raw)"
+    DOWNLOAD_DIR="backend/data/raw"
     python core/pre_process.py \
       --mode local \
-      --raw_dir "$RAW_DIR" \
+      --raw_dir "$DOWNLOAD_DIR" \
       --output_path "$PROCESSED_FILE"
   fi
 fi

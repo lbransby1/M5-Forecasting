@@ -29,7 +29,7 @@ def resolve_raw_dir(raw_dir: str | None = None) -> str:
     for candidate in RAW_DIR_CANDIDATES:
         calendar = os.path.join(candidate, "calendar.csv")
         if os.path.exists(calendar):
-            print(f"Using raw data directory: {candidate}")
+            print(f"Using raw data directory: {candidate}", file=sys.stderr)
             return candidate
 
     raise FileNotFoundError(
