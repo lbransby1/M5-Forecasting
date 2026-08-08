@@ -28,8 +28,14 @@ def _default_mapping_path():
 MAPPING_PATH = os.environ.get("CATEGORY_MAPPINGS_PATH", _default_mapping_path())
 
 # --- GLOBAL ASSETS ---
-CALENDAR = pd.read_csv(f"{DATA_DIR}/raw/calendar.csv")
-CALENDAR["d_num"] = CALENDAR["d"].str.replace("d_", "").astype(int)
+_calendar_path = f"{DATA_DIR}/raw/calendar.csv"
+if os.path.exists(_calendar_path):
+    CALENDAR = pd.read_csv(_calendar_path)
+    CALENDAR["d_num"] = CALENDAR["d"].str.replace("d_", "").astype(int)
+else:
+    CALENDAR = pd.DataFrame(columns=["d", "d_num", "wday", "month", "snap_CA", "snap_TX", "snap_WI"])
+    print(f"[warn] calendar.csv not found at {_calendar_path} (ok for horizon+redis inference)")
+
 MAPPINGS = {}
 PRODUCT_NAMES = {}
 
