@@ -4,54 +4,20 @@ set -e
 cd "$(dirname "$0")/.."
 
 PROCESSED_FILE="backend/data/processed/m5_improved.parquet"
-RAW_DIR=""
-
-resolve_raw_dir() {
-  python - <<'PY'
-import os
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path.cwd()))
-from core.pre_process import resolve_raw_dir
-
-try:
-    sys.stdout.write(resolve_raw_dir(os.environ.get("RAW_DIR_OVERRIDE") or None))
-except FileNotFoundError:
-    sys.exit(1)
-PY
-}
-
-RAW_DIR=""
-if RAW_DIR="$(resolve_raw_dir 2>/dev/null)"; then
-  echo "Found raw data at: $RAW_DIR"
-else
-  RAW_DIR="backend/data/raw"
-  echo "Raw data not found; will download to $RAW_DIR"
-fi
+PARQUET_URI="${PROCESSED_PARQUET_URI:-}"
 
 mkdir -p backend/data/raw
 mkdir -p backend/data/processed
 
 compute_version() {
   python - <<'PY'
-import hashlib
+import sys
 from pathlib import Path
 
-parts = []
-processed = Path("backend/data/processed/m5_improved.parquet")
-raw_dir = Path("backend/data/raw")
-if processed.exists():
-    stat = processed.stat()
-    parts.append(f"parquet:{stat.st_mtime_ns}:{stat.st_size}")
-for name in ["calendar.csv", "sell_prices.csv", "sales_train_evaluation.csv"]:
-    raw = Path("backend/data/raw") / name
-    if not raw.exists():
-        raw = Path("data/raw") / name
-    if raw.exists():
-        stat = raw.stat()
-        parts.append(f"{name}:{stat.st_mtime_ns}:{stat.st_size}")
-print(hashlib.sha256("|".join(parts).encode()).hexdigest()[:16])
+sys.path.insert(0, str(Path.cwd()))
+from training.load_feature_store import compute_dataset_version, resolve_parquet_uri
+
+print(compute_dataset_version(resolve_parquet_uri()))
 PY
 }
 
@@ -70,27 +36,45 @@ PY
 )"
 fi
 
-if [ -n "${REDIS_URL:-}" ] && [ "$REDIS_VERSION" = "$TARGET_VERSION" ] && [ -f "$PROCESSED_FILE" ]; then
-  echo "[SKIP] Redis feature store already matches dataset version $TARGET_VERSION."
-elif [ -f "$PROCESSED_FILE" ] && [ ! -f "$RAW_DIR/sales_train_evaluation.csv" ]; then
-  echo "[SKIP] Processed parquet exists; raw files absent."
-else
-  if [ ! -f "$PROCESSED_FILE" ] || [ -f "$RAW_DIR/sales_train_evaluation.csv" ]; then
-    echo "Fetching latest M5 Data..."
-    python core/download_data.py --output_dir backend/data/raw
+REDIS_PARQUET="$(python - <<'PY'
+import os
+import sys
+from pathlib import Path
 
-    echo "Running local preprocessing..."
-    DOWNLOAD_DIR="backend/data/raw"
-    python core/pre_process.py \
-      --mode local \
-      --raw_dir "$DOWNLOAD_DIR" \
-      --output_path "$PROCESSED_FILE"
-  fi
+sys.path.insert(0, str(Path.cwd()))
+from training.load_feature_store import resolve_parquet_uri
+print(resolve_parquet_uri())
+PY
+)"
+
+if [ "${SKIP_DATA_PIPELINE:-}" = "true" ]; then
+  echo "[SKIP] SKIP_DATA_PIPELINE=true — no download/preprocess on this server."
+elif [ -n "$PARQUET_URI" ]; then
+  echo "[SKIP] PROCESSED_PARQUET_URI set — using remote processed data: $PARQUET_URI"
+elif [ -f "$PROCESSED_FILE" ]; then
+  echo "[SKIP] Local processed parquet already exists."
+else
+  echo "Fetching latest M5 Data..."
+  python core/download_data.py --output_dir backend/data/raw
+
+  echo "Running local preprocessing..."
+  python core/pre_process.py \
+    --mode local \
+    --raw_dir backend/data/raw \
+    --output_path "$PROCESSED_FILE"
 fi
 
-if [ -n "${REDIS_URL:-}" ]; then
-  echo "Loading Redis feature store..."
-  python training/load_feature_store.py --parquet "$PROCESSED_FILE"
+if [ "${SKIP_REDIS_LOAD:-}" = "true" ]; then
+  echo "[SKIP] SKIP_REDIS_LOAD=true"
+elif [ -n "${REDIS_URL:-}" ] && [ -n "$REDIS_VERSION" ] && [ "$REDIS_VERSION" = "$TARGET_VERSION" ]; then
+  echo "[SKIP] Redis feature store already matches dataset version $TARGET_VERSION."
+else
+  if [ -n "${REDIS_URL:-}" ]; then
+    echo "Loading Redis feature store from $REDIS_PARQUET ..."
+    python training/load_feature_store.py --parquet "$REDIS_PARQUET"
+  else
+    echo "[SKIP] REDIS_URL not set — skipping Redis load."
+  fi
 fi
 
 echo "Ready for API startup."
