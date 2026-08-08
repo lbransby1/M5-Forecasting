@@ -82,6 +82,48 @@ def _apply_horizon_uncertainty_scaling(day_preds: dict[str, float], horizon_day:
     return {q: max(0.0, median + (day_preds[q] - median) * scale) for q in QUANTILES}
 
 
+def _calendar_wday(d: int) -> int | None:
+    if CALENDAR.empty or "d_num" not in CALENDAR.columns:
+        return None
+    matches = CALENDAR[CALENDAR["d_num"] == d]
+    if matches.empty:
+        return None
+    return int(matches.iloc[0]["wday"])
+
+
+def _dow_sales_profile(sales_history, end_d: int) -> dict[int, float]:
+    buckets: dict[int, list[float]] = {w: [] for w in range(1, 8)}
+    start_d = end_d - len(sales_history) + 1
+    for i, sales in enumerate(sales_history):
+        wday = _calendar_wday(start_d + i)
+        if wday:
+            buckets[wday].append(float(sales))
+    return {w: float(np.mean(v)) if v else 0.0 for w, v in buckets.items()}
+
+
+def _apply_dow_profile(
+    day_preds: dict[str, float], target_wday: int, dow_profile: dict[int, float] | None
+) -> dict[str, float]:
+    """Rescale predictions to match the item's recent day-of-week sales profile."""
+    if not dow_profile or MODEL_ARCH != "horizon" or HORIZON_MODEL_VERSION != "v2":
+        return day_preds
+
+    positive = [v for v in dow_profile.values() if v > 0]
+    if not positive:
+        return day_preds
+
+    profile_mean = float(np.mean(positive))
+    target_level = dow_profile.get(target_wday, 0.0)
+    if profile_mean <= 0 or target_level <= 0:
+        return day_preds
+
+    factor = target_level / profile_mean
+    if abs(factor - 1.0) < 1e-6:
+        return day_preds
+
+    return {q: max(0.0, day_preds[q] * factor) for q in QUANTILES}
+
+
 def _encode_category(col: str, value) -> int:
     if not MAPPINGS.get(col):
         return 0
@@ -189,10 +231,23 @@ def run_forecast_loop(seed_history, start_d, ctx):
     return preds
 
 
-def run_horizon_forecast(anchor_ctx, item_id: str, store_id: str):
+def run_horizon_forecast(
+    anchor_ctx,
+    item_id: str,
+    store_id: str,
+    sales_history=None,
+    profile_end_d: int | None = None,
+):
+    dow_profile = None
+    if sales_history is not None and profile_end_d is not None:
+        dow_profile = _dow_sales_profile(sales_history, profile_end_d)
+
+    anchor_wday = int(anchor_ctx.get("wday", 0))
     preds = {q: [] for q in QUANTILES}
     for h in range(1, 29):
+        target_wday = compute_target_wday(anchor_wday, h)
         day_preds = _predict_quantiles(_build_horizon_feat_row(anchor_ctx, h, item_id, store_id))
+        day_preds = _apply_dow_profile(day_preds, target_wday, dow_profile)
         day_preds = _apply_horizon_uncertainty_scaling(day_preds, h)
         for q in QUANTILES:
             preds[q].append(day_preds[q])
@@ -243,8 +298,8 @@ def _generate_horizon_forecast(item_id: str, store_id: str, ctx, sales_history):
     if not anchor_ctx:
         raise ValueError(f"No anchor context found at d={anchor_d} for backtest.")
 
-    bt_preds = run_horizon_forecast(anchor_ctx, item_id, store_id)
-    f_preds = run_horizon_forecast(ctx, item_id, store_id)
+    bt_preds = run_horizon_forecast(anchor_ctx, item_id, store_id, sales_history, current_d)
+    f_preds = run_horizon_forecast(ctx, item_id, store_id, sales_history, current_d)
     return bt_preds, f_preds
 
 
