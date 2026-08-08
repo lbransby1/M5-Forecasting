@@ -1,6 +1,9 @@
 # frontend/components/sidebar.py
 import streamlit as st
+import pandas as pd
 from api_client import fetch_leaderboard
+
+M5_STORES = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
 
 def render_sidebar():
     st.sidebar.title("Inventory")
@@ -10,16 +13,18 @@ def render_sidebar():
     selected_store = None
     
     if df_items is not None and not df_items.empty:
-        # Safe store extraction
-        if 'store_id' in df_items.columns:
-            valid_stores = df_items['store_id'].dropna().unique()
-            stores = sorted(list(valid_stores)) if len(valid_stores) > 0 else ["CA_1"]
-        else:
-            stores = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
-            df_items['store_id'] = "CA_1"
+        if "store_id" not in df_items.columns:
+            expanded = []
+            for _, row in df_items.iterrows():
+                for store in M5_STORES:
+                    expanded.append({**row.to_dict(), "store_id": store})
+            df_items = pd.DataFrame(expanded)
+
+        valid_stores = df_items["store_id"].dropna().unique()
+        stores = sorted(list(valid_stores)) if len(valid_stores) > 0 else M5_STORES
 
         selected_store = st.sidebar.selectbox("Select Store Location", stores)
-        df_store = df_items[df_items['store_id'] == selected_store]
+        df_store = df_items[df_items["store_id"] == selected_store]
 
         # Smart Search
         search = st.sidebar.text_input("Search Product Name/ID", "").lower()

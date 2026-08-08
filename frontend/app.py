@@ -25,39 +25,44 @@ st.markdown("""
 item_id, selected_store, run_btn = render_sidebar()
 
 # --- 3. MAIN ANALYTICS ENGINE ---
-if run_btn and item_id:
-    with st.spinner("Synchronizing recursive quantile forecast..."):
-        data = fetch_forecast(item_id, selected_store)
-        
-        # ADD THIS CHECK:
-        if data is None:
-            st.stop() 
-            
-        # PROCEED ONLY IF DATA EXISTS:
-        h_sales = np.array(data.get('history', []))
-        bt_data = data.get('backtest', {})
-        f_data = data.get('forecast', {})
+# Streamlit buttons only fire once; persist results so toggles/tabs don't reset the page.
+if run_btn and item_id and selected_store:
+    with st.spinner("Loading quantile forecast..."):
+        fetched = fetch_forecast(item_id, selected_store)
+        if fetched is None:
+            st.stop()
+        st.session_state["forecast_data"] = fetched
+        st.session_state["forecast_key"] = (item_id, selected_store)
 
-        st.title(f"{data.get('product_name', item_id)}")
-        st.info(f"Location: **{selected_store}** | Forecasting Horizon: **28 Days**")
+forecast_key = (item_id, selected_store) if item_id and selected_store else None
+data = (
+    st.session_state.get("forecast_data")
+    if forecast_key and st.session_state.get("forecast_key") == forecast_key
+    else None
+)
 
-        # Render KPI Cards & get math outputs needed for diagnostics
-        actuals_tail, bt_median, pi_95_upper, pi_95_lower = render_kpi_cards(h_sales, bt_data, f_data)
+if data:
+    h_sales = np.array(data.get("history", []))
+    bt_data = data.get("backtest", {})
+    f_data = data.get("forecast", {})
 
-        st.divider()
+    st.title(f"{data.get('product_name', item_id)}")
+    st.info(f"Location: **{selected_store}** | Forecasting Horizon: **28 Days**")
 
-        # Main Tabs
-        tab_forecast, tab_diagnostics = st.tabs(["Probabilistic Forecast", "Model Diagnostics"])
+    actuals_tail, bt_median, pi_95_upper, pi_95_lower = render_kpi_cards(h_sales, bt_data, f_data)
 
-        with tab_forecast:
-            # Add the toggle right above the chart
-            view_cumulative = st.toggle("Show Cumulative Volume (Smooths daily noise)!!", value=True)
-            
-            # Pass the toggle state into your new function
-            plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=view_cumulative)
+    st.divider()
 
-        with tab_diagnostics:
-            plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower)
+    tab_forecast, tab_diagnostics = st.tabs(["Probabilistic Forecast", "Model Diagnostics"])
+
+    with tab_forecast:
+        st.subheader("Daily units")
+        plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False)
+        st.subheader("Cumulative volume")
+        plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=True)
+
+    with tab_diagnostics:
+        plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower)
 
 else:
     # Landing Page
