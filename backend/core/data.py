@@ -52,7 +52,9 @@ def load_data_assets():
     global MAPPINGS, PRODUCT_NAMES
     if os.path.exists(MAPPING_PATH):
         with open(MAPPING_PATH, "r") as f:
-            MAPPINGS = json.load(f)
+            loaded = json.load(f)
+        MAPPINGS.clear()
+        MAPPINGS.update(loaded)
         print(f"Category mappings loaded from {MAPPING_PATH}")
     else:
         print(f"Category mappings not found at {MAPPING_PATH}")
@@ -63,7 +65,9 @@ def load_data_assets():
         )
     if os.path.exists(PRODUCT_MAP_PATH):
         with open(PRODUCT_MAP_PATH, "r") as f:
-            PRODUCT_NAMES = json.load(f)
+            loaded = json.load(f)
+        PRODUCT_NAMES.clear()
+        PRODUCT_NAMES.update(loaded)
     print(f"Data assets loaded: {len(PRODUCT_NAMES)} product names.")
 
 
