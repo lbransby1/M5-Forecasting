@@ -2,6 +2,7 @@
 import os
 import numpy as np
 import lightgbm as lgb
+from core.feature_engineering import compute_target_wday
 from backend.core.data import (
     get_item_context,
     get_item_context_at_d,
@@ -10,26 +11,34 @@ from backend.core.data import (
     MAPPINGS,
     PRODUCT_NAMES,
     MODEL_ARCH,
+    HORIZON_MODEL_VERSION,
 )
 
 QUANTILES = ["0.005", "0.025", "0.165", "0.25", "0.5", "0.75", "0.835", "0.975", "0.995"]
 MODELS = {}
 
 RECURSIVE_MODEL_DIR = "models/model_alpha"
-HORIZON_MODEL_DIR = "models/model_horizon"
+HORIZON_MODEL_DIR_V1 = "models/model_horizon"
+HORIZON_MODEL_DIR_V2 = "models/model_horizon_v2"
+
+
+def _horizon_model_dir() -> str:
+    if HORIZON_MODEL_VERSION == "v2":
+        return HORIZON_MODEL_DIR_V2
+    return HORIZON_MODEL_DIR_V1
 
 
 def _model_path(quantile: str) -> str:
     if MODEL_ARCH == "horizon":
-        return f"{HORIZON_MODEL_DIR}/global_model_alpha_{quantile}.txt"
+        return f"{_horizon_model_dir()}/global_model_alpha_{quantile}.txt"
     return f"{RECURSIVE_MODEL_DIR}/model_alpha_{quantile}.txt"
 
 
 def load_ml_models():
     global MODELS
     MODELS = {}
-    model_dir = HORIZON_MODEL_DIR if MODEL_ARCH == "horizon" else RECURSIVE_MODEL_DIR
-    print(f"🚀 Loading {MODEL_ARCH} LightGBM models from {model_dir}...")
+    model_dir = _horizon_model_dir() if MODEL_ARCH == "horizon" else RECURSIVE_MODEL_DIR
+    print(f"Loading {MODEL_ARCH} LightGBM models from {model_dir}...")
     for q in QUANTILES:
         path = _model_path(q)
         if os.path.exists(path):
@@ -39,7 +48,7 @@ def load_ml_models():
         raise RuntimeError(
             f"Expected {len(QUANTILES)} {MODEL_ARCH} models, loaded {len(MODELS)}. Missing: {missing}"
         )
-    print(f"✅ Loaded {len(MODELS)} quantile models ({MODEL_ARCH} architecture).")
+    print(f"Loaded {len(MODELS)} quantile models ({MODEL_ARCH}, {HORIZON_MODEL_VERSION}).")
 
 
 def _encode_category(col: str, value) -> int:
@@ -65,7 +74,7 @@ def _build_recursive_feat_row(ctx, day_info, current_window):
     ]
 
 
-def _build_horizon_feat_row(anchor_ctx, horizon_day: int):
+def _build_horizon_v1_feat_row(anchor_ctx, horizon_day: int):
     return [
         _encode_category("item_id", anchor_ctx.get("item_id")),
         _encode_category("dept_id", anchor_ctx.get("dept_id")),
@@ -83,6 +92,40 @@ def _build_horizon_feat_row(anchor_ctx, horizon_day: int):
         int(anchor_ctx.get("snap_WI", 0)),
         horizon_day,
     ]
+
+
+def _build_horizon_v2_feat_row(anchor_ctx, horizon_day: int):
+    target_wday = compute_target_wday(int(anchor_ctx.get("wday", 0)), horizon_day)
+    return [
+        _encode_category("item_id", anchor_ctx.get("item_id")),
+        _encode_category("dept_id", anchor_ctx.get("dept_id")),
+        _encode_category("cat_id", anchor_ctx.get("cat_id")),
+        _encode_category("store_id", anchor_ctx.get("store_id")),
+        _encode_category("state_id", anchor_ctx.get("state_id")),
+        int(anchor_ctx.get("wday", 0)),
+        int(anchor_ctx.get("month", 0)),
+        float(anchor_ctx.get("sell_price", 0)),
+        float(anchor_ctx.get("price_norm", 0)),
+        int(anchor_ctx.get("snap_CA", 0)),
+        int(anchor_ctx.get("snap_TX", 0)),
+        int(anchor_ctx.get("snap_WI", 0)),
+        float(anchor_ctx.get("price_momentum_7d", 0)),
+        float(anchor_ctx.get("price_momentum_28d", 0)),
+        float(anchor_ctx.get("lag_28", 0)),
+        float(anchor_ctx.get("roll_mean_7_lag_28", 0)),
+        float(anchor_ctx.get("roll_mean_28_lag_28", 0)),
+        float(anchor_ctx.get("masked_roll_mean_28_lag_28", 0)),
+        float(anchor_ctx.get("ema_lag_28", 0)),
+        float(anchor_ctx.get("days_since_last_sale_lag_28", 0)),
+        horizon_day,
+        _encode_category("target_wday", target_wday),
+    ]
+
+
+def _build_horizon_feat_row(anchor_ctx, horizon_day: int):
+    if HORIZON_MODEL_VERSION == "v2":
+        return _build_horizon_v2_feat_row(anchor_ctx, horizon_day)
+    return _build_horizon_v1_feat_row(anchor_ctx, horizon_day)
 
 
 def _predict_quantiles(feat_row):

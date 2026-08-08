@@ -13,3 +13,4 @@ fastparquet
 wandb
 boto3
 s3fs
+redis
