@@ -21,6 +21,7 @@ from core.feature_engineering import REDIS_ROW_COLUMNS
 
 DEFAULT_PARQUET = BASE_DIR / "backend" / "data" / "processed" / "m5_improved.parquet"
 RAW_DIR = BASE_DIR / "backend" / "data" / "raw"
+CAT_STRING_COLS = ["item_id", "dept_id", "cat_id", "store_id", "state_id"]
 STORES = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
 
 
@@ -141,6 +142,7 @@ def load_feature_store(parquet_ref: str | None = None, force: bool = False) -> N
     if missing:
         raise ValueError(f"Parquet missing required columns: {missing}. Re-run core/pre_process.py.")
 
+    print("[load] Flushing old Redis keys (remote Redis can take several minutes)...")
     flush_namespace()
     pipe = client.pipeline(transaction=False)
     batch = 0
@@ -157,6 +159,10 @@ def load_feature_store(parquet_ref: str | None = None, force: bool = False) -> N
         )
         if df.is_empty():
             continue
+
+        cat_cols = [c for c in CAT_STRING_COLS if c in df.columns]
+        if cat_cols:
+            df = df.with_columns([pl.col(c).cast(pl.Utf8) for c in cat_cols])
 
         max_d = max(max_d, int(df["d"].max()))
 

@@ -24,6 +24,11 @@ st.markdown("""
 # --- 2. SIDEBAR NAVIGATION ---
 item_id, selected_store, run_btn = render_sidebar()
 
+selection_key = (item_id, selected_store) if item_id and selected_store else None
+if selection_key and st.session_state.get("forecast_key") != selection_key:
+    st.session_state.pop("forecast_data", None)
+    st.session_state.pop("forecast_key", None)
+
 # --- 3. MAIN ANALYTICS ENGINE ---
 # Streamlit buttons only fire once; persist results so toggles/tabs don't reset the page.
 if run_btn and item_id and selected_store:
@@ -65,6 +70,8 @@ if data:
         plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower)
 
 else:
+    if selection_key:
+        st.info("Select an item and click **Generate Analytics Report** to load its forecast.")
     # Landing Page
     st.title("Uncertainty Quantification for Retail Inventory Optimization - M5 Walmart")
     

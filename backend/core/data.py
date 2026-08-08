@@ -16,6 +16,8 @@ MODEL_ARCH = os.environ.get("MODEL_ARCH", "recursive")
 FEATURE_STORE = os.environ.get("FEATURE_STORE", "parquet")
 HORIZON_MODEL_VERSION = os.environ.get("HORIZON_MODEL_VERSION", "v2")
 
+M5_STORES = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
+
 
 def _default_mapping_path():
     if MODEL_ARCH == "horizon":
@@ -54,6 +56,11 @@ def load_data_assets():
         print(f"Category mappings loaded from {MAPPING_PATH}")
     else:
         print(f"Category mappings not found at {MAPPING_PATH}")
+    if MODEL_ARCH == "horizon" and not MAPPINGS:
+        raise RuntimeError(
+            f"Horizon inference requires category mappings at {MAPPING_PATH}. "
+            "Deploy models/model_horizon_v2/category_mappings.json with the API."
+        )
     if os.path.exists(PRODUCT_MAP_PATH):
         with open(PRODUCT_MAP_PATH, "r") as f:
             PRODUCT_NAMES = json.load(f)
@@ -133,16 +140,25 @@ def fetch_leaderboard():
 
     if "store_id" not in df.columns:
         try:
-            meta_df = (
-                pl.scan_parquet(PROCESSED_DATA_PATH)
-                .select(["item_id", "store_id", "dept_id"])
-                .unique()
-                .collect()
-                .to_pandas()
-            )
-            df = df.merge(meta_df, on="item_id", how="left")
+            if os.path.exists(PROCESSED_DATA_PATH):
+                meta_df = (
+                    pl.scan_parquet(PROCESSED_DATA_PATH)
+                    .select(["item_id", "store_id", "dept_id"])
+                    .unique()
+                    .collect()
+                    .to_pandas()
+                )
+                df = df.merge(meta_df, on="item_id", how="left")
         except Exception as e:
             print(f"Metadata Merge Failed: {e}")
+
+    if "store_id" not in df.columns or df["store_id"].isna().all():
+        # Redis-only deploys have no local parquet — M5 items exist at all 10 stores.
+        expanded = []
+        for _, row in df.iterrows():
+            for store in M5_STORES:
+                expanded.append({**row.to_dict(), "store_id": store})
+        df = pd.DataFrame(expanded)
 
     df["product_name"] = df["item_id"].map(PRODUCT_NAMES).fillna(df["item_id"])
     return df.fillna("N/A").to_dict(orient="records")

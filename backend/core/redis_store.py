@@ -74,8 +74,16 @@ def get_sales_history(store_id: str, item_id: str, count: int = REDIS_HISTORY_DA
     return [float(v) for v in values] if values else [0.0] * count
 
 
+def _serialize_value(key: str, value) -> str:
+    if value is None:
+        return "0"
+    if isinstance(value, float) and (value != value or value in (float("inf"), float("-inf"))):
+        return "0"
+    return str(value)
+
+
 def write_row(store_id: str, item_id: str, row: dict[str, Any], pipe: redis.client.Pipeline) -> None:
-    payload = {k: str(row[k]) for k in row.keys()}
+    payload = {k: _serialize_value(k, row[k]) for k in row.keys()}
     d = int(row["d"])
     pipe.hset(row_key(store_id, item_id, d), mapping=payload)
 
@@ -85,7 +93,7 @@ def write_series(store_id: str, item_id: str, rows: list[dict[str, Any]], pipe: 
         return
 
     latest = rows[-1]
-    pipe.hset(ctx_key(store_id, item_id), mapping={k: str(latest[k]) for k in latest.keys()})
+    pipe.hset(ctx_key(store_id, item_id), mapping={k: _serialize_value(k, latest[k]) for k in latest.keys()})
 
     sales_values = [str(r["sales"]) for r in rows[-REDIS_HISTORY_DAYS:]]
     s_key = sales_key(store_id, item_id)
@@ -106,9 +114,18 @@ def set_meta(version: str, max_d: int, pipe: Optional[redis.client.Pipeline] = N
 def flush_namespace() -> None:
     client = get_client()
     cursor = 0
+    deleted = 0
     while True:
-        cursor, keys = client.scan(cursor=cursor, match="m5:*", count=1000)
+        cursor, keys = client.scan(cursor=cursor, match="m5:*", count=5000)
         if keys:
-            client.delete(*keys)
+            pipe = client.pipeline(transaction=False)
+            for key in keys:
+                pipe.unlink(key)
+            pipe.execute()
+            deleted += len(keys)
+            if deleted % 50000 == 0 or cursor == 0:
+                print(f"      flushed {deleted:,} keys...")
         if cursor == 0:
             break
+    if deleted:
+        print(f"      flushed {deleted:,} keys total")
