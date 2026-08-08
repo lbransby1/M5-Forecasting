@@ -1,4 +1,5 @@
 # backend/core/inference.py
+import json
 import os
 import numpy as np
 import lightgbm as lgb
@@ -16,6 +17,7 @@ from backend.core.data import (
 
 QUANTILES = ["0.005", "0.025", "0.165", "0.25", "0.5", "0.75", "0.835", "0.975", "0.995"]
 MODELS = {}
+_HORIZON_UNCERTAINTY_SCALES: list[float] | None = None
 
 RECURSIVE_MODEL_DIR = "models/model_alpha"
 HORIZON_MODEL_DIR_V1 = "models/model_horizon"
@@ -49,6 +51,35 @@ def load_ml_models():
             f"Expected {len(QUANTILES)} {MODEL_ARCH} models, loaded {len(MODELS)}. Missing: {missing}"
         )
     print(f"Loaded {len(MODELS)} quantile models ({MODEL_ARCH}, {HORIZON_MODEL_VERSION}).")
+
+
+def _horizon_uncertainty_scales() -> list[float]:
+    """Widen quantile bands with forecast distance (calibrated on validation MAE)."""
+    global _HORIZON_UNCERTAINTY_SCALES
+    if _HORIZON_UNCERTAINTY_SCALES is not None:
+        return _HORIZON_UNCERTAINTY_SCALES
+
+    scales_path = os.path.join(_horizon_model_dir(), "horizon_uncertainty_scales.json")
+    if os.path.exists(scales_path):
+        with open(scales_path, encoding="utf-8") as f:
+            loaded = json.load(f)
+        _HORIZON_UNCERTAINTY_SCALES = [float(loaded[str(h)]) for h in range(1, 29)]
+    else:
+        # Fallback: ~84% wider intervals by day 28 if calibration file is missing.
+        _HORIZON_UNCERTAINTY_SCALES = [1.0 + 0.84 * np.sqrt((h - 1) / 27) for h in range(1, 29)]
+    return _HORIZON_UNCERTAINTY_SCALES
+
+
+def _apply_horizon_uncertainty_scaling(day_preds: dict[str, float], horizon_day: int) -> dict[str, float]:
+    if MODEL_ARCH != "horizon" or HORIZON_MODEL_VERSION != "v2":
+        return day_preds
+
+    scale = _horizon_uncertainty_scales()[horizon_day - 1]
+    if scale == 1.0:
+        return day_preds
+
+    median = day_preds["0.5"]
+    return {q: max(0.0, median + (day_preds[q] - median) * scale) for q in QUANTILES}
 
 
 def _encode_category(col: str, value) -> int:
@@ -162,6 +193,7 @@ def run_horizon_forecast(anchor_ctx, item_id: str, store_id: str):
     preds = {q: [] for q in QUANTILES}
     for h in range(1, 29):
         day_preds = _predict_quantiles(_build_horizon_feat_row(anchor_ctx, h, item_id, store_id))
+        day_preds = _apply_horizon_uncertainty_scaling(day_preds, h)
         for q in QUANTILES:
             preds[q].append(day_preds[q])
     return preds
