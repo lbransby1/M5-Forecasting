@@ -42,8 +42,26 @@ def plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False):
                     line=dict(color='rgba(255,255,255,0)'), name=f"{name_prefix} {label}", hoverinfo="skip"
                 ))
         if '0.5' in d:
-            figure.add_trace(go.Scatter(x=days, y=d['0.5'], name=f"{name_prefix} Median", 
-                                      line=dict(color=f'rgb({color_base})', width=3)))
+            hover_cols = [
+                d.get('0.5'),
+                d.get('0.75', d['0.5']),
+                d.get('0.975', d['0.5']),
+                d.get('0.995', d['0.5']),
+            ]
+            custom = np.column_stack([np.asarray(col, dtype=float) for col in hover_cols])
+            figure.add_trace(go.Scatter(
+                x=days, y=d['0.5'], name=f"{name_prefix} Median",
+                line=dict(color=f'rgb({color_base})', width=3),
+                customdata=custom,
+                hovertemplate=(
+                    "Day %{x}<br>"
+                    "P50: %{customdata[0]:.1f}<br>"
+                    "P75: %{customdata[1]:.1f}<br>"
+                    "P95: %{customdata[2]:.1f}<br>"
+                    "P99: %{customdata[3]:.1f}"
+                    f"<extra>{name_prefix}</extra>"
+                ),
+            ))
 
     # Use a solid line for cumulative history, but keep the bar chart for daily noise
     if is_cumulative:
