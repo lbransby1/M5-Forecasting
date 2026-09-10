@@ -12,3 +12,6 @@ enableWebsocketCompression = false
 
 [browser]
 gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"

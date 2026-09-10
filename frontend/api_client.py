@@ -27,6 +27,13 @@ def fetch_forecast(item_id: str, store_id: str):
         
         if res.status_code == 200:
             return res.json()
+        elif res.status_code == 404:
+            detail = "Item/store combination is not in the feature store."
+            try:
+                detail = res.json().get("detail", detail)
+            except Exception:
+                pass
+            st.error(f"**Not available:** {detail}")
         elif res.status_code == 503:
             st.error("**Server under maintenance.** Please try again in a few minutes.")
         elif res.status_code == 500:

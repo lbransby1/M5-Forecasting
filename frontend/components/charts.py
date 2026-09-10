@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
 
-def plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False):
+def plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False, height=380, title=None):
     history_len = len(h_sales)
     h_days = list(range(-history_len + 1, 1))
     bt_days = list(range(-27, 1))
@@ -73,27 +73,46 @@ def plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False):
     add_fan(fig, plot_f, f_days, "0, 100, 255", "Future")
 
     fig.update_layout(
-        height=600, template="plotly_white", hovermode="x unified",
-        xaxis=dict(title="Timeline (Days)", range=[-history_len, 30]),
-        yaxis=dict(title=yaxis_title),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        title=dict(text=title, font=dict(size=14)) if title else None,
+        height=height,
+        template="plotly_white",
+        hovermode="x unified",
+        margin=dict(l=48, r=12, t=56 if title else 28, b=40),
+        xaxis=dict(title="Days", range=[-history_len, 30], automargin=True),
+        yaxis=dict(title=yaxis_title, automargin=True),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=10)),
+        autosize=True,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config={"displayModeBar": False, "responsive": True},
+    )
 
 def plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower):
     col_left, col_right = st.columns(2)
     
     with col_left:
-        st.subheader("Residual Distribution")
         residuals = actuals_tail - bt_median
         res_fig = go.Figure(data=[go.Histogram(x=residuals, nbinsx=15, marker_color='red')])
-        res_fig.update_layout(title="Prediction Residuals (Actual - Median)", template="plotly_white")
-        st.plotly_chart(res_fig, use_container_width=True)
+        res_fig.update_layout(
+            title="Prediction Residuals (Actual - Median)",
+            template="plotly_white",
+            height=340,
+            margin=dict(l=40, r=12, t=48, b=32),
+            autosize=True,
+        )
+        st.plotly_chart(res_fig, use_container_width=True, config={"displayModeBar": False, "responsive": True})
     
     with col_right:
-        st.subheader("Uncertainty Scaling")
         f_days = list(range(1, 29))
         width_f = pi_95_upper - pi_95_lower
         width_fig = go.Figure(data=[go.Scatter(x=f_days, y=width_f, mode='lines+markers', line_color='blue')])
-        width_fig.update_layout(title="Forecast Variance (95% PI Width Over Time)", template="plotly_white")
-        st.plotly_chart(width_fig, use_container_width=True)
+        width_fig.update_layout(
+            title="Forecast Variance (95% PI Width Over Time)",
+            template="plotly_white",
+            height=340,
+            margin=dict(l=40, r=12, t=48, b=32),
+            autosize=True,
+        )
+        st.plotly_chart(width_fig, use_container_width=True, config={"displayModeBar": False, "responsive": True})

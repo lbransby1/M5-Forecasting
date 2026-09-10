@@ -61,6 +61,18 @@ def hash_to_dict(data: dict[str, str]) -> Optional[dict[str, Any]]:
     return {k: _cast_value(k, v) for k, v in data.items()}
 
 
+def existing_ctx_pairs(pairs: list[tuple[str, str]]) -> set[tuple[str, str]]:
+    """Return (store_id, item_id) pairs that have an inference context in Redis."""
+    if not pairs:
+        return set()
+    client = get_client()
+    pipe = client.pipeline(transaction=False)
+    for store_id, item_id in pairs:
+        pipe.exists(ctx_key(str(store_id), str(item_id)))
+    flags = pipe.execute()
+    return {(str(store_id), str(item_id)) for (store_id, item_id), flag in zip(pairs, flags) if flag}
+
+
 def get_ctx(store_id: str, item_id: str) -> Optional[dict[str, Any]]:
     return hash_to_dict(get_client().hgetall(ctx_key(store_id, item_id)))
 

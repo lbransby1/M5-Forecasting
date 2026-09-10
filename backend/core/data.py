@@ -165,4 +165,20 @@ def fetch_leaderboard():
         df = pd.DataFrame(expanded)
 
     df["product_name"] = df["item_id"].map(PRODUCT_NAMES).fillna(df["item_id"])
-    return df.fillna("N/A").to_dict(orient="records")
+    records = df.fillna("N/A").to_dict(orient="records")
+
+    if FEATURE_STORE == "redis":
+        try:
+            pairs = [(row["store_id"], row["item_id"]) for row in records]
+            available = redis_store.existing_ctx_pairs(pairs)
+            if available:
+                before = len(records)
+                records = [
+                    row for row in records
+                    if (str(row["store_id"]), str(row["item_id"])) in available
+                ]
+                print(f"Leaderboard Redis filter: {len(records)}/{before} item-store pairs")
+        except Exception as e:
+            print(f"Leaderboard Redis filter skipped: {e}")
+
+    return records

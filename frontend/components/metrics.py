@@ -1,13 +1,12 @@
 # frontend/components/metrics.py
 import streamlit as st
 import numpy as np
-import pandas as pd
 
 PERCENTILE_SPECS = [
-    ("0.5", "P50", "Median"),
-    ("0.75", "P75", "75th percentile"),
-    ("0.975", "P95", "95% PI upper"),
-    ("0.995", "P99", "99% PI upper"),
+    ("0.5", "P50", "Median · 28-day total"),
+    ("0.75", "P75", "75th percentile · 28-day total"),
+    ("0.975", "P95", "95% PI upper · 28-day total"),
+    ("0.995", "P99", "99% PI upper · 28-day total"),
 ]
 
 
@@ -29,7 +28,6 @@ def _fmt_units(value: float) -> str:
 def render_kpi_cards(h_sales, bt_data, f_data):
     actuals_tail = h_sales[-28:]
     bt_median = _series(bt_data, "0.5")
-
     mae = np.mean(np.abs(actuals_tail - bt_median))
 
     pi_95_upper = _series(f_data, "0.975")
@@ -42,46 +40,28 @@ def render_kpi_cards(h_sales, bt_data, f_data):
     capture_rate = (within_bounds / 28) * 100
 
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Capture Rate (95% PI)", f"{round(capture_rate, 1)}%", help="Calibration Check: Should be near 95%")
-    m2.metric("Backtest MAE", f"{round(mae, 2)}", delta_color="inverse", help="Mean Absolute Error of the Median prediction")
-    m3.metric("Uncertainty Width", f"{round(uncertainty_width, 1)}", help="Average width of 95% Forecast Ribbon")
-    m4.metric("Avg History", f"{round(np.mean(h_sales), 2)} units")
+    m1.metric("Capture Rate", f"{round(capture_rate, 1)}%", help="Share of backtest days inside the 95% PI")
+    m2.metric("Backtest MAE", f"{round(mae, 2)}", help="Mean absolute error of the median prediction")
+    m3.metric("95% PI Width", f"{round(uncertainty_width, 1)}", help="Average daily width of the 95% forecast band")
+    m4.metric("Avg History", f"{round(float(np.mean(h_sales)), 2)}")
 
     return actuals_tail, bt_median, pi_95_upper, pi_95_lower
 
 
 def render_percentile_panel(f_data):
-    """Inventory-oriented quantile summary: next day, week 1, and 28-day totals."""
-    st.subheader("Forecast percentiles")
-    st.caption(
-        "Service-level views of the next 28 days. P95 / P99 use the upper edge of the 95% and 99% prediction intervals."
-    )
-
-    totals_28 = {}
-    for key, short, _help in PERCENTILE_SPECS:
-        totals_28[short] = float(np.sum(_series(f_data, key)))
-
+    totals_28 = {short: float(np.sum(_series(f_data, key))) for key, short, _ in PERCENTILE_SPECS}
     cards = st.columns(4)
     for col, (key, short, help_text) in zip(cards, PERCENTILE_SPECS):
-        col.metric(short, _fmt_units(totals_28[short]), help=f"{help_text} · 28-day total units")
+        col.metric(short, _fmt_units(totals_28[short]), help=help_text)
 
-    p50 = totals_28["P50"]
-    p95 = totals_28["P95"]
+    p50, p95 = totals_28["P50"], totals_28["P95"]
     safety_stock = max(p95 - p50, 0.0)
+    next_p50 = float(_series(f_data, "0.5")[0])
+    next_p95 = float(_series(f_data, "0.975")[0])
+    week_p50 = float(np.sum(_series(f_data, "0.5")[:7]))
+    week_p95 = float(np.sum(_series(f_data, "0.975")[:7]))
     st.caption(
-        f"Safety stock at a 95% service level: **{_fmt_units(safety_stock)} units** over 28 days (P95 − P50)."
+        f"Safety stock (P95 − P50): **{_fmt_units(safety_stock)}** over 28 days"
+        f" · Next day P50/P95 **{_fmt_units(next_p50)} / {_fmt_units(next_p95)}**"
+        f" · 7-day P50/P95 **{_fmt_units(week_p50)} / {_fmt_units(week_p95)}**"
     )
-
-    rows = []
-    horizons = [("Next day", slice(0, 1)), ("7-day total", slice(0, 7)), ("28-day total", slice(0, 28))]
-    for label, indexer in horizons:
-        row = {"Horizon": label}
-        for key, short, _help in PERCENTILE_SPECS:
-            row[short] = round(float(np.sum(_series(f_data, key)[indexer])), 1)
-        rows.append(row)
-
-    table = pd.DataFrame(rows).set_index("Horizon")
-    formatted = table.copy()
-    for col in formatted.columns:
-        formatted[col] = formatted[col].map(lambda x: f"{x:,.1f}")
-    st.table(formatted)
