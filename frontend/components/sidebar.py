@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 from api_client import fetch_leaderboard
-from components.presets import PRESET_ORDER, pattern_caption, resolve_presets
+from components.presets import PRESET_ORDER, resolve_presets
 
 M5_STORES = ["CA_1", "CA_2", "CA_3", "CA_4", "TX_1", "TX_2", "TX_3", "WI_1", "WI_2", "WI_3"]
 DEFAULT_STORE = "CA_3"
@@ -61,12 +61,7 @@ def render_sidebar():
                     use_container_width=True,
                     on_click=_apply_preset,
                     args=(presets[name]["item_id"], name),
-                    help=presets[name]["blurb"],
                 )
-
-        active = st.session_state.get("active_preset")
-        if active in presets:
-            st.sidebar.caption(presets[active]["blurb"])
 
         selected_store = st.sidebar.selectbox("Select Store Location", stores, key="store_select")
         df_store = df_items[df_items["store_id"] == selected_store]
@@ -94,10 +89,6 @@ def render_sidebar():
             match = filtered[filtered["item_id"] == item_id]
             if not match.empty:
                 item_meta = match.iloc[0].to_dict()
-
-            stats = pattern_caption(item_meta)
-            if stats:
-                st.sidebar.caption(stats)
 
     st.sidebar.divider()
     run_btn = st.sidebar.button("Generate Analytics Report", type="primary", disabled=(item_id is None))

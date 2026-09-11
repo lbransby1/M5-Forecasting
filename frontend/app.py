@@ -96,11 +96,8 @@ if data:
 
     tab_forecast, tab_diagnostics = st.tabs(["Probabilistic Forecast", "Model Diagnostics"])
     with tab_forecast:
-        daily_col, cumul_col = st.columns(2)
-        with daily_col:
-            plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False, title="Daily units")
-        with cumul_col:
-            plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=True, title="Cumulative volume")
+        plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=False, height=440, title="Daily units")
+        plot_probabilistic_forecast(h_sales, bt_data, f_data, is_cumulative=True, height=440, title="Cumulative volume")
     with tab_diagnostics:
         plot_diagnostics(actuals_tail, bt_median, pi_95_upper, pi_95_lower)
 
